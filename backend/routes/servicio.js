@@ -48,7 +48,7 @@ router.delete('/servicio/:id', (req, res) => {
 
     const { id } = req.params;
 
-    mysqlconexion.query('DELETE FROM curso where id= ?', [id], (error, rows, fields) => {
+    mysqlconexion.query('DELETE FROM servicio where id= ?', [id], (error, rows, fields) => {
         if (!error) {
 
             res.json(rows[0]);
@@ -82,7 +82,7 @@ router.post('/servicio', (req, res) => {
 
 //ACTUALIZAR
 
-router.put('/curso/:idc', (req, res) => {
+router.put('/servicio/:idc', (req, res) => {
 
     const { nombre, descripcion, estado } = req.body;
     const { id } = req.params;
