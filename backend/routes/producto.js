@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysqlconexion = require('../db');
 
-router.get('/producto', (req, res) => {
+router.get('/', (req, res) => {
     mysqlconexion.query('Select * from producto',
         (error, rows, fields) => {
             if (!error) {
@@ -17,7 +17,7 @@ router.get('/producto', (req, res) => {
 
 //GET
 
-router.get('/producto/:id', (req, res) => {
+router.get('/:id', (req, res) => {
 
     const { id } = req.params;
     mysqlconexion.query('select * from producto where id= ?', [id], (error, rows, fields) => {
@@ -31,7 +31,7 @@ router.get('/producto/:id', (req, res) => {
 
 
 //DELETE
-router.delete('/producto/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
 
     const { id } = req.params;
 
@@ -51,7 +51,7 @@ router.delete('/producto/:id', (req, res) => {
 
 //INSERTAR
 
-router.post('/producto', (req, res) => {
+router.post('/', (req, res) => {
     const { id, nombre, unidadMedida, estado } = req.body;
 
     mysqlconexion.query("INSERT INTO producto(id, nombre, unidadMedida, estado) VALUES (?,?,?,?)", [id, nombre, unidadMedida, estado], (error, rows, fields) => {
@@ -69,7 +69,7 @@ router.post('/producto', (req, res) => {
 
 //ACTUALIZAR
 
-router.put('/producto/:id', (req, res) => {
+router.put('/:id', (req, res) => {
 
     const { nombre, unidadMedida, estado} = req.body;
     const { id } = req.params;
