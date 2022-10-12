@@ -1,11 +1,22 @@
 const express = require('express')
 const app = express();
+
+var presentacionRoute = require('./routes/presentacion');
+var servicioRoute = require('./routes/servicio');
+var solicitanteRoute = require('./routes/solicitante');
+var ejecutorRoute = require('./routes/ejecutores');
+var kardexRoute = require('./routes/kardex');
+var productoRoute = require('./routes/producto');
+
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
 
-//Una por ruta OJO
-app.use(require('./routes/servicio'));
-app.use(require('./routes/presentacion'));
+app.use('/presentacion', presentacionRoute);
+app.use('/servicio', servicioRoute);
+app.use('/solicitante', solicitanteRoute);
+app.use('/ejecutores', ejecutorRoute);
+app.use('/kardex', kardexRoute);
+app.use('/producto', productoRoute);
 
 app.listen(app.get('port'), () => {
     console.log('Port:', app.get('port'));
