@@ -3,7 +3,7 @@ const router = express.Router();
 const mysqlconexion = require('../db');
 
 
-router.get('/presentacion', (req, res) => {
+router.get('/', (req, res) => {
     mysqlconexion.query('Select * from presentacion',
         (error, rows, fields) => {
             if (!error) {
@@ -18,7 +18,7 @@ router.get('/presentacion', (req, res) => {
 
 //GET
 
-router.get('/presentacion/:id', (req, res) => {
+router.get('/:id', (req, res) => {
 
     const { id } = req.params;
     mysqlconexion.query('select * from presentacion where id= ?', [id], (error, rows, fields) => {
@@ -32,7 +32,7 @@ router.get('/presentacion/:id', (req, res) => {
 
 
 //DELETE
-router.delete('/presentacion/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
 
     const { id } = req.params;
 
@@ -52,7 +52,7 @@ router.delete('/presentacion/:id', (req, res) => {
 
 //INSERTAR
 
-router.post('/presentacion', (req, res) => {
+router.post('/', (req, res) => {
     const { id, presentacion, estado } = req.body;
 
     mysqlconexion.query("INSERT INTO presentacion(id, presentacion, estado) VALUES (?,?,?)", [id, presentacion, estado], (error, rows, fields) => {
@@ -70,7 +70,7 @@ router.post('/presentacion', (req, res) => {
 
 //ACTUALIZAR
 
-router.put('/presentacion/:id', (req, res) => {
+router.put('/:id', (req, res) => {
 
     const { presentacion, estado} = req.body;
     const { id } = req.params;
