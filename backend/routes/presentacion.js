@@ -75,7 +75,7 @@ router.put('/presentacion/:id', (req, res) => {
     const { presentacion, estado} = req.body;
     const { id } = req.params;
 
-    mysqlconexion.query("UPDATE servicio SET presentacion = ?, estado = ? WHERE id = ?", [presentacion, estado, id], (error, rows, fields) => {
+    mysqlconexion.query("UPDATE presentacion SET presentacion = ?, estado = ? WHERE id = ?", [presentacion, estado, id], (error, rows, fields) => {
         if (!error) {
             res.json({ status: "Se actualizo el servicio" });
         } else {
