@@ -2,18 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mysqlconexion = require('../db');
 
-router.get('/', (req, res) => {
-    mysqlconexion.query('Select * from presentacion',
-        (error, rows, fields) => {
-            if (!error) {
-                res.json(rows);
-
-            } else {
-
-                console.log(error);
-            }
-        });
-});
 
 router.get('/presentacion', (req, res) => {
     mysqlconexion.query('Select * from presentacion',
