@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mysqlconexion = require('../db');
 
-
 router.get('/', (req, res) => {
-    mysqlconexion.query('Select * from servicio',
+    mysqlconexion.query('Select * from producto',
         (error, rows, fields) => {
             if (!error) {
                 res.json(rows);
@@ -21,7 +20,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 
     const { id } = req.params;
-    mysqlconexion.query('select *from servicio where id= ?', [id], (error, rows, fields) => {
+    mysqlconexion.query('select * from producto where id= ?', [id], (error, rows, fields) => {
         if (!error) {
             res.json(rows[0]);
         } else {
@@ -36,7 +35,7 @@ router.delete('/:id', (req, res) => {
 
     const { id } = req.params;
 
-    mysqlconexion.query('DELETE FROM servicio where id= ?', [id], (error, rows, fields) => {
+    mysqlconexion.query('DELETE FROM producto where id= ?', [id], (error, rows, fields) => {
         if (!error) {
 
             res.json(rows[0]);
@@ -53,9 +52,9 @@ router.delete('/:id', (req, res) => {
 //INSERTAR
 
 router.post('/', (req, res) => {
-    const { id, nombre, descripcion, estado } = req.body;
+    const { id, nombre, unidadMedida, estado } = req.body;
 
-    mysqlconexion.query("INSERT INTO servicio(id, nombre, descripcion, estado) VALUES (?,?,?,?)", [id, nombre, descripcion, estado], (error, rows, fields) => {
+    mysqlconexion.query("INSERT INTO producto(id, nombre, unidadMedida, estado) VALUES (?,?,?,?)", [id, nombre, unidadMedida, estado], (error, rows, fields) => {
         if (!error) {
 
             res.json({ status: "Se agrego correctamente" });
@@ -72,10 +71,10 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
 
-    const { nombre, descripcion, estado } = req.body;
+    const { nombre, unidadMedida, estado} = req.body;
     const { id } = req.params;
 
-    mysqlconexion.query("UPDATE servicio SET nombre = ?, descripcion = ?, estado =? WHERE id = ?", [nombre, descripcion, estado, id], (error, rows, fields) => {
+    mysqlconexion.query("UPDATE producto SET nombre = ?, unidadMedida = ?, estado = ? WHERE id = ?", [nombre, unidadMedida, estado, id], (error, rows, fields) => {
         if (!error) {
             res.json({ status: "Se actualizo el servicio" });
         } else {

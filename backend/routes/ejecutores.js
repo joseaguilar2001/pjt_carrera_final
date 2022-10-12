@@ -4,7 +4,7 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT * FROM solicitante',
+    mysqlconexion.query('SELECT * FROM ejecutores',
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);
@@ -18,7 +18,7 @@ router.get('/',(req,res)=>{
 //get con ID
 router.get('/:id', (req,res)=>{
     const {id} = req.params;
-    mysqlconexion.query('SELECT * FROM solicitante WHERE id=?', [id],(error,rows,fields)=>{
+    mysqlconexion.query('SELECT * FROM ejecutores WHERE id=?', [id],(error,rows,fields)=>{
         if (!error){
             res.json(rows[0]);
         }
@@ -30,14 +30,15 @@ router.get('/:id', (req,res)=>{
 
 //post
 router.post('/', (req,res)=>{
-    const solicitante = {
-        nombre: req.body.nombre,
-        cargo: req.body.cargo,        
+    const ejecutores = {
+        codigo: req.body.codigoUE,
+        nombre: req.body.nombreUE,
+        dep: req.body.solicitanteDepto,
         estado: req.body.estado
     };
     //console.log(req.body);
-    mysqlconexion.query(`INSERT INTO solicitante(nombre, cargo, estado) VALUES (?, ?, ?)`,
-        [solicitante.nombre, solicitante.cargo,  solicitante.estado], 
+    mysqlconexion.query(`INSERT INTO ejecutores(codigoUE, nombreUE, solicitanteDepto, estado) VALUES (?, ?, ?,?)`,
+        [ejecutores.codigo, ejecutores.nombre, ejecutores.dep,  ejecutores.estado], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -52,13 +53,14 @@ router.post('/', (req,res)=>{
 //put
 router.put('/:id', (req,res)=>{
     const {id} = req.params;
-    let  solicitante = {
-        nombre: req.body.nombre,
-        cargo: req.body.cargo,
+    const ejecutores = {
+        codigo: req.body.codigoUE,
+        nombre: req.body.nombreUE,
+        dep: req.body.solicitanteDepto,
         estado: req.body.estado
     };
-    mysqlconexion.query(`UPDATE solicitante SET nombre=?, cargo=?, estado=? WHERE id=?`,
-        [solicitante.nombre, solicitante.cargo, solicitante.estado, id], 
+    mysqlconexion.query(`UPDATE ejecutores SET codigoUE=?, nombreUE=?, solicitanteDepto=?, estado=? WHERE id=?`,
+        [ejecutores.codigo, ejecutores.nombre, ejecutores.dep,  ejecutores.estado, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -72,7 +74,7 @@ router.put('/:id', (req,res)=>{
 //delete
 router.delete('/:id', (req,res)=>{
     const {id} = req.params;
-    mysqlconexion.query('DELETE FROM solicitante WHERE id=?',[id], (error,rows,fields)=>{
+    mysqlconexion.query('DELETE FROM ejecutores WHERE id=?',[id], (error,rows,fields)=>{
         if(!error){
             res.json(rows);
         }
