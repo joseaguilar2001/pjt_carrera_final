@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 
     const { id } = req.params;
-    mysqlconexion.query('select *from servicio where id= ?', [id], (error, rows, fields) => {
+    mysqlconexion.query('select * from servicio where id= ?', [id], (error, rows, fields) => {
         if (!error) {
             res.json(rows[0]);
         } else {
@@ -53,17 +53,13 @@ router.delete('/:id', (req, res) => {
 //INSERTAR
 
 router.post('/', (req, res) => {
-    const { id, nombre, descripcion, estado } = req.body;
-
-    mysqlconexion.query("INSERT INTO servicio(id, nombre, descripcion, estado) VALUES (?,?,?,?)", [id, nombre, descripcion, estado], (error, rows, fields) => {
+    const {nombre, descripcion, estado } = req.body;
+    mysqlconexion.query("INSERT INTO servicio(nombre, descripcion, estado) VALUES (?,?,?)", [nombre, descripcion, estado], (error, rows, fields) => {
         if (!error) {
-
             res.json({ status: "Se agrego correctamente" });
         }
-
         else {
             console.log(error);
-
         }
     });
 });
