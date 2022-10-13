@@ -53,9 +53,9 @@ router.delete('/:id', (req, res) => {
 //INSERTAR
 
 router.post('/', (req, res) => {
-    const { id, presentacion, estado } = req.body;
+    const { presentacion, estado } = req.body;
 
-    mysqlconexion.query("INSERT INTO presentacion(id, presentacion, estado) VALUES (?,?,?)", [id, presentacion, estado], (error, rows, fields) => {
+    mysqlconexion.query("INSERT INTO presentacion(presentacion, estado) VALUES (?,?)", [presentacion, estado], (error, rows, fields) => {
         if (!error) {
 
             res.json({ status: "Se agrego correctamente" });
