@@ -7,6 +7,8 @@ var solicitanteRoute = require('./routes/solicitante');
 var ejecutorRoute = require('./routes/ejecutores');
 var kardexRoute = require('./routes/kardex');
 var productoRoute = require('./routes/producto');
+var loteRoute = require('./routes/lotes');
+var dKardexRoute = require('./routes/detalleKardex');
 var pedidoRoute = require('./routes/pedido');
 var pedidoDetalleRoute = require('./routes/pedidoDetalle');
 
@@ -19,6 +21,8 @@ app.use('/solicitante', solicitanteRoute);
 app.use('/ejecutores', ejecutorRoute);
 app.use('/kardex', kardexRoute);
 app.use('/producto', productoRoute);
+app.use('/lotes', loteRoute);
+app.use('/detalleKardex', dKardexRoute);
 app.use('/pedido', pedidoRoute);
 app.use('/pedidoDetalle', pedidoDetalleRoute);
 
