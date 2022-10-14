@@ -7,6 +7,7 @@ var solicitanteRoute = require('./routes/solicitante');
 var ejecutorRoute = require('./routes/ejecutores');
 var kardexRoute = require('./routes/kardex');
 var productoRoute = require('./routes/producto');
+var pedidoRoute = require('./routes/pedido');
 
 app.set('port', process.env.PORT || 3000);
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use('/solicitante', solicitanteRoute);
 app.use('/ejecutores', ejecutorRoute);
 app.use('/kardex', kardexRoute);
 app.use('/producto', productoRoute);
+app.use('/pedido', pedidoRoute);
 
 app.listen(app.get('port'), () => {
     console.log('Port:', app.get('port'));
