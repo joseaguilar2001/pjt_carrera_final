@@ -39,7 +39,7 @@ router.delete('/:id', (req, res) => {
     mysqlconexion.query('DELETE FROM pedido where id= ?', [id], (error, rows, fields) => {
         if (!error) {
 
-            res.json(rows[0]);
+            res.json({ status: "Borrado" });
         }
 
         else {
@@ -55,7 +55,7 @@ router.delete('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const { idUE, idSolicitante, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, estado } = req.body;
 
-    mysqlconexion.query("INSERT INTO pedido(idUE, idSolicitante, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, estado) VALUES (?,?)", [idUE, idSolicitante, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, estado], (error, rows, fields) => {
+    mysqlconexion.query("INSERT INTO pedido(idUE, idSolicitante, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, estado) VALUES (?,?,?,?,?,?,?,?)", [idUE, idSolicitante, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, estado], (error, rows, fields) => {
         if (!error) {
 
             res.json({ status: "Se agrego correctamente" });
