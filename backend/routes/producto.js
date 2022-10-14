@@ -52,14 +52,13 @@ router.delete('/:id', (req, res) => {
 //INSERTAR
 
 router.post('/', (req, res) => {
-    const { id, nombre, unidadMedida, estado } = req.body;
+    const {nombre, unidadMedida, estado } = req.body;
 
-    mysqlconexion.query("INSERT INTO producto(id, nombre, unidadMedida, estado) VALUES (?,?,?,?)", [id, nombre, unidadMedida, estado], (error, rows, fields) => {
+    mysqlconexion.query("INSERT INTO producto(nombre, unidadMedida, estado) VALUES (?,?,?)", [nombre, unidadMedida, estado], (error, rows, fields) => {
         if (!error) {
 
             res.json({ status: "Se agrego correctamente" });
         }
-
         else {
             console.log(error);
 
