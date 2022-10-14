@@ -76,4 +76,4 @@ router.delete('/:id', expressAsyncHandler(async(req, res) => {
     return;
 }));
 
-export default router;
+module.exports = router;

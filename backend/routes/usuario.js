@@ -1,5 +1,3 @@
-import { put } from './presentacion';
-
 const express = require('express');
 const router = express.Router();
 const mysql = require('../db');
@@ -42,7 +40,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
             }});
 }));
 
-router.post('/signin', expressAsynHandler(async(req, res) => {
+router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     mysql.query("SELECT * WHERE email = ?", [email], async function(error, results, fields){
@@ -79,7 +77,7 @@ router.post('/signin', expressAsynHandler(async(req, res) => {
     return;
 }));
 
-router.put('/:id', expressAsynHandler(async(req, res) => {
+router.put('/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
     const password = req.body.password;    
     const encryptedPassword = bcrypt.hashSync(password)
@@ -129,4 +127,4 @@ router.delete('/:id', expressAsyncHandler(async(req, res) => {
         }
     })
 }))
-export default router;
+module.exports = router
