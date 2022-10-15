@@ -79,7 +79,7 @@ const Login = (props) => {
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             <Input
               type="text"
               className="form-control"
