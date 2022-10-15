@@ -1,58 +1,56 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
-import AuthService from "./services/auth.service";
 
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 
-import AuthVerify from "./common/AuthVerify";
-import EventBus from "./common/EventBus";
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  let location = useLocation();
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      setCurrentUser(user);
+    if (["/login", "/register"].includes(location.pathname)) {
+      dispatch(clearMessage()); // clear message when changing location
     }
+  }, [dispatch, location]);
 
-    EventBus.on("logout", () => {
-      logOut();
-    });
+  const logOut = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
 
-    return () => {
-      EventBus.remove("logout");
-    };
-  }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-    setCurrentUser(undefined);
-  };
+  useEffect(() => {
+    if (currentUser) {
+    } else {
+    }
+  }, [currentUser]);
 
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-          Hospital
+          bezKoder
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to={"/home"} className="nav-link">
-              Inicio
+              Home
             </Link>
           </li>
-
           {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
-                Usuario
+                User
               </Link>
             </li>
           )}
@@ -62,7 +60,7 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                {currentUser.email}
+                {currentUser.username}
               </Link>
             </li>
             <li className="nav-item">
@@ -90,15 +88,14 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
-          <Route exact path={"/"} element={<Home />} />
-          <Route exact path={"/home"} element={<Home />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
 
-      <AuthVerify logOut={logOut}/>
     </div>
   );
 };

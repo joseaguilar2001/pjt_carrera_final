@@ -1,16 +1,18 @@
 import React, { useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import AuthService from "../services/auth.service";
+import { register } from "../actions/auth";
 
 const required = (value) => {
   if (!value) {
     return (
-      <div className="invalid-feedback d-block">
-        Este atributo es requerido
+      <div className="alert alert-danger" role="alert">
+        This field is required!
       </div>
     );
   }
@@ -19,18 +21,38 @@ const required = (value) => {
 const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
-      <div className="invalid-feedback d-block">
-        No es un email valido
+      <div className="alert alert-danger" role="alert">
+        This is not a valid email.
       </div>
     );
   }
 };
 
-const vname = (value) => {
-  if (value.length < 3 || value !== ' ') {
+const vnombre = (value) => {
+  if (value.length < 3 || value.length > 20) {
     return (
-      <div className="invalid-feedback d-block">
-        El nombre no esta bien escrito
+      <div className="alert alert-danger" role="alert">
+        The username must be between 3 and 20 characters.
+      </div>
+    );
+  }
+};
+
+const vnroCelular = (value) => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The username must be between 3 and 20 characters.
+      </div>
+    );
+  }
+};
+
+const vdireccion = (value) => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The username must be between 3 and 20 characters.
       </div>
     );
   }
@@ -39,48 +61,31 @@ const vname = (value) => {
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
-      <div className="invalid-feedback d-block">
-        La contraseña es muy debil
+      <div className="alert alert-danger" role="alert">
+        The password must be between 6 and 40 characters.
       </div>
     );
   }
 };
 
-const vnroCelular = (value) => {
-  if (value.length < 8 || value.length > 9) {
-    return (
-      <div className="invalid-feedback d-block">
-        No es un numero de celular
-      </div>
-    );
-  }
-};
-
-const vdireccion = (value) => {
-  if (value.length < 8) {
-    return (
-      <div className="invalid-feedback d-block">
-        La direccion es muy corta
-      </div>
-    );
-  }
-};
-
-const Register = (props) => {
+const Register = () => {
   const form = useRef();
   const checkBtn = useRef();
 
-  const [name, setName] = useState("");
+  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nroCelular, setNroCelular] = useState("");
   const [direccion, setDireccion] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
 
-  const onChangeName = (e) => {
-    const name = e.target.value;
-    setName(name);
+  const { message } = useSelector(state => state.message);
+  const dispatch = useDispatch();
+
+  const onChangeNombre = (e) => {
+    const nombre = e.target.value;
+    setNombre(nombre);
   };
 
   const onChangeEmail = (e) => {
@@ -88,46 +93,55 @@ const Register = (props) => {
     setEmail(email);
   };
 
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
   const onChangeNroCelular = (e) => {
-    const nroCelular = e.target.value;
-    setNroCelular(nroCelular);
+    const celular = e.target.value;
+    setNroCelular(celular);
   }
 
   const onChangeDireccion = (e) => {
     const direccion = e.target.value;
     setDireccion(direccion);
+  } 
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  const onChangePasswordConfirm = (e) => {
+    const passwordConfirm = e.target.value;
+    setPasswordConfirm(passwordConfirm);
   }
 
   const handleRegister = (e) => {
     e.preventDefault();
 
-    setMessage("");
     setSuccessful(false);
 
     form.current.validateAll();
-
-    if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(name, email, password, nroCelular, direccion, 1).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
+    if(password !== passwordConfirm)
+    {
+      return(
+        <div className="alert alert-danger" role="alert">
+        Las contraseñas no coinciden.
+      </div>
+      );
+    }
+    try {
+      if (checkBtn.current.context._errors.length === 0) {
+        dispatch(register(null, nombre, email, password, nroCelular, direccion, 1))
+          .then(() => {
+            setSuccessful(true);
+          })
+          .catch(() => {
+            setSuccessful(false);
+          });
+      } 
+    } catch (error) {
+      return(
+        <div className="alert alert-danger" role="alert">
+        ${error.message}
+      </div>
       );
     }
   };
@@ -145,19 +159,19 @@ const Register = (props) => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="name">Nombre Completo</label>
+                <label htmlFor="nombre">Nombre</label>
                 <Input
                   type="text"
                   className="form-control"
-                  name="name"
-                  value={name}
-                  onChange={onChangeName}
-                  validations={[required, vname]}
+                  name="nombre"
+                  value={nombre}
+                  onChange={onChangeNombre}
+                  validations={[required, vnombre]}
                 />
               </div>
-              
+
               <div className="form-group">
-                <label htmlFor="nroCelular">nroCelular</label>
+                <label htmlFor="nroCelular">Contacto</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -171,9 +185,9 @@ const Register = (props) => {
               <div className="form-group">
                 <label htmlFor="direccion">Direccion</label>
                 <Input
-                  type="nroCelular"
+                  type="text"
                   className="form-control"
-                  name="nroCelular"
+                  name="direccion"
                   value={direccion}
                   onChange={onChangeDireccion}
                   validations={[required, vdireccion]}
@@ -193,7 +207,7 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Contraseña</label>
                 <Input
                   type="password"
                   className="form-control"
@@ -205,19 +219,26 @@ const Register = (props) => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <label htmlFor="passwordConfirm">Confirmacion de contraseña</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="passwordConfirm"
+                  value={passwordConfirm}
+                  onChange={onChangePasswordConfirm}
+                  validations={[required]}
+                />
+              </div>
+
+              <div className="form-group">
+                <button className="btn btn-primary btn-block">Registrar</button>
               </div>
             </div>
           )}
 
           {message && (
             <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
+              <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
                 {message}
               </div>
             </div>

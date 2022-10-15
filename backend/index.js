@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
 var presentacionRoute = require('./routes/presentacion');
 var servicioRoute = require('./routes/servicio');
 var solicitanteRoute = require('./routes/solicitante');
@@ -15,10 +15,15 @@ var usuarioRoute = require('./routes/usuario');
 var rolRoute = require('./routes/bingresoSistema');
 var bingresoSistemaRoute = require('./routes/bingresoSistema');
 var permisosRoute = require('./routes/permisos');
-app.set('port', process.env.PORT || 4000);
-
+app.set('port', process.env.PORT || 8080);
+var corsOptions = {
+    origin: "http://localhost:8081"
+  };
+  
+app.use(cors(corsOptions));
 app.use(express.json());
-
+app.use('/', (req, res) => {
+    res.json({ message: "Welcome to bezkoder application." })});
 app.use('/presentacion', presentacionRoute);
 app.use('/servicio', servicioRoute);
 app.use('/solicitante', solicitanteRoute);

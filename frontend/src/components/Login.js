@@ -1,35 +1,41 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate  } from 'react-router-dom';
+
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../services/auth.service";
+import { login } from "../actions/auth";
 
 const required = (value) => {
   if (!value) {
     return (
-      <div className="invalid-feedback d-block">
-        Este componente es requerido
+      <div className="alert alert-danger" role="alert">
+        ¡El campo es indispensble!
       </div>
     );
   }
 };
 
-const Login = () => {
+const Login = (props) => {
+  let navigate = useNavigate();
+
   const form = useRef();
   const checkBtn = useRef();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
-  const navigate = useNavigate();
+  const { isLoggedIn } = useSelector(state => state.auth);
+  const { message } = useSelector(state => state.message);
+
+  const dispatch = useDispatch();
 
   const onChangeEmail = (e) => {
-    const username = e.target.value;
-    setEmail(username);
+    const email = e.target.value;
+    setEmail(email);
   };
 
   const onChangePassword = (e) => {
@@ -40,33 +46,27 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    setMessage("");
     setLoading(true);
 
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(email, password).then(
-        () => {
+      dispatch(login(email, password))
+        .then(() => {
           navigate("/profile");
           window.location.reload();
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
+        })
+        .catch(() => {
           setLoading(false);
-          setMessage(resMessage);
-        }
-      );
+        });
     } else {
       setLoading(false);
     }
   };
+
+  if (isLoggedIn) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <div className="col-md-12">
@@ -79,7 +79,7 @@ const Login = () => {
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">email</label>
             <Input
               type="text"
               className="form-control"
@@ -91,7 +91,7 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Contraseña</label>
             <Input
               type="password"
               className="form-control"
@@ -107,7 +107,7 @@ const Login = () => {
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>Iniciar Sesion</span>
+              <span>Login</span>
             </button>
           </div>
 
