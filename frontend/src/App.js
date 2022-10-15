@@ -39,18 +39,18 @@ const App = () => {
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <Link to={"/"} className="navbar-brand">
-          bezKoder
+          Hospital
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to={"/home"} className="nav-link">
-              Home
+              Inicio
             </Link>
           </li>
           {currentUser && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
-                User
+                Usuario
               </Link>
             </li>
           )}

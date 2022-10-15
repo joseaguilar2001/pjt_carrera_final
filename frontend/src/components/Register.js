@@ -12,7 +12,7 @@ const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
-        This field is required!
+        ¡Este componente es requerido!
       </div>
     );
   }
@@ -22,7 +22,7 @@ const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger" role="alert">
-        This is not a valid email.
+        ¡No es un Email valido!
       </div>
     );
   }
@@ -32,7 +32,7 @@ const vnombre = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        ¡El usuario esta muy corto!
       </div>
     );
   }
@@ -42,17 +42,17 @@ const vnroCelular = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        ¡El numero de celular esta muy corto¡
       </div>
     );
   }
 };
 
 const vdireccion = (value) => {
-  if (value.length < 3 || value.length > 20) {
+  if (value.length < 3) {
     return (
       <div className="alert alert-danger" role="alert">
-        The username must be between 3 and 20 characters.
+        La direccion esta muy corta
       </div>
     );
   }
@@ -62,7 +62,7 @@ const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
-        The password must be between 6 and 40 characters.
+        ¡La contraseña es muy debil!
       </div>
     );
   }
