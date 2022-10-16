@@ -77,7 +77,6 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [nroCelular, setNroCelular] = useState("");
   const [direccion, setDireccion] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [successful, setSuccessful] = useState(false);
 
   const { message } = useSelector(state => state.message);
@@ -108,26 +107,12 @@ const Register = () => {
     setPassword(password);
   };
 
-  const onChangePasswordConfirm = (e) => {
-    const passwordConfirm = e.target.value;
-    setPasswordConfirm(passwordConfirm);
-  }
-
   const handleRegister = (e) => {
     e.preventDefault();
 
     setSuccessful(false);
 
     form.current.validateAll();
-    if(password !== passwordConfirm)
-    {
-      return(
-        <div className="alert alert-danger" role="alert">
-        Las contraseñas no coinciden.
-      </div>
-      );
-    }
-    try {
       if (checkBtn.current.context._errors.length === 0) {
         dispatch(register(null, nombre, email, password, nroCelular, direccion, 1))
           .then(() => {
@@ -136,14 +121,7 @@ const Register = () => {
           .catch(() => {
             setSuccessful(false);
           });
-      } 
-    } catch (error) {
-      return(
-        <div className="alert alert-danger" role="alert">
-        ${error.message}
-      </div>
-      );
-    }
+      }
   };
 
   return (
@@ -215,18 +193,6 @@ const Register = () => {
                   value={password}
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="passwordConfirm">Confirmacion de contraseña</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="passwordConfirm"
-                  value={passwordConfirm}
-                  onChange={onChangePasswordConfirm}
-                  validations={[required]}
                 />
               </div>
 

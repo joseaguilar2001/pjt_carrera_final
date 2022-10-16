@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/usuario/";
@@ -33,10 +34,10 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-const authService = () => ({
-  register,
-  login,
-  logout,
-});
 
-export default authService;
+
+export default {
+  login, 
+  logout, 
+  register
+};

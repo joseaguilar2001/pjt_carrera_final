@@ -4,10 +4,11 @@ const mysql = require('../db');
 const bcrypt = require('bcrypt');
 const expressAsyncHandler = require('express-async-handler');
 const { generateToken } = require('../utils');
+const jwt = require('json-web-token');
 
 router.post('/signup', expressAsyncHandler(async(req, res) => {
     const password = req.body.password;    
-    const encryptedPassword = bcrypt.hashSync(password)
+    const encryptedPassword = bcrypt.hashSync(password, 10);
     const nuevo = {
         idRol: req.body.idRol,
         nombre: req.body.nombre,
@@ -17,7 +18,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
         direccion: req.body.direccion,
         estado: 1,
     };
-    mysql.query('INSERT INTO usuario(idRol, nombre, email, password, nroCelular, direccion, estado) ?', 
+    mysql.query('INSERT INTO usuario(idRol, nombre, email, password, nroCelular, direccion, estado) VALUES (?, ?, ?, ?, ?, ?, ?)', 
     [nuevo.idRol, nuevo.nombre, nuevo.email, nuevo.password, nuevo.nroCelular, nuevo.direccion, nuevo.estado], 
     async function(error, results, fields) {
         if (error) {        
@@ -25,7 +26,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
                 code:400,          
                 failed:"error occurred",          
                 error : error});   
-            } else {        
+            } else {
                 res.send({          
                     code:200,          
                     success:"user registered sucessfully",
@@ -35,7 +36,6 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
                     nroCelular: req.body.nroCelular,
                     direccion: req.body.direccion,
                     estado: 1,
-                    token: generateToken(nuevo),
                 });
             }});
 }));
@@ -64,7 +64,7 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         nroCelular: results[0].nroCelular,
                         direccion: results[0].direccion,
                         estado: results[0].estado,
-                        token:generateToken(results),
+                        token:generateToken(results[0]),
                     });
                 }else{
                     res.send({"code":204, "error":"El correo y la contraseña no coinciden"});
