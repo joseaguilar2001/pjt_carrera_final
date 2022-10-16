@@ -17,7 +17,9 @@ var rolRoute = require('./routes/bingresoSistema');
 var bingresoSistemaRoute = require('./routes/bingresoSistema');
 var permisosRoute = require('./routes/permisos');
 var ingresoRoute = require('./routes/ingreso');
-var index = require('./routes/index');
+var requisicionRoute = require('./routes/requisicion');
+var dRequisicionRoute = require('./routes/detalleRequisicion');
+//var index = require('./routes/index');
 
 app.set('port', process.env.PORT || 8080);
 var corsOptions = {
@@ -26,8 +28,7 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/', (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." })});
+
 app.use('/presentacion', presentacionRoute);
 app.use('/servicio', servicioRoute);
 app.use('/solicitante', solicitanteRoute);
@@ -43,7 +44,9 @@ app.use('/rol', rolRoute);
 app.use('/bingresoSistema', bingresoSistemaRoute);
 app.use('/permisos', permisosRoute);
 app.use('/ingreso', ingresoRoute);
-app.use('/index', index);
+app.use('/requisicion', requisicionRoute);
+app.use('/detalleRequisicion', dRequisicionRoute);
+//app.use('/index', index);
 
 app.listen(app.get('port'), () => {
     console.log('Port:', app.get('port'));
