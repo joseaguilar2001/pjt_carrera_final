@@ -205,4 +205,4 @@ router.post('/signout', expressAsyncHandler(async(req, res) => {
     req.session = null;
     res.status(200).send({message: 'Adiosito'});
 }))
-module.exports = router
+module.exports = router;

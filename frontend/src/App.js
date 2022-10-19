@@ -13,6 +13,10 @@ import Profile from "./components/Profile";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
+import AddUser from "./components/Usuario/AddUser";
+import UsuarioList from "./components/Usuario/ListUser";
+import Usuario from "./components/Usuario/Usuario";
+
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -45,6 +49,16 @@ const App = () => {
           <li className="nav-item">
             <Link to={"/home"} className="nav-link">
               Inicio
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/usuarios"} className="nav-link">
+              Usuario
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/adduser"} className="nav-link">
+              Añadir
             </Link>
           </li>
           {currentUser && (
@@ -93,6 +107,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/usuarios" element={<UsuarioList />} />
+          <Route path="/adduser" element={<AddUser />} />
+          <Route path="/usuarios/:id" element={<Usuario />} />
         </Routes>
       </div>
 
