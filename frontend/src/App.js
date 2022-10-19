@@ -10,6 +10,8 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 
+import Presentacion from "./screens/PresentacionScreen";
+
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
@@ -52,6 +54,11 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
+              <Link to={"/presentacion"} className="nav-link">
+                Presentacion
+              </Link>
+            </li>
+          <li className="nav-item">
             <Link to={"/usuarios"} className="nav-link">
               Usuario
             </Link>
@@ -69,7 +76,6 @@ const App = () => {
             </li>
           )}
         </div>
-
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
@@ -103,7 +109,8 @@ const App = () => {
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Login />} />
+          <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
