@@ -149,7 +149,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="nroCelular">Contacto</label>
+                <label htmlFor="nroCelular">Telefono</label>
                 <Input
                   type="text"
                   className="form-control"
