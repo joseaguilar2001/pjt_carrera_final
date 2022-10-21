@@ -35,7 +35,7 @@ app.use(
         secret: "COOKIE_SECRET", // should use as secret environment variable
         httpOnly: true,
         sameSite: 'strict'
-      })
+    })
 )
 app.use('/presentacion', presentacionRoute);
 app.use('/servicio', servicioRoute);

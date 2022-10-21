@@ -16,6 +16,7 @@ function PresentacionScreen (){
             .then(res=>setpresentaciones(res))
         }
         getPresentacion()
+        setlistUpdated(false);
     }, [listUpdated])
     return(
         <div className="container">

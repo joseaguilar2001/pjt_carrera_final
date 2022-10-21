@@ -1,5 +1,7 @@
 import React from "react";
 
+const url = 'http://localhost:8080/presentacion/';
+
 const presentacionList = ({presentacion, setpresentacion, presentaciones, setlistUpdated}) =>{
     //DELETE
     const handleDelete =id=>{
@@ -7,7 +9,7 @@ const presentacionList = ({presentacion, setpresentacion, presentaciones, setlis
         const requestInit = {
             method:'DELETE'
         }
-        fetch('http://localhost:8080/presentacion/'+id, requestInit)
+        fetch(url+id, requestInit)
         .then(res=>res.json())
         .then(res=>console.log(res))
 
@@ -26,7 +28,7 @@ const presentacionList = ({presentacion, setpresentacion, presentaciones, setlis
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify(presentacion)
         }
-        fetch('http://localhost:8080/presentacion/'+id, requestInit)
+        fetch(url+id, requestInit)
         .then(res=>res.json())
         .then(res=>console.log(res))
 
