@@ -4,6 +4,8 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 import Login from "./components/Login";
 import Register from "./components/Register";

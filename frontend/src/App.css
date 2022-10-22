@@ -85,3 +85,26 @@ label {
   max-width: 300px;
   margin: auto;
 }
+
+.activo{
+  border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+  background-color: rgb(143, 252, 143);
+  color: green;
+}
+
+.inactivo{
+  border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+  background-color: rgb(253, 193, 193);
+  color: red;
+  
+}
