@@ -13,7 +13,7 @@ const ProductContextProvider = (props)=>{
 
     useEffect(() => {
         productoService.readAll().then((data) => setProductos(data));
-        console.log(productoService);
+        //console.log(productoService);
     }, [productoService, productos]);
 
     const createProducto =(producto)=>{
