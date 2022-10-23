@@ -109,7 +109,7 @@ const ProductoForm=(props)=>{
                         value={productoData.estado}
                         onChange={(e)=>updateField(e.target.value, "estado")}
                     />*/}
-                        <Dropdown value={productoData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
+                        <Dropdown value={productoData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")}/>
                     <label>Estado</label>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 
 const PresentacionList = () =>{
     const {presentaciones, findPresentacion} = useContext(PresentacionContext);
+    
     const statusBodyTemplate = (presentaciones) => {
         return <span className={`${presentaciones.estado ? "activo" : "inactivo"}`}>{presentaciones.estado ? " Activo " : " Inactivo "}</span>;
     }
@@ -77,7 +78,7 @@ const PresentacionList = () =>{
                 onSelectionChange={(e) => savePresentacion(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['presentacion', 'estado']} header={header1} emptyMessage="No customers found."
+                globalFilterFields={['presentacion', 'estado']} header={header1} emptyMessage="No se encontraron presentaciones."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="presentacion" header="Nombre" sortable/>

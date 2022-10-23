@@ -3,7 +3,7 @@ import { ProductoContext } from "../../context/ProductoContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
-import ProductoForm from './ProductoForm';
+import Form from './ProductoForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
@@ -77,7 +77,7 @@ const ProductoList=()=>{
                 onSelectionChange={(e) => saveProducto(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'unidadMedida', 'estado']} header={header1} emptyMessage="No customers found."
+                globalFilterFields={['nombre', 'unidadMedida', 'estado']} header={header1} emptyMessage="No se encontro el producto."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
@@ -86,7 +86,7 @@ const ProductoList=()=>{
             </DataTable>
             </div>
         </Panel>
-        <ProductoForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <Form isVisible={isVisible} setIsVisible={setIsVisible}/>
     </div>);
 }
 export default ProductoList;
