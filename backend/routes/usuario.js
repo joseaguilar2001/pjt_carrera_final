@@ -3,8 +3,7 @@ const router = express.Router();
 const mysql = require('../db');
 const bcrypt = require('bcrypt');
 const expressAsyncHandler = require('express-async-handler');
-const { generateToken } = require('../utils');
-const jwt = require('json-web-token');
+const utils = require('../utils');
 
 router.post('/signup', expressAsyncHandler(async(req, res) => {
     const password = req.body.password;    
@@ -30,11 +29,10 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
                 res.send({          
                     code:200,          
                     success:"user registered sucessfully",
-                    idRol: req.body.idRol,
-                    nombre: req.body.nombre,
-                    email: req.body.email,
-                    nroCelular: req.body.nroCelular,
-                    direccion: req.body.direccion,
+                    nombre: nuevo.idRol,
+                    email: nuevo.email,
+                    nroCelular: nuevo.nroCelular,
+                    direccion:  nuevo.direccion,
                     estado: 1,
                 });
             }});
@@ -43,17 +41,28 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT * WHERE email = ?", [email], async function(error, results, fields){
+    mysql.query("SELECT * FROM usuario WHERE email = ?", [email], async function(error, results, fields){
         if (error) {        
                 res.send({          
                 code:400,          
                 failed:"error occurred",          
                 error : error        
-            });      
-            }else{        
-            if(results.length >0){
+                });      
+        }else{        
+            if(results.length > 0){
                 const comparison = await bcrypt.compare(password, results[0].password)
                 if(comparison){
+                    const user = {
+                        id: results[0].id,
+                        idRol: results[0].idRol,
+                        nombre: results[0].nombre,
+                        email: results[0].email,
+                        nroCelular: results[0].nroCelular,
+                        direccion: results[0].direccion,
+                        estado: results[0].estado,
+                    };
+                    const token = utils(user);
+                    req.session.token = token;
                     res.send({
                         code:200,
                         success:"login successful",
@@ -64,17 +73,81 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         nroCelular: results[0].nroCelular,
                         direccion: results[0].direccion,
                         estado: results[0].estado,
-                        token:generateToken(results[0]),
+                        token: token
                     });
                 }else{
-                    res.send({"code":204, "error":"El correo y la contraseña no coinciden"});
+                    res.send({code:204, error:"El correo y la contraseña no coinciden"});
                 }
             }else {
                 res.send({"code":206, "error":"El correo no existe"});
             }
         }
     });
-    return;
+}));
+
+router.post('/create', expressAsyncHandler(async(req, res) => {
+    const password = req.body.password;    
+    const encryptedPassword = bcrypt.hashSync(password, 10);
+    const nuevo = {
+        idRol: req.body.idRol,
+        nombre: req.body.nombre,
+        email: req.body.email,
+        password: encryptedPassword,
+        nroCelular: req.body.nroCelular,
+        direccion: req.body.direccion,
+        estado: 1,
+    };
+    mysql.query('INSERT INTO usuario(idRol, nombre, email, password, nroCelular, direccion, estado) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+    [nuevo.idRol, nuevo.nombre, nuevo.email, nuevo.password, nuevo.nroCelular, nuevo.direccion, nuevo.estado], 
+    async function(error, results, fields) {
+        if (error) {        
+                res.send({          
+                code:400,          
+                failed:"error occurred",          
+                error : error});   
+            } else {
+                res.send({          
+                    code:200,          
+                    success:"user registered sucessfully",
+                    nombre: nuevo.idRol,
+                    email: nuevo.email,
+                    nroCelular: nuevo.nroCelular,
+                    direccion:  nuevo.direccion,
+                    estado: 1,
+                });
+            }});
+}));
+
+router.get('/', expressAsyncHandler(async(req, res) => {
+    mysql.query('SELECT * FROM usuario', async (error, rows, fields) => {
+        if(error){
+            res.send({message: "Error"});
+        } else {
+            res.json(rows);
+        }
+    })
+}));
+
+router.get('/:id', expressAsyncHandler(async(req, res) => {
+    const { id } = req.params; 
+    mysql.query('SELECT * FROM usuario WHERE id = ?', [id] ,async (error, rows, fields) => {
+        if(error){
+            res.send({message: "Error"});
+        } else {
+            res.json(rows[0]);
+        }
+    })
+}));
+
+router.get('/:nombre', expressAsyncHandler(async(req, res) => {
+    const { nombre } = req.params; 
+    mysql.query('SELECT * FROM usuario WHERE nombre like % ? %', [nombre] ,async (error, rows, fields) => {
+        if(error){
+            res.send({message: "Error"});
+        } else {
+            res.json(rows[0]);
+        }
+    })
 }));
 
 router.put('/:id', expressAsyncHandler(async(req, res) => {
@@ -126,5 +199,10 @@ router.delete('/:id', expressAsyncHandler(async(req, res) => {
             res.send({code: 200, success: "Usuario eliminado"})
         }
     })
+}));
+
+router.post('/signout', expressAsyncHandler(async(req, res) => {
+    req.session = null;
+    res.status(200).send({message: 'Adiosito'});
 }))
-module.exports = router
+module.exports = router;

@@ -18,6 +18,7 @@ var bingresoSistemaRoute = require('./routes/bingresoSistema');
 var permisosRoute = require('./routes/permisos');
 var ingresoRoute = require('./routes/ingreso');
 var requisicionRoute = require('./routes/requisicion');
+const cookieSession = require("cookie-session");
 var dRequisicionRoute = require('./routes/detalleRequisicion');
 //var index = require('./routes/index');
 
@@ -36,7 +37,14 @@ app.use((req, res, next) => {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
+app.use(
+    cookieSession({
+        name: "equipo4-session",
+        secret: "COOKIE_SECRET", // should use as secret environment variable
+        httpOnly: true,
+        sameSite: 'strict'
+    })
+)
 app.use('/presentacion', presentacionRoute);
 app.use('/servicio', servicioRoute);
 app.use('/solicitante', solicitanteRoute);
