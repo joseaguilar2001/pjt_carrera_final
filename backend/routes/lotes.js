@@ -4,7 +4,11 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT * FROM lotes',
+    sql = "SELECT l.id, l.idProducto, pro.nombre as producto, correlativo, DATE(fechaCad) AS fechaCad, DATE(fechaConPref) AS fechaConPref, cantidad, existencia, precioUnitario, idPresentacion, presentacion "+
+        "FROM lotes as l "+
+        "INNER JOIN producto as pro on l.idProducto = pro.id "+
+        "INNER JOIN presentacion as pre on l.idPresentacion = pre.id";
+    mysqlconexion.query(sql,
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);

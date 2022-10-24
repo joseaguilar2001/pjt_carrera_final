@@ -14,6 +14,7 @@ import Profile from "./components/Profile";
 
 import Presentacion from "./screens/PresentacionScreen";
 import Producto from "./screens/ProductoScreen";
+import Lote from "./screens/LoteScreen";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -64,6 +65,11 @@ const App = () => {
             <li className="nav-item">
               <Link to={"/producto"} className="nav-link">
                 Producto
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/lote"} className="nav-link">
+                Lotes
               </Link>
             </li>
           <li className="nav-item">
@@ -120,6 +126,7 @@ const App = () => {
           <Route path="/home" element={<Login />} />
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/producto" element={<Producto />} />
+          <Route path="/lote" element={<Lote />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />

@@ -1,24 +1,32 @@
 import React, {useContext, useState, useEffect} from "react";
-import { PresentacionContext } from "../../context/PresentacionContext";
+import { LoteContext } from "../../context/LoteContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
-import PresentacionForm from './Form';
+import LoteForm from './Form';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode } from 'primereact/api';
+import { FilterMatchMode} from 'primereact/api';
+import moment from "moment";
 
-const PresentacionList = () =>{
-    const {presentaciones, findPresentacion} = useContext(PresentacionContext);
-    
-    const statusBodyTemplate = (presentaciones) => {
-        return <span className={`${presentaciones.estado ? "activo" : "inactivo"}`}>{presentaciones.estado ? " Activo " : " Inactivo "}</span>;
-    }
+const LoteList = () =>{
+    const {lotes, findLote} = useContext(LoteContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const savePresentacion = (id) => {
-        findPresentacion(id);
+    const dateCaducidad = (lotes) => {
+        return moment(lotes.fechaCad).format("L");
+    }
+    const datePrefConsumo = (lotes) => {
+        return moment(lotes.fechaConPref).format("L");
+    }
+    
+    const montoTotal = (lotes) =>{
+        return lotes.cantidad * lotes.precioUnitario;
+    }
+
+    const saveLote = (id) => {
+        findLote(id);
         setIsVisible(true);
     };
 
@@ -60,33 +68,41 @@ const PresentacionList = () =>{
     return(
         <div>
         <div className="flex flex-column md:flex-row justify-content-between">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Presentacion" 
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Lote" 
                 onClick={()=>setIsVisible(true)}/>
         </div>
         
         <Panel
-            header="Listado de presentaciones" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de lotes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
             <DataTable 
-                value={presentaciones}
+                value={lotes}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => savePresentacion(e.value.id)}
+                onSelectionChange={(e) => saveLote(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['presentacion', 'estado']} header={header1} emptyMessage="No se encontraron presentaciones."
+                globalFilterFields={['correlativo', 'producto', 'presentacion', 'cantidad', dateCaducidad, datePrefConsumo, 'cantidad', 'existencia', 'precioUnitario', montoTotal]} 
+                header={header1} emptyMessage="No se encontraron lotes."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column field="presentacion" header="Nombre" sortable/>
-                <Column body={statusBodyTemplate} header="Estado" sortable/>
+                <Column field="correlativo" header="Correlativo" sortable/>
+                <Column field="producto" header="Producto" sortable/>
+                <Column field="presentacion" header="Presentacion" sortable/>
+                <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
+                <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
+                <Column field="cantidad" header="Cantidad Inicial" sortable/>
+                <Column field="existencia" header="Existencia" sortable/>
+                <Column field="precioUnitario" header="Precio Unitario" sortable/>
+                <Column body={montoTotal} header="Monto Total" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <PresentacionForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <LoteForm isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }
 
-export default PresentacionList;
+export default LoteList;

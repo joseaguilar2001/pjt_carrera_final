@@ -6,7 +6,7 @@ import {Column} from 'primereact/column';
 import Form from './ProductoForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 
 const ProductoList=()=>{
     const {productos, findProducto} = useContext(ProductoContext);
@@ -26,10 +26,7 @@ const ProductoList=()=>{
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');
     const initFilters1 = () => {
         setFilters1({
-            'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
-            'nombre': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            'unidadMedida': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            //'estado':  { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
+            'global': { value: null, matchMode: FilterMatchMode.CONTAINS }
         });
         setGlobalFilterValue1('');
     }
