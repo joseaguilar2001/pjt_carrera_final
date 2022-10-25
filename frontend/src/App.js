@@ -58,20 +58,10 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
-              <Link to={"/presentacion"} className="nav-link">
-                Presentacion
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/producto"} className="nav-link">
-                Producto
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/lote"} className="nav-link">
-                Lotes
-              </Link>
-            </li>
+            <Link to={"/lote"} className="nav-link">
+              Productos
+            </Link>
+          </li>
           <li className="nav-item">
             <Link to={"/usuarios"} className="nav-link">
               Usuario
@@ -124,8 +114,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Login />} />
-          <Route path="/presentacion" element={<Presentacion />} />
-          <Route path="/producto" element={<Producto />} />
+          <Route exact path="/presentacion" element={<Presentacion />} />
+          <Route exact path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
