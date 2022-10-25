@@ -7,13 +7,18 @@ import LoteForm from './Form';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
+import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
+
+import { Link, useNavigate } from "react-router-dom";
+
 
 const LoteList = () =>{
     const {lotes, findLote} = useContext(LoteContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
+    const navigate = useNavigate();
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("L");
     }
@@ -29,6 +34,31 @@ const LoteList = () =>{
         findLote(id);
         setIsVisible(true);
     };
+
+    const leftToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Lote" 
+                onClick={()=>setIsVisible(true)}/>
+            </React.Fragment>
+        )
+    }
+
+    function linkProducto (){
+        navigate('/producto')
+    }
+    function linkProducto (){
+        navigate('/presentacion')
+    }
+
+    const rightToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
+                <Button label="Ir a Presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
+            </React.Fragment>
+        )
+    }
 
     //Filtro
     const [filters1, setFilters1] = useState(null);
@@ -67,11 +97,7 @@ const LoteList = () =>{
     const header1 = renderHeader1();
     return(
         <div>
-        <div className="flex flex-column md:flex-row justify-content-between">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Lote" 
-                onClick={()=>setIsVisible(true)}/>
-        </div>
-        
+        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
             header="Listado de lotes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
