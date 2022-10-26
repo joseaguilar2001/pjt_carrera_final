@@ -15,6 +15,10 @@ import Profile from "./components/Profile";
 import Presentacion from "./screens/PresentacionScreen";
 import Producto from "./screens/ProductoScreen";
 import Lote from "./screens/LoteScreen";
+import Servicios from "./screens/ServiciosScreen";
+import Ejecutores from "./screens/EjecutoresScreen";
+import Solicitantes from "./screens/SolicitantesScreen";
+import Kardexs from "./screens/KardexsScreen";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -62,6 +66,26 @@ const App = () => {
               Productos
             </Link>
           </li>
+          <li className="nav-item">
+              <Link to={"/servicios"} className="nav-link">
+                Servicios
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/solicitantes"} className="nav-link">
+                Solicitantes
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/ejecutores"} className="nav-link">
+                Ejecutores
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/kardex"} className="nav-link">
+                Kardex
+              </Link>
+            </li>
           <li className="nav-item">
             <Link to={"/usuarios"} className="nav-link">
               Usuario
@@ -114,9 +138,13 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Login />} />
-          <Route exact path="/presentacion" element={<Presentacion />} />
           <Route exact path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
+          <Route path="/presentacion" element={<Presentacion />} />
+          <Route path="/servicios" element={<Servicios />} />
+          <Route path="/solicitantes" element={<Solicitantes />} />
+          <Route path="/ejecutores" element={<Ejecutores />} />
+          <Route path="/kardex" element={<Kardexs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
