@@ -14,6 +14,7 @@ import Profile from "./components/Profile";
 
 import Presentacion from "./screens/PresentacionScreen";
 import Producto from "./screens/ProductoScreen";
+import Lote from "./screens/LoteScreen";
 import Servicios from "./screens/ServiciosScreen";
 import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
@@ -61,11 +62,11 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
-              <Link to={"/presentacion"} className="nav-link">
-                Presentacion
-              </Link>
-            </li>
-            <li className="nav-item">
+            <Link to={"/lote"} className="nav-link">
+              Productos
+            </Link>
+          </li>
+          <li className="nav-item">
               <Link to={"/servicios"} className="nav-link">
                 Servicios
               </Link>
@@ -83,11 +84,6 @@ const App = () => {
             <li className="nav-item">
               <Link to={"/kardex"} className="nav-link">
                 Kardex
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/producto"} className="nav-link">
-                Producto
               </Link>
             </li>
           <li className="nav-item">
@@ -142,12 +138,13 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Login />} />
+          <Route exact path="/producto" element={<Producto />} />
+          <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/servicios" element={<Servicios />} />
           <Route path="/solicitantes" element={<Solicitantes />} />
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
-          <Route path="/producto" element={<Producto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />

@@ -6,7 +6,7 @@ import {Column} from 'primereact/column';
 import PresentacionForm from './Form';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 
 const PresentacionList = () =>{
     const {presentaciones, findPresentacion} = useContext(PresentacionContext);
@@ -27,9 +27,7 @@ const PresentacionList = () =>{
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');
     const initFilters1 = () => {
         setFilters1({
-            'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
-            'presentacion': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            //'estado':  { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
+            'global': { value: null, matchMode: FilterMatchMode.CONTAINS }
         });
         setGlobalFilterValue1('');
     }
