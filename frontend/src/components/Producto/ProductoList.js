@@ -7,6 +7,8 @@ import Form from './ProductoForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
+import { Toolbar } from 'primereact/toolbar';
+import { useNavigate } from "react-router-dom";
 
 const ProductoList=()=>{
     const {productos, findProducto} = useContext(ProductoContext);
@@ -20,6 +22,30 @@ const ProductoList=()=>{
         findProducto(id);
         setIsVisible(true);
     };
+
+    const navigate = useNavigate();
+
+    const leftToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Producto" 
+                onClick={()=>setIsVisible(true)}/>
+            </React.Fragment>
+        )
+    }
+
+    function linkLote (){
+        navigate('/lote')
+    }
+
+    const rightToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Regresar a lotes" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkLote}/>
+            </React.Fragment>
+        )
+    }
+
 
     //Filtro
     const [filters1, setFilters1] = useState(null);
@@ -57,15 +83,10 @@ const ProductoList=()=>{
     }
     const header1 = renderHeader1();
     return(<div>
-        <div className="flex flex-column md:flex-row justify-content-between">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Producto" 
-                onClick={()=>setIsVisible(true)}/>
-        </div>
-        
+        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
             header="Listado de productos" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
-            style={{ textAlign: "justify" }}
-        >
+            style={{ textAlign: "justify" }}>
             <div>
             <DataTable 
                 value={productos}
