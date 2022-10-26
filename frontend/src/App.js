@@ -14,6 +14,8 @@ import Profile from "./components/Profile";
 
 import Presentacion from "./screens/PresentacionScreen";
 import Producto from "./screens/ProductoScreen";
+import Servicios from "./screens/ServiciosScreen";
+import Ejecutores from "./screens/EjecutoresScreen";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -59,6 +61,16 @@ const App = () => {
           <li className="nav-item">
               <Link to={"/presentacion"} className="nav-link">
                 Presentacion
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/servicios"} className="nav-link">
+                Servicios
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/ejecutores"} className="nav-link">
+                Ejecutores
               </Link>
             </li>
             <li className="nav-item">
@@ -119,6 +131,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Login />} />
           <Route path="/presentacion" element={<Presentacion />} />
+          <Route path="/servicios" element={<Servicios />} />
+          <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/producto" element={<Producto />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
