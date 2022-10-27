@@ -1,53 +1,37 @@
-import React, {useContext, useState, useEffect} from "react";
-import { ProductoContext } from "../../context/ProductoContext";
+import React, { useContext, useState, useEffect } from "react";
+import { UsuarioContext } from "../../context/UsuarioContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
-import {Column} from 'primereact/column';
-import Form from './ProductoForm';
-import {InputText} from "primereact/inputtext";
-import {Button} from 'primereact/button';
-import { FilterMatchMode } from 'primereact/api';
+import { Column } from 'primereact/column';
+import UsuarioForm from './UsuarioForm';
+import { InputText} from "primereact/inputtext";
+import { Button} from 'primereact/button';
+import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
-import { useNavigate } from "react-router-dom";
 
-const ProductoList=()=>{
-    const {productos, findProducto} = useContext(ProductoContext);
-    const statusBodyTemplate = (productos) => {
-        return <span className={`${productos.estado ? "activo" : "inactivo"}`}>{productos.estado ? " Activo " : " Inactivo "}</span>;
-    }
+const UsuarioList = () =>{
+    const {usuarios, findUsuario} = useContext(UsuarioContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const saveProducto = (id) => {
-        findProducto(id);
+    const statusBodyTemplate = (usuarios) => {
+        return <span className={`${usuarios.estado ? "activo" : "inactivo"}`}>{usuarios.estado ? " Activo " : " Inactivo "}</span>;
+    }
+
+    const saveUsuario = (id) => {
+        findUsuario(id);
         setIsVisible(true);
     };
-
-    const navigate = useNavigate();
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Producto" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Usuario" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
     }
 
-    function linkLote (){
-        navigate('/lote')
-    }
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button label="Regresar a lotes" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkLote}/>
-            </React.Fragment>
-        )
-    }
-
-
-    //Filtro
     const [filters1, setFilters1] = useState(null);
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');
     const initFilters1 = () => {
@@ -82,29 +66,36 @@ const ProductoList=()=>{
         )
     }
     const header1 = renderHeader1();
-    return(<div>
-        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+    return(
+        <div>
+            <Toolbar className="mr-2" left={leftToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de productos" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
-            style={{ textAlign: "justify" }}>
+            header="Listado de usuarios" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            style={{ textAlign: "justify" }}
+        >
             <div>
             <DataTable 
-                value={productos}
+                value={usuarios}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveProducto(e.value.id)}
+                onSelectionChange={(e) => saveUsuario(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'unidadMedida', 'estado']} header={header1} emptyMessage="No se encontro el producto."
+                globalFilterFields={['nombre', 'email', 'nroCelular', 'direccion', 'estado']} 
+                header={header1} emptyMessage="No se encontraron usuarios."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="unidadMedida" header="Unidad de Medida" sortable/> 
+                <Column field="email" header="Email" sortable/>
+                <Column field="nroCelular" header="Contacto" sortable/>
+                <Column field="direccion" header="Direccion" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <Form isVisible={isVisible} setIsVisible={setIsVisible}/>
-    </div>);
+        <UsuarioForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        </div>
+    );
 }
-export default ProductoList;
+
+export default UsuarioList;

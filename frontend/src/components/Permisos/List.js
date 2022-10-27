@@ -1,51 +1,26 @@
 import React, {useContext, useState, useEffect} from "react";
-import { ProductoContext } from "../../context/ProductoContext";
+import { PermisosContext } from "../../context/PermisosContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
-import {Column} from 'primereact/column';
-import Form from './ProductoForm';
-import {InputText} from "primereact/inputtext";
-import {Button} from 'primereact/button';
+import { Column } from 'primereact/column';
+import PermisosForm from './Form';
+import { InputText } from "primereact/inputtext";
+import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
-import { Toolbar } from 'primereact/toolbar';
-import { useNavigate } from "react-router-dom";
 
-const ProductoList=()=>{
-    const {productos, findProducto} = useContext(ProductoContext);
-    const statusBodyTemplate = (productos) => {
-        return <span className={`${productos.estado ? "activo" : "inactivo"}`}>{productos.estado ? " Activo " : " Inactivo "}</span>;
+const PermisoList = () => {
+    const {permisos, findPermisos} = useContext(PermisosContext);
+    
+    const statusBodyTemplate = (permisos) => {
+        return <span className={`${permisos.estado ? "activo" : "inactivo"}`}>{permisos.estado ? " Activo " : " Inactivo "}</span>;
     }
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const saveProducto = (id) => {
-        findProducto(id);
+    const savePermiso = (id) => {
+        findPermisos(id);
         setIsVisible(true);
     };
-
-    const navigate = useNavigate();
-
-    const leftToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Producto" 
-                onClick={()=>setIsVisible(true)}/>
-            </React.Fragment>
-        )
-    }
-
-    function linkLote (){
-        navigate('/lote')
-    }
-
-    const rightToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button label="Regresar a lotes" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkLote}/>
-            </React.Fragment>
-        )
-    }
-
 
     //Filtro
     const [filters1, setFilters1] = useState(null);
@@ -82,29 +57,37 @@ const ProductoList=()=>{
         )
     }
     const header1 = renderHeader1();
-    return(<div>
-        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+    return (
+        <div>
+        <div className="flex flex-column md:flex-row justify-content-between">
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Permiso" 
+                onClick={()=>setIsVisible(true)}/>
+        </div>
+        
         <Panel
-            header="Listado de productos" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
-            style={{ textAlign: "justify" }}>
+            header="Listado de permisos" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            style={{ textAlign: "justify" }}
+        >
             <div>
             <DataTable 
-                value={productos}
+                value={permisos}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveProducto(e.value.id)}
+                onSelectionChange={(e) => savePermiso(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'unidadMedida', 'estado']} header={header1} emptyMessage="No se encontro el producto."
+                globalFilterFields={['nombre', 'rol' ,'estado']} header={header1} emptyMessage="No se encontraron permisos."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="unidadMedida" header="Unidad de Medida" sortable/> 
+                <Column field="rol" header="Rol"  sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <Form isVisible={isVisible} setIsVisible={setIsVisible}/>
-    </div>);
+        <PermisosForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        </div>
+    )
 }
-export default ProductoList;
+
+export default PermisoList;

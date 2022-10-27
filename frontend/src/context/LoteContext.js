@@ -21,7 +21,7 @@ const LoteContextProvider = (props)=>{
         productoService.readAll().then((data) => setProducto(data));
         presentacionService.readAll().then((data) => setPresentacion(data));
         
-    }, [loteService, lotes, productoService, producto, presentacionService]);
+    }, [loteService, lotes]);
 
     const createLote =(lote)=>{
         loteService

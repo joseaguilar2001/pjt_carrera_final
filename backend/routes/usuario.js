@@ -73,7 +73,6 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         nroCelular: results[0].nroCelular,
                         direccion: results[0].direccion,
                         estado: results[0].estado,
-                        token: token
                     });
                 }else{
                     res.send({code:204, error:"El correo y la contraseña no coinciden"});

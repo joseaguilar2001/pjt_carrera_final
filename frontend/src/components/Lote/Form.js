@@ -86,7 +86,7 @@ const Form =(props) =>{
         <Dialog
             visible={isVisible}
             modal={true}
-            style={{width:"420px"}}
+            style={{width:"430px", overflow:"scroll"}}
             contentStyle={{overflow:"visible"}}
             header = "Detalles del lote"
             onHide={()=>clearSelected()}
