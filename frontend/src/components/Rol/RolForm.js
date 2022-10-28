@@ -3,9 +3,10 @@ import { RolContext } from "../../context/RolContext";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-
-const RolForm =(props) =>{
-    const {isVisible, setIsVisible} = props;
+import { Dropdown } from 'primereact/dropdown'
+import { useParams } from "react-router-dom";
+const RolForm =() =>{
+    const {isVisible, setIsVisible} = useParams();
 
     const {
         createRol,

@@ -17,15 +17,6 @@ const RolList = () => {
         findRol(id);
         setIsVisible(true);
     };
-
-    const leftToolbarTemplate = () => {
-        return (
-            <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Rol" 
-                onClick={()=>setIsVisible(true)}/>
-            </React.Fragment>
-        );
-    }
     //Filtro
     const [filters1, setFilters1] = useState(null);
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');

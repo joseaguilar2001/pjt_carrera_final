@@ -20,12 +20,15 @@ import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
 import Kardexs from "./screens/KardexsScreen";
 
+
+
+import Usuario from "./screens/UsuarioScreen";
+import Rol from "./screens/RolScreen";
+import Permisos from "./screens/PermisosScreen";
+
+
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
-import AddUser from "./components/Usuario/AddUser";
-import UsuarioList from "./components/Usuario/ListUser";
-import Usuario from "./components/Usuario/Usuario";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -92,8 +95,19 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={"/adduser"} className="nav-link">
-              Añadir
+            <Link to={"/permiso"} className="nav-link">
+              Permisos
+            </Link>
+          </li>
+
+
+
+
+
+
+          <li className="nav-item">
+            <Link to={"/rol"} className="nav-link">
+              Roles
             </Link>
           </li>
           {currentUser && (
@@ -148,9 +162,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/usuarios" element={<UsuarioList />} />
-          <Route path="/adduser" element={<AddUser />} />
-          <Route path="/usuarios/:id" element={<Usuario />} />
+          <Route path="/usuarios" element={<Usuario />} />
+          <Route path="/permiso" element={<Permisos />} />
+          <Route path="/rol" element={<Rol />} />
         </Routes>
       </div>
 

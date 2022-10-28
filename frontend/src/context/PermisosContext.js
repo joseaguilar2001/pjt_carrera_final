@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { PermisosService } from "../services/PermisosService";
 
-export const RolContext = createContext();
+export const PermisosContext = createContext();
 
 const PermisosContextProvider = (props)=>{
     const permisosService = useMemo(() => new PermisosService(), []);
@@ -12,7 +12,6 @@ const PermisosContextProvider = (props)=>{
 
     useEffect(() => {
         permisosService.readAll().then((data) => setPermisos(data));
-        //console.log(productoService);
     }, [permisosService, permisos]);
 
     const createPermisos =(permiso)=>{

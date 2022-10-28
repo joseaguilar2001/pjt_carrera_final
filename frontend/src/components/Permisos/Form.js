@@ -3,13 +3,11 @@ import { PermisosContext } from "../../context/PermisosContext";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar';
-import moment from "moment";
+import { useParams } from "react-router-dom";
 
-const Form =(props) =>{
-    const {isVisible, setIsVisible} = props;
+const Form = () =>{
+    const {isVisible, setIsVisible} = useParams();
 
     const {
         createPermiso,
@@ -35,7 +33,7 @@ const Form =(props) =>{
 
     const updateField = (data, field) =>{
         setPermisoData({
-            ... permisoData,
+            ...permisoData,
             [field]:data
         })
         //console.log( permisoData);
@@ -105,7 +103,7 @@ const Form =(props) =>{
                     <label>Rol</label>
                 </div><br />
                 <div className="p-float-label">
-                        <Dropdown value={presentacionData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
+                        <Dropdown value={permisoData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
                     <label>Estado</label>
                 </div>
             </div>
