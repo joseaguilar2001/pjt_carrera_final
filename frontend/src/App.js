@@ -66,7 +66,7 @@ const App = () => {
           </li>
           <li className="nav-item">
             <Link to={"/lote"} className="nav-link">
-              Productos
+              Lote
             </Link>
           </li>
           <li className="nav-item">
