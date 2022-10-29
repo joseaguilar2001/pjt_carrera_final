@@ -118,7 +118,9 @@ router.post('/create', expressAsyncHandler(async(req, res) => {
 }));
 
 router.get('/', expressAsyncHandler(async(req, res) => {
-    mysql.query('SELECT * FROM usuario', async (error, rows, fields) => {
+    mysql.query('SELECT u.id, r.nombre as rol, u.nroCelular, u.email, u.direccion, u.estado'
+    + ' FROM usuario AS u '
+    + ' INNER JOIN rol AS r on u.idRol = r.id ', async (error, rows, fields) => {
         if(error){
             res.send({message: "Error"});
         } else {

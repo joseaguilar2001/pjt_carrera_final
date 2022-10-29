@@ -10,11 +10,11 @@ const Form = () =>{
     const {isVisible, setIsVisible} = useParams();
 
     const {
-        createPermiso,
+        createPermisos,
         deletePermiso,
-        editPermiso,
+        editPermisos,
         updatePermiso,
-        rol,
+        roles,
          
     } = useContext(PermisosContext);
     
@@ -28,8 +28,8 @@ const Form = () =>{
 
 
     useEffect(() => {
-        if (editPermiso) setPermisoData(editPermiso);
-    }, [editPermiso]);
+        if (editPermisos) setPermisoData(editPermisos);
+    }, [editPermisos]);
 
     const updateField = (data, field) =>{
         setPermisoData({
@@ -45,8 +45,8 @@ const Form = () =>{
     ];
     
     const savePermiso = () => {
-        if (!editPermiso) {
-            createPermiso(permisoData);
+        if (!editPermisos) {
+            createPermisos(permisoData);
         } else {
             updatePermiso(permisoData);
         }
@@ -55,7 +55,7 @@ const Form = () =>{
     };
 
     const _deletePermiso = () => {
-        if (editPermiso) {
+        if(editPermisos) {
             deletePermiso( permisoData.id);
             setPermisoData(inicialPermisoState);
         }
@@ -98,7 +98,7 @@ const Form = () =>{
                     <label>Nombre</label>
                 </div><br />
                 <div className="p-float-label">
-                    <Dropdown value={ permisoData.idRol} options={rol} optionLabel="nombre" optionValue="id" 
+                    <Dropdown value={ permisoData.idRol} options={roles} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idRol")} filter showClear filterBy="nombre" placeholder="Seleccione un rol"/>
                     <label>Rol</label>
                 </div><br />

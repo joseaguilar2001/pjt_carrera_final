@@ -33,7 +33,7 @@ router.post('/',expressAsyncHandler(async(req, res) => {
         descripcion: req.body.descripcion,
         estado: req.body.estado
     }
-    mysql.query('INSERT INTO rol(nombre, descripcion, estado VALUES (?, ?, ?)', [rol.nombre, rol.descripcion, rol.estado], async function(error, rows, fields){
+    mysql.query('INSERT INTO rol(nombre, descripcion, estado) VALUES (?, ?, ?)', [rol.nombre, rol.descripcion, rol.estado], async function(error, rows, fields){
         if(!error){
             res.json(rows);
         }else{

@@ -4,16 +4,16 @@ import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown';
-
-const UsuarioForm =(props) =>{
-    const {isVisible, setIsVisible} = props;
+import { useParams } from "react-router-dom";
+const FormUsuario = () => {
+    const {isVisible, setIsVisible} = useParams();
 
     const {
         createUsuario,
         deleteUsuario,
         editUsuario,
         updateUsuario,
-        rol
+        roles,
     } = useContext(UsuarioContext);
     
     const inicialUsuarioState ={
@@ -92,7 +92,7 @@ const UsuarioForm =(props) =>{
             <div className="p-grid p-fluid">
                 <br/>
                 <div className="p-float-label">
-                    <Dropdown value={usuarioData.idRol} options={rol} optionLabel="nombre" optionValue="id" 
+                    <Dropdown value={usuarioData.idRol} options={roles} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idRol")} filter showClear filterBy="nombre" placeholder="Seleccione un rol"/>
                     <label>Rol</label>
                 </div><br />
@@ -140,4 +140,4 @@ const UsuarioForm =(props) =>{
     </div>);
 }
 
-export default UsuarioForm;
+export default FormUsuario;

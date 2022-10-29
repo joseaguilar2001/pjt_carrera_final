@@ -3,20 +3,16 @@ import axios from "axios";
 export class RolService {
     url = "http://localhost:8080/rol/";
 
-    async create(rol){
-        const res = await axios.post(this.url, rol);
-        return res.data;
+    create(rol){
+        return axios.post(this.url, rol).then(res => res.data);
     }
-    async readAll(){
-        const res = await axios.get(this.url);
-        return res.data;
+    readAll(){
+        return axios.get(this.url).then(res => res.data);
     }
-    async update(rol){
-        const res = await axios.put(this.url + rol.id, rol);
-        return res.data;
+    update(rol){
+        return axios.put(this.url + rol.id, rol).then(res => res.data);
     }
-    async delete(id){
-        const res = await axios.delete(this.url + id);
-        return res.data;
+    delete(id){
+        return axios.delete(this.url + id).then(res => res.data);
     }
 }

@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown'
 import { useParams } from "react-router-dom";
-const RolForm =() =>{
+const Form = () =>{
     const {isVisible, setIsVisible} = useParams();
 
     const {
@@ -25,7 +25,7 @@ const RolForm =() =>{
 
 
     useEffect(() => {
-        if (editRol) setRolData(editRol);
+        if(editRol)setRolData(editRol);
     }, [editRol]);
 
     const updateField = (data, field) =>{
@@ -89,14 +89,14 @@ const RolForm =() =>{
                 <br/>
                 <div className="p-float-label">
                     <InputText
-                        value={rolData.nombre || ''}
+                        value={rolData.nombre}
                         onChange={(e)=>updateField(e.target.value.trim(), "nombre")}
                     />
                     <label>Nombre</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={rolData.descripcion || ''}
+                        value={rolData.descripcion}
                         onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
                     />
                     <label>Descripcion</label>
@@ -110,4 +110,4 @@ const RolForm =() =>{
     </div>);
 }
 
-export default RolForm;
+export default Form;

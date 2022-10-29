@@ -1,21 +1,23 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { UsuarioService } from "../services/UsuarioServicio";
-
+import { RolService } from "../services/RolService";
 export const UsuarioContext = createContext();
 
-const UsuarioContextProvider = (props)=>{
+const UsuarioContextProvider = (props) => {
     const usuarioService = useMemo(() => new UsuarioService(), []);
-    
+    const rolService = useMemo(() => new RolService(), []);
     const [usuarios, setUsuario] = useState([]);
 
     const [editUsuario, setEditUsuario] = useState(null);
 
-    useEffect(() => {
-        usuarioService.readAll().then((data) => setUsuario(data));
-        //console.log(productoService);
-    }, [usuarioService, usuarios]);
+    const [roles, setRoles] = useState([]);
 
-    const createUsuario =(usuario)=>{
+    useEffect(() => {
+        rolService.readAll().then((data) => setRoles(data));
+        usuarioService.readAll().then((data) => setUsuario(data));
+    }, [rolService, setRoles, usuarioService, usuarios]);
+
+    const createUsuario = (usuario) => {
         usuarioService
             .create(usuario)
             .then((data)=>setUsuario([...usuarios, data]));
@@ -37,7 +39,7 @@ const UsuarioContextProvider = (props)=>{
         .update(usuario)
         .then((data)=>
             setUsuario(
-                usuario.map((p)=>(p.id === usuario.id ? data: usuario))
+                usuarios.map((p)=>(p.id === usuario.id ? data: usuario))
             )
         );
         setEditUsuario(null);
@@ -50,6 +52,7 @@ const UsuarioContextProvider = (props)=>{
                 findUsuario,
                 updateUsuario,
                 editUsuario,
+                roles,
                 usuarios,
             }}>
             {props.children}

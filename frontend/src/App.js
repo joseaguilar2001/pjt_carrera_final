@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-
+import { Menubar } from 'primereact/menubar';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import 'primereact/resources/primereact.min.css';
@@ -47,11 +47,17 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser) {
-    } else {
+    if(currentUser){
+
+    }else {
+
     }
   }, [currentUser]);
+  const items = [{
+    label: "Home",
+    
 
+  }];
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">

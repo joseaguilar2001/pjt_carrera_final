@@ -1,18 +1,23 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { PermisosService } from "../services/PermisosService";
+import { RolService } from "../services/RolService";
+
 
 export const PermisosContext = createContext();
 
-const PermisosContextProvider = (props)=>{
-    const permisosService = useMemo(() => new PermisosService(), []);
-    
-    const [permisos, setPermisos] = useState([]);
+const PermisosContextProvider = (props) => {
 
+    const rolService = useMemo(() => new RolService(), []);
+    const permisosService = useMemo(() => new PermisosService(), []);
+
+    const [permisos, setPermisos] = useState([]);
+    const [roles, setRoles ] = useState([]);
     const [editPermisos, setEditPermisos] = useState(null);
 
     useEffect(() => {
+        rolService.readAll().then((data) => setRoles(data));
         permisosService.readAll().then((data) => setPermisos(data));
-    }, [permisosService, permisos]);
+    }, [rolService, permisos, permisosService]);
 
     const createPermisos =(permiso)=>{
         permisosService
@@ -20,7 +25,7 @@ const PermisosContextProvider = (props)=>{
             .then((data)=>setPermisos([...permisos, data]));
     };
 
-    const deletePermiso =(id)=>{
+    const deletePermiso = (id) => {
         permisosService
             .delete(id)
             .then(()=>setPermisos(permisos.filter((p)=>p.id !== id)));
@@ -42,7 +47,7 @@ const PermisosContextProvider = (props)=>{
         setEditPermisos(null);
     };
     return(
-        <PermisosContextProvider.Provider 
+        <PermisosContext.Provider 
             value={{
                 createPermisos,
                 deletePermiso,
@@ -50,9 +55,10 @@ const PermisosContextProvider = (props)=>{
                 updatePermiso,
                 editPermisos,
                 permisos,
+                roles
             }}>
             {props.children}
-        </PermisosContextProvider.Provider>
+        </PermisosContext.Provider>
     );
 };
 export default PermisosContextProvider;

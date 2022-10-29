@@ -3,7 +3,7 @@ import { UsuarioContext } from "../../context/UsuarioContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import { Column } from 'primereact/column';
-import UsuarioForm from './UsuarioForm';
+import FormUsuario from './UsuarioForm';
 import { InputText} from "primereact/inputtext";
 import { Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
@@ -81,7 +81,7 @@ const UsuarioList = () =>{
                 onSelectionChange={(e) => saveUsuario(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'email', 'nroCelular', 'direccion', 'estado']} 
+                globalFilterFields={['nombre', 'email', 'nroCelular', 'direccion', 'rol']} 
                 header={header1} emptyMessage="No se encontraron usuarios."
                 >
                 <Column field="id" header="No." sortable/>
@@ -93,7 +93,7 @@ const UsuarioList = () =>{
             </DataTable>
             </div>
         </Panel>
-        <UsuarioForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <FormUsuario isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }

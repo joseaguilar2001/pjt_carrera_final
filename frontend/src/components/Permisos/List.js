@@ -3,7 +3,7 @@ import { PermisosContext } from "../../context/PermisosContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import { Column } from 'primereact/column';
-import PermisosForm from './Form';
+import Form from './Form';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
@@ -76,16 +76,17 @@ const PermisoList = () => {
                 onSelectionChange={(e) => savePermiso(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'rol' ,'estado']} header={header1} emptyMessage="No se encontraron permisos."
+                globalFilterFields={['nombre','rol']} header={header1} emptyMessage="No se encontraron permisos."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="rol" header="Rol"  sortable/>
+                <Column field="idRol" header="Rol"  sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <PermisosForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <Form isVisible={isVisible} setIsVisible={setIsVisible}/>
+
         </div>
     )
 }

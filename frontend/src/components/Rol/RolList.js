@@ -3,12 +3,12 @@ import { RolContext } from "../../context/RolContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
-import RolForm from './RolForm';
+import Form from './RolForm';
 import { InputText } from "primereact/inputtext";
 import { Button } from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 
-const RolList = () => {
+const List = () => {
     const {rols, findRol} = useContext(RolContext);
 
     const [isVisible, setIsVisible] = useState(false);
@@ -78,9 +78,9 @@ const RolList = () => {
                         </DataTable>
                     </div>
                 </Panel> 
-                <RolForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+                <Form isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }
 
-export default RolList;
+export default List;

@@ -3,13 +3,13 @@ import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import PermisosContextProvider from '../context/PermisosContext';
-import PermisosList from '../components/Permisos/List';
+import PermisoList from '../components/Permisos/List';
 
 function PermisosScreen() {
     return (
         <div className='PermisosScreen'>
             <PermisosContextProvider>
-                <PermisosList />
+                <PermisoList />
             </PermisosContextProvider>
         </div>
     );

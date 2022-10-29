@@ -3,7 +3,7 @@ import { RolService } from "../services/RolService";
 
 export const RolContext = createContext();
 
-const RolContextProvider = (props)=>{
+const RolContextProvider = (props) => {
     const rolService = useMemo(() => new RolService(), []);
     
     const [rols, setRol] = useState([]);
@@ -21,7 +21,7 @@ const RolContextProvider = (props)=>{
             .then((data)=>setRol([...rols, data]));
     };
 
-    const deleteRol =(id)=>{
+    const deleteRol = (id) => {
         rolService
             .delete(id)
             .then(()=>setRol(rols.filter((p)=>p.id !== id)));
@@ -37,7 +37,7 @@ const RolContextProvider = (props)=>{
         .update(rol)
         .then((data)=>
             setRol(
-                rol.map((p)=>(p.id === rol.id ? data: rol))
+                rols.map((p)=>(p.id === rol.id ? data: rol))
             )
         );
         setEditRol(null);
