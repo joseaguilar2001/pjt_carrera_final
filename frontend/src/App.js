@@ -19,6 +19,7 @@ import Servicios from "./screens/ServiciosScreen";
 import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
 import Kardexs from "./screens/KardexsScreen";
+import Auditoria from "./screens/AuditoriaScreen";
 
 
 
@@ -88,6 +89,11 @@ const App = () => {
             <li className="nav-item">
               <Link to={"/ejecutores"} className="nav-link">
                 Ejecutores
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/auditoria"} className="nav-link">
+                Auditoria
               </Link>
             </li>
             <li className="nav-item">
@@ -162,6 +168,7 @@ const App = () => {
           <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/servicios" element={<Servicios />} />
+          <Route path="/auditoria" element={<Auditoria />} />
           <Route path="/solicitantes" element={<Solicitantes />} />
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
