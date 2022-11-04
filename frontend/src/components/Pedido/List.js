@@ -1,55 +1,57 @@
 import React, {useContext, useState, useEffect} from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { PedidoContext } from "../../context/PedidoContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
+import PedidoForm from './Form';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
 
-import DeKardexForm from './Form';
-import { DKardexContext } from "../../context/DKardexContext";
+import { useNavigate } from "react-router-dom";
 
 
-const DeKardexList = () =>{
-    const {dsKardex, findDeKardex} = useContext(DKardexContext);
+const PedidoList = () =>{
+    const {pedidos, findPedido} = useContext(PedidoContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
     const navigate = useNavigate();
-    const { idK } = useParams();
-
-    const datefecha = (dkardexs) => {
-        return moment(dkardexs.fecha).format("L");
+    const dateSolicitud = (pedidos) => {
+        return moment(pedidos.fechaSolicitud).format("L");
     }
-    const dateRequisicion = (dkardexs) => {
-        return moment(dkardexs.fechaRequisicion).format("L");
+    const statusBodyTemplate = (productos) => {
+        return <span className={`${productos.estado ? "activo" : "inactivo"}`}>{productos.estado ? " Activo " : " Inactivo "}</span>;
     }
 
-    const saveDkardex = (id) => {
-        findDeKardex(id);
+    const savePedido = (id) => {
+        findPedido(id);
         setIsVisible(true);
     };
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Detalle" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Pedido" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
     }
 
-    function linkKardex (){
-        navigate('/kardex')
+    function linkSolicitante (){
+        navigate('/solicitantes')
+    }
+    function linkEjecutor (){
+        navigate('/ejecutores')
     }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Kardex" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkKardex}/>
+                <Button label="Ir a Solicitante" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkSolicitante}/>
+                <Button label="Ir a Ejecutor" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkEjecutor}/>
             </React.Fragment>
         )
     }
@@ -69,7 +71,6 @@ const DeKardexList = () =>{
     useEffect(() => {
         initFilters1();
     }, []);
-    
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
         let _filters1 = { ...filters1 };
@@ -94,42 +95,35 @@ const DeKardexList = () =>{
         <div>
         <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de detalle kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de pedidos" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
             <DataTable 
-                value={dsKardex.filter((p)=>p.idKardex === parseInt(idK))}
+                value={pedidos}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveDkardex(e.value.id)}
+                onSelectionChange={(e) => savePedido(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['KardexCorrelativo', 'LoteCorrelativo', datefecha, 'nroReferencia', 'remitente', 'entradaCantidad', 'entradaPrecio', 'salidadPrecio',
-                'salidaCantidad', 'reajusteCantidad', 'reajustePrecio', 'saldoCantidad', 'saldoPrecio', dateRequisicion]} 
-                header={header1} emptyMessage="No se encontraron detalles de kardex."
+                globalFilterFields={['nombreUE', 'nombre', 'correlativoUE', 'telefonoExt', dateSolicitud, 'justificacion_Observacion', 'montoTotal', 'estado']} 
+                header={header1} emptyMessage="No se encontraron lotes."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column field="KardexCorrelativo" header="Kardex" sortable/>
-                <Column field="LoteCorrelativo" header="Lote" sortable/>
-                <Column body={datefecha} header="Fecha" sortable/>
-                <Column field="nroReferencia" header="Numero de referencia" sortable/>
-                <Column field="remitente" header="Remitente" sortable/>
-                <Column field="entradaCantidad" header="Entrada cantidad" sortable/>
-                <Column field="entradaPrecio" header="Entrada Precio" sortable/>
-                <Column field="salidadPrecio" header="Salida Precio" sortable/>
-                <Column field="salidaCantidad" header="Salida cantidad" sortable/>
-                <Column field="reajusteCantidad" header="Reajuste Cantidad" sortable/>
-                <Column field="reajustePrecio" header="Reajuste Precio" sortable/>
-                <Column field="saldoCantidad" header="Saldo cantidad" sortable/>
-                <Column field="saldoPrecio" header="Saldo precio" sortable/>
-                <Column body={dateRequisicion} header="Fecha requisición" sortable/>
+                <Column field="nombreUE" header="Ejecutor" sortable/>
+                <Column field="nombre" header="Solicitante" sortable/>
+                <Column field="correlativoUE" header="Correlativo" sortable/>
+                <Column body={dateSolicitud} header="Fecha de Solicitud" sortable/>
+                <Column field="telefonoExt" header="Teléfono / Extensión" sortable/>
+                <Column field="justificacion_Observacion" header="Justificación / Observación" sortable/>
+                <Column field="montoTotal" header="Monto Total" sortable/>
+                <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <DeKardexForm idk={idK} isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <PedidoForm isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }
 
-export default DeKardexList;
+export default PedidoList;

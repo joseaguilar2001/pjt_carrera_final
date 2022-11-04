@@ -11,6 +11,8 @@ import moment from "moment";
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
 
+    const [isVisibleButton, setIsVisibleButton] = useState(true);
+
     const {
         createLote,
         deleteLote,
@@ -35,7 +37,10 @@ const Form =(props) =>{
 
 
     useEffect(() => {
-        if (editLote) setLoteData(editLote);
+        if (editLote) {
+            setIsVisibleButton(false);
+            setLoteData(editLote);
+        }
     }, [editLote]);
 
     const updateField = (data, field) =>{
@@ -80,6 +85,7 @@ const Form =(props) =>{
     const clearSelected = () => {
         setIsVisible(false);
         setLoteData(inicialLotesState);
+        setIsVisibleButton(true);
     };
 
     return(<div>
@@ -110,7 +116,7 @@ const Form =(props) =>{
                     <Calendar
                         value={loteData.fechaCad && new Date(loteData.fechaCad + " ")}
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaCad")}
-                        dateFormat="mm-dd-yy"
+                        dateFormat="dd-mm-yy"
                     />
                     <label>Fecha Caducidad</label>
                 </div><br />
@@ -118,7 +124,7 @@ const Form =(props) =>{
                     <Calendar
                         value={loteData.fechaConPref && new Date(loteData.fechaConPref + " ")}
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaConPref")}
-                        dateFormat="mm-dd-yy"
+                        dateFormat="dd-mm-yy"
                     />
                     <label>Fecha consumo de preferencia </label>
                 </div><br />
@@ -129,12 +135,14 @@ const Form =(props) =>{
                     />
                     <label>Cantidad</label>
                 </div><br />
-                <div className="p-float-label">
+                <div className="p-float-label" visible={isVisibleButton}>
                     <InputNumber
                         value={loteData.existencia}
                         onChange={(e)=>updateField(e.value, "existencia")}
+                        locale="en-US"
+                        disabled={isVisibleButton}
                     />
-                    <label>Existencia</label>
+                    <label >Existencia</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
