@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class LoteService {
+export class DKardexService {
     url = "http://localhost:8080/detalleKardex/";
 
     create(dKardex){

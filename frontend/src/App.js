@@ -19,6 +19,8 @@ import Servicios from "./screens/ServiciosScreen";
 import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
 import Kardexs from "./screens/KardexsScreen";
+import DKardexs from "./screens/DKardexScreen";
+import Pedido from "./screens/PedidoScreen";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -86,6 +88,11 @@ const App = () => {
                 Kardex
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/pedido"} className="nav-link">
+                Pedido
+              </Link>
+            </li>
           <li className="nav-item">
             <Link to={"/usuarios"} className="nav-link">
               Usuario
@@ -145,6 +152,8 @@ const App = () => {
           <Route path="/solicitantes" element={<Solicitantes />} />
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
+          <Route path="/dkardex/:idK" element={<DKardexs />} />
+          <Route path="/pedido" element={<Pedido />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />

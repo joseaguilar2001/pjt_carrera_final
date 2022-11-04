@@ -4,7 +4,10 @@ const mysqlconexion = require('../db');
 
 
 router.get('/', (req, res) => {
-    mysqlconexion.query('Select * from pedidoDetalle',
+    mysqlconexion.query('SELECT d.id, d.idPedido, pe.correlativoUE AS pedido, d.idProducto, pro.nombre, codInsumo, d.fecha, d.cantidad, d.cantidadAutorizada, descripcion, renglonAfectado, valorEstimado, IncluidoPAAC, contratoAbierto'+
+	' FROM pedidodetalle as d'+
+    ' INNER JOIN pedido AS pe ON d.idPedido = pe.id'+
+    ' INNER JOIN producto AS pro ON d.idProducto = pro.id;',
         (error, rows, fields) => {
             if (!error) {
                 res.json(rows);
@@ -77,13 +80,31 @@ router.put('/:id', (req, res) => {
 
     mysqlconexion.query("UPDATE pedidoDetalle SET idPedido = ?, idProducto = ?, codInsumo = ?, fecha = ?, cantidad = ?, cantidadAutorizada = ?, descripcion = ?, renglonAfectado = ?, valorEstimado = ?, IncluidoPAAC = ?, contratoAbierto = ? WHERE id = ?", [idPedido, idProducto, codInsumo, fecha, cantidad, cantidadAutorizada, descripcion, renglonAfectado, valorEstimado, IncluidoPAAC, contratoAbierto, id], (error, rows, fields) => {
         if (!error) {
-            res.json({ status: "Se actualizo el servicio" });
+            res.json({ status: "Se actualizo el detallepedido" });
         } else {
             console.log(error);
         }
     });
 
 });
+
+//Actualizar Monto Pedido
+router.put('/encabezado/:id', (req, res) => {
+
+    const { montoTotal } = req.body;
+    const { id } = req.params;
+
+    mysqlconexion.query("UPDATE pedido SET montoTotal = montoTotal + ? where id = ?", 
+    [montoTotal, id], 
+    (error, rows, fields) => {
+        if (!error) {
+            res.json({ status: "Se actualizo el monto del pedido" });
+        } else {
+            console.log(error);
+        }
+    });
+
+})
 
 
 module.exports = router;

@@ -1,14 +1,14 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
-import { DKardexService } from "../services/DetalleKardex";
-import { LoteService} from "../services/ProductoService";
-import { KardexService } from "../services/PresentacionService";
+import { DKardexService } from "../services/DetalleKardexService";
+import { LoteService} from "../services/LoteService";
+import { KardexsService } from "../services/KardexsService";
 
 export const DKardexContext = createContext();
 
 const DeKardexContextProvider = (props)=>{
     const dKardexService = useMemo(() => new DKardexService(), []);
     const loteService = useMemo(() => new LoteService(), []);
-    const kardexService = useMemo(() => new KardexService(), []);
+    const kardexService = useMemo(() => new KardexsService(), []);
 
     const [dsKardex, setDsKardex] = useState([]);
     const [lote, setLote] = useState([]);
@@ -16,11 +16,11 @@ const DeKardexContextProvider = (props)=>{
 
     const [editDeKardex, setEditDeKardex] = useState(null);
 
-    useEffect(() => {
+    useEffect((i) => {
         dKardexService.readAll().then((data) => setDsKardex(data));
         loteService.readAll().then((data) => setLote(data));
         kardexService.readAll().then((data) => setKardex(data));
-    }, [dKardexService, dsKardex]);
+    }, [dKardexService, dsKardex, loteService, kardexService]);
 
     const createDeKardex =(lote)=>{
         dKardexService

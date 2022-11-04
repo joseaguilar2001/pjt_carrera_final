@@ -5,7 +5,7 @@ import "primeicons/primeicons.css";
 import LoteContextProvider from '../context/LoteContext';
 import LoteList from '../components/Lote/List';
 
-function PresentacionScreen (){
+function LoteScreen (){
     return (
         <div className='LoteScreen'>
             <LoteContextProvider>
@@ -15,4 +15,4 @@ function PresentacionScreen (){
     );
 }
 
-export default PresentacionScreen;
+export default LoteScreen;

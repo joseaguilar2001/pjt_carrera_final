@@ -9,12 +9,12 @@ import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
 
-import DeKardexForm from './Form';
-import { DKardexContext } from "../../context/DKardexContext";
+import DePedidoForm from './Form';
+import { DPedidoContext } from "../../context/DPedidoContext";
 
 
 const DeKardexList = () =>{
-    const {dsKardex, findDeKardex} = useContext(DKardexContext);
+    const {dsKardex, findDeKardex} = useContext(DPedidoContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -127,7 +127,7 @@ const DeKardexList = () =>{
             </DataTable>
             </div>
         </Panel>
-        <DeKardexForm idk={idK} isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <DePedidoForm idk={idK} isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }

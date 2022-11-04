@@ -4,7 +4,10 @@ const mysqlconexion = require('../db');
 
 
 router.get('/', (req, res) => {
-    mysqlconexion.query('Select * from pedido',
+    mysqlconexion.query('SELECT p.id, p.idUE, e.nombreUE, p.idSolicitante, s.nombre, correlativoUE, fechaSolicitud, telefonoExt, montoTotal, justificacion_Observacion, p.estado '+
+        'FROM pedido as p '+
+        'INNER JOIN ejecutores as e ON p.idUE = e.id '+
+        'INNER JOIN solicitante as s on p.idSolicitante = s.id;',
         (error, rows, fields) => {
             if (!error) {
                 res.json(rows);
