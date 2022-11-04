@@ -26,7 +26,7 @@ const ProductContextProvider = (props)=>{
             .then(()=>setPresentaciones(presentaciones.filter((p)=>p.id !== id)));
     };
     
-    const findPresentacion =(id)=>{
+    const findPresentacion = (id) => {
         const presentacion = presentaciones.find((p)=>p.id === id);
         setEditPresentacion(presentacion);
     };

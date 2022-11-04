@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
-
+import { Menubar } from 'primereact/menubar';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import 'primereact/resources/primereact.min.css';
@@ -22,12 +22,15 @@ import Kardexs from "./screens/KardexsScreen";
 import DKardexs from "./screens/DKardexScreen";
 import Pedido from "./screens/PedidoScreen";
 
+
+
+import Usuario from "./screens/UsuarioScreen";
+import Rol from "./screens/RolScreen";
+import Permisos from "./screens/PermisosScreen";
+
+
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
-import AddUser from "./components/Usuario/AddUser";
-import UsuarioList from "./components/Usuario/ListUser";
-import Usuario from "./components/Usuario/Usuario";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -46,11 +49,17 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser) {
-    } else {
+    if(currentUser){
+
+    }else {
+
     }
   }, [currentUser]);
+  const items = [{
+    label: "Home",
+    
 
+  }];
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -65,7 +74,7 @@ const App = () => {
           </li>
           <li className="nav-item">
             <Link to={"/lote"} className="nav-link">
-              Productos
+              Lote
             </Link>
           </li>
           <li className="nav-item">
@@ -99,8 +108,19 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={"/adduser"} className="nav-link">
-              Añadir
+            <Link to={"/permiso"} className="nav-link">
+              Permisos
+            </Link>
+          </li>
+
+
+
+
+
+
+          <li className="nav-item">
+            <Link to={"/rol"} className="nav-link">
+              Roles
             </Link>
           </li>
           {currentUser && (
@@ -157,9 +177,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/usuarios" element={<UsuarioList />} />
-          <Route path="/adduser" element={<AddUser />} />
-          <Route path="/usuarios/:id" element={<Usuario />} />
+          <Route path="/usuarios" element={<Usuario />} />
+          <Route path="/permiso" element={<Permisos />} />
+          <Route path="/rol" element={<Rol />} />
         </Routes>
       </div>
 
