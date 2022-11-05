@@ -10,7 +10,7 @@ export class AuditoriaService {
         return axios.get(this.url).then(res=> res.data);
     }
     update(auditoria){
-        return axios.put(this.url+dKardex.id, auditoria).then(res=> res.data);
+        return axios.put(this.url+auditoria.id, auditoria).then(res=> res.data);
     }
     delete(id){
         return axios.delete(this.url+id).then(res=> res.data);

@@ -35,9 +35,9 @@ const ProductContextProvider = (props)=>{
 
     const updateAuditoria =(auditoria)=>{
         auditoriaService
-        .update(producto)
+        .update(auditoria)
         .then((data)=>
-            setAuditoria(
+            setAuditorias(
                 auditoria.map((p)=>(p.id === auditoria.id ? data: auditoria))
             )
         );
