@@ -5,7 +5,7 @@ import "primeicons/primeicons.css";
 import DeKardexContextProvider from '../context/DKardexContext';
 import DeKardexList from '../components/DetalleKardex/List';
 
-function DKardexScreen (){
+function DeKardexScreen (){
     return (
         <div className='DetalleKardexScreen'>
             <DeKardexContextProvider>
@@ -15,4 +15,4 @@ function DKardexScreen (){
     );
 }
 
-export default DKardexScreen;
+export default DeKardexScreen;

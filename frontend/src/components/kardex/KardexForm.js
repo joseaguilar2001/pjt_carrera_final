@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { KardexContext } from "../../context/KardexsContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -8,7 +9,7 @@ import {InputText} from "primereact/inputtext";
 
 const KardexForm =(props) =>{
     const {isVisible, setIsVisible} = props;
-
+    const [isVisibleButton, setIsVisibleButton] = useState(false);
     const {
         createKardex,
         deleteKardex,
@@ -28,7 +29,11 @@ const KardexForm =(props) =>{
     const [kardexData, setKardexData] = useState(inicialKardexsState);
 
     useEffect(() => {
-        if (editKardex) setKardexData(editKardex);
+        if (editKardex) 
+        {
+            setIsVisibleButton(true);
+            setKardexData(editKardex);
+        }
     }, [editKardex]);
 
     const updateField = (data, field) =>{
@@ -39,7 +44,7 @@ const KardexForm =(props) =>{
         console.log(kardexData);
     };
 
-    const saveProducto = () => {
+    const saveKardex = () => {
         if (!editKardex) {
             createKardex(kardexData);
         } else {
@@ -49,7 +54,7 @@ const KardexForm =(props) =>{
         setIsVisible(false);
     };
 
-    const _deleteProducto = () => {
+    const _deleteKardex = () => {
         if (editKardex) {
             deleteKardex(kardexData.id);
             setKardexData(inicialKardexsState);
@@ -57,20 +62,29 @@ const KardexForm =(props) =>{
         setIsVisible(false);
     };
 
+    //Navegacion
+    const navigate = useNavigate();
+    function linkDeKardex (){
+        navigate(`/dkardex/${kardexData.id}`)
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Eliminar" icon="pi pi-times"
-                onClick={_deleteProducto}/>
+                onClick={_deleteKardex}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
-                onClick={saveProducto}/>
+                onClick={saveKardex}/>
+            <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
+                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkDeKardex}/>
         </div>
     );
 
     const clearSelected = () => {
         setIsVisible(false);
         setKardexData(inicialKardexsState);
+        setIsVisibleButton(false);
     };
 
     return(<div>

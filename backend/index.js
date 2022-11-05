@@ -20,6 +20,7 @@ var ingresoRoute = require('./routes/ingreso');
 var requisicionRoute = require('./routes/requisicion');
 const cookieSession = require("cookie-session");
 var dRequisicionRoute = require('./routes/detalleRequisicion');
+var auditoriaRoute = require('./routes/auditoria');
 //var index = require('./routes/index');
 
 app.set('port', process.env.PORT || 8080);
@@ -62,6 +63,7 @@ app.use('/permisos', permisosRoute);
 app.use('/ingreso', ingresoRoute);
 app.use('/requisicion', requisicionRoute);
 app.use('/detalleRequisicion', dRequisicionRoute);
+app.use('/auditoria', auditoriaRoute)
 //app.use('/index', index);
 
 app.listen(app.get('port'), () => {

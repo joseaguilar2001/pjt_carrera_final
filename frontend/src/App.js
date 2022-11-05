@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation} from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import 'primereact/resources/primereact.min.css';
@@ -19,12 +20,16 @@ import Servicios from "./screens/ServiciosScreen";
 import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
 import Kardexs from "./screens/KardexsScreen";
-import DKardexScreen from "./screens/DKardexScreen";
 
 import Usuario from "./screens/UsuarioScreen";
 import Rol from "./screens/RolScreen";
 import Permisos from "./screens/PermisosScreen";
 
+import Pedido from "./screens/PedidoScreen";
+import DKardexScreen from "./screens/DKardexScreen";
+
+import Auditoria from "./screens/AuditoriaScreen";
+import DKardexs from "./screens/DKardexScreen";
 import ReactFinalFormDemo from "./components/Register";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -50,6 +55,7 @@ const App = () => {
 
     }
   }, [currentUser]);
+
 
   return (
     <div>
@@ -91,9 +97,19 @@ const App = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link to={"/auditoria"} className="nav-link">
+                Auditoria
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to={"/kardex"} className="nav-link">
               <i class="fa-sharp fa-solid fa-cart-shopping"></i>
                 Kardex
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/pedido"} className="nav-link">
+                Pedido
               </Link>
             </li>
           <li className="nav-item">
@@ -160,9 +176,12 @@ const App = () => {
           <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/servicios" element={<Servicios />} />
+          <Route path="/auditoria" element={<Auditoria />} />
           <Route path="/solicitantes" element={<Solicitantes />} />
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
+          <Route path="/dkardex/:idK" element={<DKardexs />} />
+          <Route path="/pedido" element={<Pedido />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />
