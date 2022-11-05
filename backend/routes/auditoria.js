@@ -4,7 +4,7 @@ const mysqlconexion = require('../db');
 
 
 router.get('/', (req, res) => {
-    mysqlconexion.query(' Select count(*) as no, producto.nombre, presentacion.presentacion, producto.unidadMedida, lotes.fechaCad, lotes.correlativo as lote, kardex.correlativo as kardex, lotes.cantidad, lotes.precioUnitario, SUM(lotes.cantidad * lotes.precioUnitario) as total from producto inner join presentacion on producto.id = presentacion.id inner join lotes on lotes.idProducto = producto.id inner join kardex on kardex.id = producto.id;',
+    mysqlconexion.query('SELECT ROW_NUMBER() OVER(ORDER BY pro.nombre) AS no, pro.nombre, pre.presentacion, pro.unidadMedida, l.fechaCad, l.correlativo as lote, k.correlativo as kardex, l.cantidad, l.precioUnitario, SUM(l.cantidad * l.precioUnitario) as total FROM lotes as l INNER JOIN producto as pro on l.idProducto = pro.id INNER JOIN presentacion as pre on l.idPresentacion = pre.id INNER JOIN detallekardex as de on l.id = de.idLote INNER JOIN kardex as k on k.id = de.idKardex;',
         (error, rows, fields) => {
             if (!error) {
                 res.json(rows);

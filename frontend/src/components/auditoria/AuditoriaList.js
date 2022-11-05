@@ -68,7 +68,7 @@ const AuditoriaList = () =>{
                 <Column field="nombre" header="Descripcion" sortable/>
                 <Column field="presentacion" header="Presentacion" sortable/>
                 <Column field="unidadMedida" header="Unidad de Medida" sortable/>
-                <Column field="fechCad" header="Fecha de Caducidad" sortable/>
+                <Column field="fechaCad" header="Fecha de Caducidad" sortable/>
                 <Column field="lote" header="No. De Lote" sortable/>
                 <Column field="kardex" header="No. De Tarjeta Kardex" sortable/>
                 <Column field="cantidad" header="Cantidad" sortable/>
