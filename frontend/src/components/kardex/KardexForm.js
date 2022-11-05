@@ -64,7 +64,7 @@ const KardexForm =(props) =>{
 
     //Navegacion
     const navigate = useNavigate();
-    function linkPresentacion (){
+    function linkDeKardex (){
         navigate(`/dkardex/${kardexData.id}`)
     }
 
@@ -77,7 +77,7 @@ const KardexForm =(props) =>{
                 label="Guardar" icon="pi pi-check"
                 onClick={saveKardex}/>
             <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
-                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkPresentacion}/>
+                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkDeKardex}/>
         </div>
     );
 
