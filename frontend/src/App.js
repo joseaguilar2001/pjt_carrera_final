@@ -1,17 +1,17 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
-import { Menubar } from 'primereact/menubar';
+import { Routes, Route, Link, useLocation} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
+
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 import Login from "./components/Login";
-import Register from "./components/Register";
+
 import Home from "./components/Home";
 import Profile from "./components/Profile";
-
 import Presentacion from "./screens/PresentacionScreen";
 import Producto from "./screens/ProductoScreen";
 import Lote from "./screens/LoteScreen";
@@ -19,23 +19,20 @@ import Servicios from "./screens/ServiciosScreen";
 import Ejecutores from "./screens/EjecutoresScreen";
 import Solicitantes from "./screens/SolicitantesScreen";
 import Kardexs from "./screens/KardexsScreen";
-
-
+import DKardexScreen from "./screens/DKardexScreen";
 
 import Usuario from "./screens/UsuarioScreen";
 import Rol from "./screens/RolScreen";
 import Permisos from "./screens/PermisosScreen";
 
-
+import ReactFinalFormDemo from "./components/Register";
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
   let location = useLocation();
-
   useEffect(() => {
     if (["/login", "/register"].includes(location.pathname)) {
       dispatch(clearMessage()); // clear message when changing location
@@ -53,45 +50,49 @@ const App = () => {
 
     }
   }, [currentUser]);
-  const items = [{
-    label: "Home",
-    
 
-  }];
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <Navbar bg="white" expand="lg">
+        <Container>
         <Link to={"/"} className="navbar-brand">
+        <i class="fa fa-solid fa-hospital"></i>
           Hospital
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to={"/home"} className="nav-link">
+            <i class="fa fa-fw fa-home"></i>
               Inicio
             </Link>
           </li>
           <li className="nav-item">
             <Link to={"/lote"} className="nav-link">
+            <i class="fa-regular fa-truck-fast"></i>
               Lote
             </Link>
           </li>
           <li className="nav-item">
               <Link to={"/servicios"} className="nav-link">
+              <i class="fa-sharp fa-solid fa-plane"></i>
                 Servicios
               </Link>
             </li>
             <li className="nav-item">
               <Link to={"/solicitantes"} className="nav-link">
+              <i class="fa-sharp fa-solid fa-paper-plane-top"></i>
                 Solicitantes
               </Link>
             </li>
             <li className="nav-item">
               <Link to={"/ejecutores"} className="nav-link">
+               
                 Ejecutores
               </Link>
             </li>
             <li className="nav-item">
               <Link to={"/kardex"} className="nav-link">
+              <i class="fa-sharp fa-solid fa-cart-shopping"></i>
                 Kardex
               </Link>
             </li>
@@ -105,12 +106,6 @@ const App = () => {
               Permisos
             </Link>
           </li>
-
-
-
-
-
-
           <li className="nav-item">
             <Link to={"/rol"} className="nav-link">
               Roles
@@ -141,24 +136,27 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/login"} className="nav-link">
+              <i class="fa fa-fw fa-user"></i>
                 Login
               </Link>
             </li>
 
             <li className="nav-item">
+            <i class="fa-sharp fa-solid fa-user-vneck"></i>
               <Link to={"/register"} className="nav-link">
+              <i class="fa fa-light fa-user"></i>
                 Sign Up
               </Link>
             </li>
           </div>
         )}
-      </nav>
-
+        </Container>
+        </Navbar> 
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Login />} />
-          <Route exact path="/producto" element={<Producto />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/servicios" element={<Servicios />} />
@@ -166,11 +164,12 @@ const App = () => {
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />
           <Route path="/permiso" element={<Permisos />} />
           <Route path="/rol" element={<Rol />} />
+          <Route path="/dkardex" element={<DKardexScreen />} />
+          <Route path="/register" element={<ReactFinalFormDemo />} />
         </Routes>
       </div>
 

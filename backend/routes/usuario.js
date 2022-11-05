@@ -41,7 +41,10 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT * FROM usuario WHERE email = ?", [email], async function(error, results, fields){
+    mysql.query("SELECT u.id, r.nombre, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
+    + " INNER JOIN rol r " 
+    + "ON u.idRol  = r.id "
+    + "WHERE u.email = ?; ", [email], async function(error, results, fields){
         if (error) {        
                 res.send({          
                 code:400,          
@@ -54,7 +57,7 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                 if(comparison){
                     const user = {
                         id: results[0].id,
-                        idRol: results[0].idRol,
+                        rol: results[0].rol,
                         nombre: results[0].nombre,
                         email: results[0].email,
                         nroCelular: results[0].nroCelular,
@@ -67,7 +70,7 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         code:200,
                         success:"login successful",
                         id: results[0].id,
-                        idRol: results[0].idRol,
+                        rol: results[0].idRol,
                         nombre: results[0].nombre,
                         email: results[0].email,
                         nroCelular: results[0].nroCelular,

@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { DKardexService } from "../services/DetalleKardex";
 import { LoteService} from "../services/ProductoService";
-import { KardexService } from "../services/PresentacionService";
+import { KardexService } from "../services/KardexsService";
 
 export const DKardexContext = createContext();
 
@@ -20,7 +20,7 @@ const DeKardexContextProvider = (props)=>{
         dKardexService.readAll().then((data) => setDsKardex(data));
         loteService.readAll().then((data) => setLote(data));
         kardexService.readAll().then((data) => setKardex(data));
-    }, [dKardexService, dsKardex]);
+    }, [dKardexService, dsKardex, kardexService, loteService]);
 
     const createDeKardex =(lote)=>{
         dKardexService
