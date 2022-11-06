@@ -21,11 +21,18 @@ const DeKardexList = () =>{
     const navigate = useNavigate();
     const { idK } = useParams();
 
+    let cont=0;
+
+    const numero =  () => {
+        cont = parseInt(cont) + 1;
+        return cont;
+    }
+
     const datefecha = (dkardexs) => {
-        return moment(dkardexs.fecha).format("L");
+        return moment(dkardexs.fecha).format("DD/MM/YYYY");
     }
     const dateRequisicion = (dkardexs) => {
-        return moment(dkardexs.fechaRequisicion).format("L");
+        return moment(dkardexs.fechaRequisicion).format("DD/MM/YYYY");
     }
 
     const saveDkardex = (id) => {
@@ -49,7 +56,7 @@ const DeKardexList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Kardex" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkKardex}/>
+                <Button label="Regresar a Kardex" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkKardex}/>
             </React.Fragment>
         )
     }
@@ -109,7 +116,7 @@ const DeKardexList = () =>{
                 'salidaCantidad', 'reajusteCantidad', 'reajustePrecio', 'saldoCantidad', 'saldoPrecio', dateRequisicion]} 
                 header={header1} emptyMessage="No se encontraron detalles de kardex."
                 >
-                <Column field="id" header="No." sortable/>
+                <Column body={numero} header="No." sortable/>
                 <Column field="KardexCorrelativo" header="Kardex" sortable/>
                 <Column field="LoteCorrelativo" header="Lote" sortable/>
                 <Column body={datefecha} header="Fecha" sortable/>

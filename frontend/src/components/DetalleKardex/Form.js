@@ -129,6 +129,7 @@ const Form =(props) =>{
                     <InputNumber
                         value={dKardexData.entradaCantidad}
                         onChange={(e)=>updateField(e.value, "entradaCantidad")}
+                        locale="en-US"
                     />
                     <label>Entrada Cantidad</label>
                 </div><br />
@@ -144,6 +145,7 @@ const Form =(props) =>{
                     <InputNumber
                         value={dKardexData.salidaCantidad}
                         onChange={(e)=>updateField(e.value, "salidaCantidad")}
+                        locale="en-US"
                     />
                     <label>Salida Cantidad</label>
                 </div><br />
@@ -159,6 +161,7 @@ const Form =(props) =>{
                     <InputNumber
                         value={dKardexData.saldoCantidad}
                         onChange={(e)=>updateField(e.value, "saldoCantidad")}
+                        locale="en-US"
                     />
                     <label>Saldo Cantidad</label>
                 </div><br />
@@ -174,6 +177,7 @@ const Form =(props) =>{
                     <InputNumber
                         value={dKardexData.reajusteCantidad}
                         onChange={(e)=>updateField(e.value, "reajusteCantidad")}
+                        locale="en-US"
                     />
                     <label>Reajuste Cantidad</label>
                 </div><br />

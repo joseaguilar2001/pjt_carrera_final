@@ -5,7 +5,7 @@ import "primeicons/primeicons.css";
 import DePedidoContextProvider from '../context/DPedidoContext';
 import DePedidoList from '../components/DetallePedido/List';
 
-function DePedidoScreen (){
+function DPedidoScreen (){
     return (
         <div className='DetalleKardexScreen'>
             <DePedidoContextProvider>
@@ -15,4 +15,4 @@ function DePedidoScreen (){
     );
 }
 
-export default DePedidoScreen;
+export default DPedidoScreen;

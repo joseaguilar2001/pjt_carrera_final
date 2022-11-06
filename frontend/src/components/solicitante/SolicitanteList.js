@@ -6,7 +6,9 @@ import {Column} from 'primereact/column';
 import SolicitanteForm from './SolicitanteForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
+import { Toolbar } from 'primereact/toolbar';
+import { useNavigate } from "react-router-dom";
 
 const SolicitanteList = () =>{
     const {solicitantes, findSolicitante} = useContext(SolicitanteContext);
@@ -22,14 +24,38 @@ const SolicitanteList = () =>{
         setIsVisible(true);
     };
 
+    const leftToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Solicitante" 
+                onClick={()=>setIsVisible(true)}/>
+            </React.Fragment>
+        )
+    }
+
+    const navigate = useNavigate();
+    function linkRequisicion (){
+        navigate('/requisicion')
+    }
+    function linkPedido (){
+        navigate('/pedido')
+    }
+
+    const rightToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkRequisicion}/>
+                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
+            </React.Fragment>
+        )
+    }
+
     //Filtro
     const [filters1, setFilters1] = useState(null);
     const [globalFilterValue1, setGlobalFilterValue1] = useState('');
     const initFilters1 = () => {
         setFilters1({
-            'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
-            'nombre': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            //'estado':  { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
+            'global': { value: null, matchMode: FilterMatchMode.CONTAINS }
         });
         setGlobalFilterValue1('');
     }
@@ -61,11 +87,7 @@ const SolicitanteList = () =>{
     const header1 = renderHeader1();
     return(
         <div>
-        <div className="flex flex-column md:flex-row justify-content-between">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Solicitante" 
-                onClick={()=>setIsVisible(true)}/>
-        </div>
-        
+        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
             header="Listado de solicitantes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
