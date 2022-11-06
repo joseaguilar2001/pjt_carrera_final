@@ -5,13 +5,14 @@ import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown';
+import { useSelector } from "react-redux";
 
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
 
     const [isVisibleButton, setIsVisibleButton] = useState(false);
 
-    const idU = 1;
+    const { user: currentUser } = useSelector((state) => state.auth);
     const {
         createRequisicion,
         deleteRequisicion,
@@ -23,7 +24,7 @@ const Form =(props) =>{
     
     const inicialRequisicionesState ={
         id:null,
-        idUsuarioEncargado: idU,
+        idUsuarioEncargado: currentUser.id,
         idServicio: 0,
         idSolicitante: 0,
         aprobado: 0,
