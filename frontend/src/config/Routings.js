@@ -3,13 +3,15 @@ import Index from "../screens/Index";
 const KARDEX = {
     component: Index.Kardex,
     path: "/kardex",
-    isPrivate: true
+    isPrivate: true,
+    isRol: "DG",
 }
 
 const EJECUTORES = {
     component: Index.Ejecutores,
     path: "/ejecutores",
-    isPrivate: true
+    isPrivate: true,
+    isRol: 2,
 }
 
 const DKARDEX = {

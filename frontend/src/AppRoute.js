@@ -2,7 +2,8 @@ import React, { useEffect} from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function AppRoute({    component: Component,
+export default function AppRoute({ 
+    component: Component,
     path, 
     isPrivate, 
     ...props

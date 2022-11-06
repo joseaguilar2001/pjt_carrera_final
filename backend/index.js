@@ -21,6 +21,7 @@ var requisicionRoute = require('./routes/requisicion');
 const cookieSession = require("cookie-session");
 var dRequisicionRoute = require('./routes/detalleRequisicion');
 var auditoriaRoute = require('./routes/auditoria');
+const vistas = require('./routes/vistas');
 //var index = require('./routes/index');
 
 app.set('port', process.env.PORT || 8080);
@@ -64,6 +65,7 @@ app.use('/ingreso', ingresoRoute);
 app.use('/requisicion', requisicionRoute);
 app.use('/detalleRequisicion', dRequisicionRoute);
 app.use('/auditoria', auditoriaRoute)
+app.use('/vistas', vistas);
 //app.use('/index', index);
 
 app.listen(app.get('port'), () => {

@@ -10,7 +10,8 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { useDispatch } from "react-redux";
 import { register } from '../actions/auth';
-
+import emailjs from 'emailjs-co';
+import ApiKey from '../ApiKey';
 const ReactFinalFormDemo = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
@@ -44,11 +45,37 @@ const ReactFinalFormDemo = () => {
     };
 
     const onSubmit = (data, form) => {
-        
+        const email = {
+            message: `Es un placer anunciarle que el 
+            dia de hoy ${Date.now()} se creo un nuevo, 
+            con el email ${data.email}, para que observer
+            si el usuario necesita tener un rol.`
+        }
+        const email2 = {
+            to_email: data.email,
+            to_name: data.nombre,
+            message: `Es un placer anunciarle que se creo 
+            su usuario, por el momento no tiene un rol definido
+            por tal motivo solo corre como un usuario, le 
+            solicitamos que espere para que se le otorgue un
+            rol.`
+        }
         setFormData(data);
 
         dispatch(register(null, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
         .then(() => {
+            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
+            .then((reponse) => {
+                console.log("Enviado con exito");
+            },(error) => {
+                console.log("Error");
+            });
+            emailjs.send(ApiKey.SERVICE_ID, 'template_qu7hag2' , email2, ApiKey.USER_ID)
+            .then((reponse) => {
+                console.log("Enviado con exito");
+            },(error) => {
+                console.log("Error");
+            });
             setShowMessage(true);
             navigate("/login");
             window.location.reload();

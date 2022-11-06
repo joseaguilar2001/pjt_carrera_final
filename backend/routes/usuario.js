@@ -143,17 +143,6 @@ router.get('/:id', expressAsyncHandler(async(req, res) => {
     })
 }));
 
-router.get('/:nombre', expressAsyncHandler(async(req, res) => {
-    const { nombre } = req.params; 
-    mysql.query('SELECT * FROM usuario WHERE nombre like % ? %', [nombre] ,async (error, rows, fields) => {
-        if(error){
-            res.send({message: "Error"});
-        } else {
-            res.json(rows[0]);
-        }
-    })
-}));
-
 router.put('/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
     const password = req.body.password;    
