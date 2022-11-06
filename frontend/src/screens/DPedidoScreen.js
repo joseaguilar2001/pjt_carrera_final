@@ -7,7 +7,7 @@ import DePedidoList from '../components/DetallePedido/List';
 
 function DPedidoScreen (){
     return (
-        <div className='DetalleKardexScreen'>
+        <div className='DetallePedidoScreen'>
             <DePedidoContextProvider>
                 <DePedidoList />
             </DePedidoContextProvider>

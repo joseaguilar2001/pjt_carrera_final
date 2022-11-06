@@ -22,6 +22,7 @@ import Kardexs from "./screens/KardexsScreen";
 import DKardexs from "./screens/DKardexScreen";
 import Pedido from "./screens/PedidoScreen";
 import DPedido from "./screens/DPedidoScreen";
+import Requisicion from "./screens/RequisicionScreen";
 import Auditoria from "./screens/AuditoriaScreen";
 
 
@@ -96,6 +97,11 @@ const App = () => {
                 Pedido
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/requisicion"} className="nav-link">
+                Requisicion
+              </Link>
+            </li>
           <li className="nav-item">
             <Link to={"/usuarios"} className="nav-link">
               Usuario
@@ -164,6 +170,7 @@ const App = () => {
           <Route path="/dkardex/:idK" element={<DKardexs />} />
           <Route path="/pedido" element={<Pedido />} />
           <Route path="/pedido/:idP" element={<DPedido />} />
+          <Route path="/requisicion" element={<Requisicion />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
