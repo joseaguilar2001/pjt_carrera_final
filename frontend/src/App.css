@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: white;
 }
 
 .App-logo {
@@ -14,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #1c3f86;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -60,50 +61,85 @@ label {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
+
+.about-container {
+  display: flex;
+  background-color: white;
+  color: black;
+  height: 70vh;
+  padding: 100px 0 100px 0;
 }
 
-.list {
-  text-align: left;
-  max-width: 750px;
-  margin: auto;
+.about-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 55%;
+  padding: 0 100px 0 100px;
 }
 
-.submit-form {
-  max-width: 300px;
-  margin: auto;
+.about-desc > h3 {
+  margin-bottom: 30px;
+  font-size: 28px;
 }
 
-.edit-form {
-  max-width: 300px;
-  margin: auto;
+.about-desc > p {
+  line-height: 1.5;
 }
 
-.activo{
-  border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-  background-color: rgb(143, 252, 143);
-  color: green;
+.about-img {
+  width: 45%;
+  display: flex;
+  align-self: center;
+  overflow: hidden;
 }
 
-.inactivo{
-  border-radius: 2px;
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
-  background-color: rgb(253, 193, 193);
-  color: red;
+@media only screen and (max-width: 960px) {
+  .about-container {
+    flex-direction: column;
+    padding: 0;
+    height: auto;
+  }
+
+  .about-desc {
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 20px 50px 20px;
+  }
+
+  .about-desc > h3 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .about-img {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+
+  .about-img > img {
+    width: 100%;
+  }
+}
+/* FormDemo.css */
+
+.form-demo .card {
+  min-width: 450px;
+}
+.form-demo .card form {
+  margin-top: 2rem;
+}
+.form-demo .card .field {
+  margin-bottom: 1.5rem;
+}
+@media screen and (max-width: 960px) {
+  .form-demo .card {
+      width: 80%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .form-demo .card {
+      width: 100%;
+      min-width: 0;
+  }
 }
