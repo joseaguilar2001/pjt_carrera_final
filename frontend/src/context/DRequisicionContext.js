@@ -28,6 +28,12 @@ const DeRequisicionContextProvider = (props)=>{
             .then((data)=>setDsRequisicion([...dsRequisicion, data]));
     };
 
+    const createSolicitudDeRequisicion =(deRequisicion)=>{
+        dRequisicionService
+            .createSolicitud(deRequisicion)
+            .then((data)=>setDsRequisicion([...dsRequisicion, data]));
+    };
+
     const deleteDeRequisicion =(id)=>{
         dRequisicionService
             .delete(id)
@@ -49,13 +55,27 @@ const DeRequisicionContextProvider = (props)=>{
         );
         setEditDeRequisicion(null);
     };
+
+    const updateSolicitudDeRequisicion =(drequisicion)=>{
+        dRequisicionService
+        .updateSolicitud(drequisicion)
+        .then((data)=>
+            setDsRequisicion(
+                drequisicion.map((p)=>(p.id === drequisicion.id ? data: drequisicion))
+            )
+        );
+        setEditDeRequisicion(null);
+    };
+
     return(
         <DRequisicionContext.Provider 
             value={{
                 createDeRequisicion,
+                createSolicitudDeRequisicion,
                 deleteDeRequisicion,
                 findDeRequisicion,
                 updateDeRequisicion,
+                updateSolicitudDeRequisicion,
                 editDeRequisicion,
                 dsRequisicion,
                 lote,

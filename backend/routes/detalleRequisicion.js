@@ -6,9 +6,9 @@ const mysqlconexion = require('../db');
 router.get('/',(req,res)=>{
     mysqlconexion.query('SELECT d.id, d.idLote, l.correlativo as Lote, d.idProducto, p.nombre as Producto, d.idRequisicion as Requisicion, d.descripcion, d.cantidad, cantidaDespachada, d.precioUnitario, precioTotal '+
 	'FROM requisiciondetalle as d '+
-    'INNER JOIN lotes as l ON d.idLote = l.id '+
+    'LEFT JOIN lotes as l ON d.idLote = l.id '+
     'INNER JOIN requisicion as r ON d.idRequisicion = r.id '+
-    'INNER JOIN producto as p on p.id = d.idProducto;',
+    'LEFT JOIN producto as p on d.idProducto = p.id;',
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);
@@ -57,6 +57,28 @@ router.post('/', (req,res)=>{
     })
 });
 
+
+router.post('/solicitud/', (req,res)=>{
+    const requisiciondetalle = {
+        producto: req.body.idProducto,
+        requisicion: req.body.idRequisicion,
+        descripcion: req.body.descripcion,
+        cantidad: req.body.cantidad,
+    };
+    mysqlconexion.query(
+        `INSERT INTO requisiciondetalle(idProducto, idRequisicion, descripcion, cantidad) VALUES (?, ?, ?, ?)`,
+        [requisiciondetalle.producto, requisiciondetalle.requisicion, requisiciondetalle.descripcion, requisiciondetalle.cantidad], 
+        (error,rows,fields)=>{
+            if(!error){
+                res.json(rows);
+                console.log('Enviado');
+            }
+            else{
+                console.log(error);
+            }
+    })
+});
+
 //put
 router.put('/:id', (req,res)=>{
     const {id} = req.params;
@@ -69,8 +91,28 @@ router.put('/:id', (req,res)=>{
         precioUnitario: req.body.precioUnitario,
         precioTotal: req.body.precioTotal
     };
-    mysqlconexion.query(`UPDATE requisiciondetalle SET idLote=?, idRequisicion=?,  descripcion=?, cantidad=?, cantidaDespachada=?, precioUnitario=?, precioTotal=? WHERE id=?`,
+    mysqlconexion.query(`UPDATE requisiciondetalle SET idLote=?, idRequisicion=?, descripcion=?, cantidad=?, cantidaDespachada=?, precioUnitario=?, precioTotal=? WHERE id=?`,
         [requisiciondetalle.lote, requisiciondetalle.requisicion, requisiciondetalle.descripcion, requisiciondetalle.cantidad, requisiciondetalle.cantidadDespachada, requisiciondetalle.precioUnitario, requisiciondetalle.precioTotal, id], 
+        (error,rows,fields)=>{
+            if(!error){
+                res.json(rows);
+                console.log('Se ha actualizado');
+            }
+            else{
+                console.log(error);
+            }
+    })
+});
+
+router.put('/solicitud/:id', (req,res)=>{
+    const {id} = req.params;
+    const requisiciondetalle = {
+        producto: req.body.idProducto,
+        descripcion: req.body.descripcion,
+        cantidad: req.body.cantidad,
+    };
+    mysqlconexion.query(`UPDATE requisiciondetalle SET idProducto=?, descripcion=?, cantidad=? WHERE id=?`,
+        [requisiciondetalle.producto, requisiciondetalle.descripcion, requisiciondetalle.cantidad, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);

@@ -10,10 +10,10 @@ import { DRequisicionContext } from "../../context/DRequisicionContext";
 const Form =(props) =>{
     const {idr, isVisible, setIsVisible} = props;
     const {
-        createDeRequisicion,
+        createSolicitudDeRequisicion,
         deleteDeRequisicion,
         editDeRequisicion,
-        updateDeRequisicion,
+        updateSolicitudDeRequisicion,
         producto
     } = useContext(DRequisicionContext);
     
@@ -44,9 +44,9 @@ const Form =(props) =>{
 
     const saveDRequisicion = () => {
         if (!editDeRequisicion) {
-            createDeRequisicion(dRequisicionData);
+            createSolicitudDeRequisicion(dRequisicionData);
         } else {
-            updateDeRequisicion(dRequisicionData);
+            updateSolicitudDeRequisicion(dRequisicionData);
         }
         setdRequisicionData(inicialDRequisicionState);
         setIsVisible(false);
