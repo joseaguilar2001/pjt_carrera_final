@@ -16,6 +16,7 @@ const DeRequisicionList = () =>{
     const {dsRequisicion, findDeRequisicion} = useContext(DRequisicionContext);
 
     const [isVisible, setIsVisible] = useState(false);
+    const [isVisibleF2, setisVisibleF2] = useState(false);
 
     const { idR } = useParams();
 
@@ -117,6 +118,7 @@ const DeRequisicionList = () =>{
                 >
                 <Column body={numero} header="No." sortable/>
                 <Column field="Requisicion" header="Requisición" sortable/>
+                <Column field="Producto" header="Producto" sortable/>
                 <Column field="Lote" header="Lote" sortable/>
                 <Column field="descripcion" header="Descripción" sortable/>
                 <Column field="cantidad" header="Cantidad solicitada" sortable/>
@@ -126,8 +128,7 @@ const DeRequisicionList = () =>{
             </DataTable>
             </div>
         </Panel>
-        {//<DeRequisicionForm idk={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
-}
+        <DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }

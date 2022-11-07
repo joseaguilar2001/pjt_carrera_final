@@ -170,7 +170,7 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
-         <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
