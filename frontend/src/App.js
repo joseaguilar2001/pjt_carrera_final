@@ -24,6 +24,7 @@ import DKardexs from "./screens/DKardexScreen";
 import Pedido from "./screens/PedidoScreen";
 import DPedido from "./screens/DPedidoScreen";
 import Requisicion from "./screens/RequisicionScreen";
+import DRequisicion from "./screens/DRequisicionScreen";
 import Auditoria from "./screens/AuditoriaScreen";
 
 
@@ -83,12 +84,6 @@ const App = () => {
               Lote
             </Link>
           </li>
-          <li className="nav-item">
-              <Link to={"/servicios"} className="nav-link">
-              <i class="fa-sharp fa-solid fa-plane"></i>
-                Servicios
-              </Link>
-            </li>
             <li className="nav-item">
               <Link to={"/auditoria"} className="nav-link">
                 Auditoria
@@ -183,6 +178,8 @@ const App = () => {
           <Route path="/pedido" element={<Pedido />} />
           <Route path="/pedido/:idP" element={<DPedido />} />
           <Route path="/requisicion" element={<Requisicion />} />
+          <Route path="/requisicion/:idR" element={<DRequisicion />} />
+          <Route path="/requisicionreporte/:idR" element={<DRequisicion />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />
