@@ -4,27 +4,44 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import 'primereact/resources/primereact.min.css';
+//import Navigation from "./components/MenuBar/Navigate";
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 import Login from "./components/Login";
-import Register from "./components/Register";
+
 import Home from "./components/Home";
 import Profile from "./components/Profile";
-
 import Presentacion from "./screens/PresentacionScreen";
+import Producto from "./screens/ProductoScreen";
+import Lote from "./screens/LoteScreen";
+import Servicios from "./screens/ServiciosScreen";
+import Ejecutores from "./screens/EjecutoresScreen";
+import Solicitantes from "./screens/SolicitantesScreen";
+import Kardexs from "./screens/KardexsScreen";
+import DKardexs from "./screens/DKardexScreen";
+import Pedido from "./screens/PedidoScreen";
+import DPedido from "./screens/DPedidoScreen";
+import Requisicion from "./screens/RequisicionScreen";
+import DRequisicion from "./screens/DRequisicionScreen";
+import Auditoria from "./screens/AuditoriaScreen";
+
+
+import Usuario from "./screens/UsuarioScreen";
+import Rol from "./screens/RolScreen";
+import Permisos from "./screens/PermisosScreen";
+
+import ReactFinalFormDemo from "./components/Register"; 
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-
-import AddUser from "./components/Usuario/AddUser";
-import UsuarioList from "./components/Usuario/ListUser";
-import Usuario from "./components/Usuario/Usuario";
-
+/*import AppRoute from "./AppRoute";
+import routes from "./config/Routings";*/
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
   let location = useLocation();
-
   useEffect(() => {
     if (["/login", "/register"].includes(location.pathname)) {
       dispatch(clearMessage()); // clear message when changing location
@@ -36,26 +53,56 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (currentUser) {
-    } else {
+    if(currentUser){
+
+    }else {
+
     }
   }, [currentUser]);
 
+
   return (
-    <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+    <div className="App">
+      {//<Navigation />
+}
+      <Navbar bg="white" expand="lg">
+        <Container>
         <Link to={"/"} className="navbar-brand">
+        <i class="fa fa-solid fa-hospital"></i>
           Hospital
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to={"/home"} className="nav-link">
+            <i class="fa fa-fw fa-home"></i>
               Inicio
             </Link>
           </li>
           <li className="nav-item">
-              <Link to={"/presentacion"} className="nav-link">
-                Presentacion
+            <Link to={"/lote"} className="nav-link">
+            <i class="fa-regular fa-truck-fast"></i>
+              Lote
+            </Link>
+          </li>
+            <li className="nav-item">
+              <Link to={"/auditoria"} className="nav-link">
+                Auditoria
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/kardex"} className="nav-link">
+              <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+                Kardex
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/pedido"} className="nav-link">
+                Pedido
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/requisicion"} className="nav-link">
+                Requisicion
               </Link>
             </li>
           <li className="nav-item">
@@ -64,8 +111,13 @@ const App = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to={"/adduser"} className="nav-link">
-              Añadir
+            <Link to={"/permiso"} className="nav-link">
+              Permisos
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/rol"} className="nav-link">
+              Roles
             </Link>
           </li>
           {currentUser && (
@@ -93,30 +145,59 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/login"} className="nav-link">
+              <i class="fa fa-fw fa-user"></i>
                 Login
               </Link>
             </li>
 
             <li className="nav-item">
+            <i class="fa-sharp fa-solid fa-user-vneck"></i>
               <Link to={"/register"} className="nav-link">
+              <i class="fa fa-light fa-user"></i>
                 Sign Up
               </Link>
             </li>
           </div>
         )}
-      </nav>
+        </Container>
+        </Navbar>
 
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/producto" element={<Producto />} />
+          <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
+          <Route path="/servicios" element={<Servicios />} />
+          <Route path="/auditoria" element={<Auditoria />} />
+          <Route path="/solicitantes" element={<Solicitantes />} />
+          <Route path="/ejecutores" element={<Ejecutores />} />
+          <Route path="/kardex" element={<Kardexs />} />
+          <Route path="/dkardex/:idK" element={<DKardexs />} />
+          <Route path="/pedido" element={<Pedido />} />
+          <Route path="/pedido/:idP" element={<DPedido />} />
+          <Route path="/requisicion" element={<Requisicion />} />
+          <Route path="/requisicion/:idR" element={<DRequisicion />} />
+          <Route path="/requisicionreporte/:idR" element={<DRequisicion />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/usuarios" element={<UsuarioList />} />
-          <Route path="/adduser" element={<AddUser />} />
-          <Route path="/usuarios/:id" element={<Usuario />} />
+          <Route path="/usuarios" element={<Usuario />} />
+          <Route path="/permiso" element={<Permisos />} />
+          <Route path="/rol" element={<Rol />} />
+        <Route path="/register" element={<ReactFinalFormDemo />} />
+        {/*
+          routes.map(
+            route => (
+              <AppRoute
+                key={route.path}
+                path={route.path}
+                component={route.component}
+                isPrivate={route.isPrivate} 
+              />
+            )
+          )*/
+        }
         </Routes>
       </div>
 

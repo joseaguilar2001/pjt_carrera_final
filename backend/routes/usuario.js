@@ -41,7 +41,10 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT * FROM usuario WHERE email = ?", [email], async function(error, results, fields){
+    mysql.query("SELECT u.id, r.nombre, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
+    + " INNER JOIN rol r " 
+    + "ON u.idRol  = r.id "
+    + "WHERE u.email = ?; ", [email], async function(error, results, fields){
         if (error) {        
                 res.send({          
                 code:400,          
@@ -54,7 +57,7 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                 if(comparison){
                     const user = {
                         id: results[0].id,
-                        idRol: results[0].idRol,
+                        rol: results[0].rol,
                         nombre: results[0].nombre,
                         email: results[0].email,
                         nroCelular: results[0].nroCelular,
@@ -67,13 +70,12 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         code:200,
                         success:"login successful",
                         id: results[0].id,
-                        idRol: results[0].idRol,
+                        rol: results[0].idRol,
                         nombre: results[0].nombre,
                         email: results[0].email,
                         nroCelular: results[0].nroCelular,
                         direccion: results[0].direccion,
                         estado: results[0].estado,
-                        token: token
                     });
                 }else{
                     res.send({code:204, error:"El correo y la contraseña no coinciden"});
@@ -119,7 +121,9 @@ router.post('/create', expressAsyncHandler(async(req, res) => {
 }));
 
 router.get('/', expressAsyncHandler(async(req, res) => {
-    mysql.query('SELECT * FROM usuario', async (error, rows, fields) => {
+    mysql.query('SELECT u.id, r.nombre as rol, u.nroCelular, u.email, u.direccion, u.estado'
+    + ' FROM usuario AS u '
+    + ' INNER JOIN rol AS r on u.idRol = r.id ', async (error, rows, fields) => {
         if(error){
             res.send({message: "Error"});
         } else {
@@ -131,17 +135,6 @@ router.get('/', expressAsyncHandler(async(req, res) => {
 router.get('/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params; 
     mysql.query('SELECT * FROM usuario WHERE id = ?', [id] ,async (error, rows, fields) => {
-        if(error){
-            res.send({message: "Error"});
-        } else {
-            res.json(rows[0]);
-        }
-    })
-}));
-
-router.get('/:nombre', expressAsyncHandler(async(req, res) => {
-    const { nombre } = req.params; 
-    mysql.query('SELECT * FROM usuario WHERE nombre like % ? %', [nombre] ,async (error, rows, fields) => {
         if(error){
             res.send({message: "Error"});
         } else {

@@ -4,7 +4,10 @@ const router = express.Router();
 const mysqlconexion = require('../db');
 
 router.get('/',expressAsyncHandler(async(req, res) =>{
-    mysqlconexion.query('SELECT * FROM permisos', async function (errp, rows, fields){
+    mysqlconexion.query('SELECT p.id, p.idRol, r.nombre as rol, p.estado ' +
+    ' FROM permisos AS p ' +
+    ' INNER JOIN rol AS r on p.idRol = r.id ', 
+    async function (error, rows, fields){
         if(!error){
             res.json(rows);
         }

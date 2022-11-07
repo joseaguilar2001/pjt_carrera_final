@@ -4,7 +4,11 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT * FROM requisicion',
+    mysqlconexion.query('SELECT r.id, r.idUsuarioEncargado, u.nombre as Encargado, r.idServicio, se.nombre as Servicio, r.idSolicitante, so.nombre as Solicitante, aprobado, fecha, categoria, codigoAprobacion '+
+	'FROM requisicion as r '+
+    'INNER JOIN usuario as u ON r.idUsuarioEncargado = u.id '+
+    'INNER JOIN solicitante as so ON r.idSolicitante = so.id '+
+    'INNER JOIN servicio as se ON r.idServicio = se.id;',
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);
@@ -35,13 +39,12 @@ router.post('/', (req,res)=>{
         servicio: req.body.idServicio,
         solicitante: req.body.idSolicitante,
         aprobado: req.body.aprobado,
-        fecha: req.body.fecha,
         categoria: req.body.categoria,
         cAprobacion: req.body.codigoAprobacion
     };
     mysqlconexion.query(
-        `INSERT INTO requisicion(idUsuarioEncargado, idServicio, idSolicitante, aprobado, fecha, categoria, codigoAprobacion) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.fecha, requisicion.categoria, requisicion.cAprobacion], 
+        `INSERT INTO requisicion(idUsuarioEncargado, idServicio, idSolicitante, aprobado, fecha, categoria, codigoAprobacion) VALUES (?, ?, ?, ?, curdate(), ?, ?)`,
+        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.categoria, requisicion.cAprobacion], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -61,12 +64,11 @@ router.put('/:id', (req,res)=>{
         servicio: req.body.idServicio,
         solicitante: req.body.idSolicitante,
         aprobado: req.body.aprobado,
-        fecha: req.body.fecha,
         categoria: req.body.categoria,
         cAprobacion: req.body.codigoAprobacion
     };
-    mysqlconexion.query(`UPDATE requisicion SET idUsuarioEncargado=?, idServicio=?,  idSolicitante=?, aprobado=?, fecha=?, categoria=?, codigoAprobacion=? WHERE id=?`,
-        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.fecha, requisicion.categoria, requisicion.cAprobacion, id], 
+    mysqlconexion.query(`UPDATE requisicion SET idUsuarioEncargado=?, idServicio=?,  idSolicitante=?, aprobado=?, categoria=?, codigoAprobacion=? WHERE id=?`,
+        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.categoria, requisicion.cAprobacion, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);

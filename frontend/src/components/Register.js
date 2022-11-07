@@ -1,219 +1,187 @@
-import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { Form, Field } from 'react-final-form';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import { Password } from 'primereact/password';
+import { InputTextarea } from 'primereact/inputtextarea';
+import { Dialog } from 'primereact/dialog';
+import { Divider } from 'primereact/divider';
+import { classNames } from 'primereact/utils';
+import { useDispatch } from "react-redux";
+import { register } from '../actions/auth';
+import emailjs from 'emailjs-com';
+import ApiKey from '../ApiKey';
+const ReactFinalFormDemo = () => {
+    const [showMessage, setShowMessage] = useState(false);
+    const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-import { register } from "../actions/auth";
+    const validate = (data) => {
+        let errors = {};
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        ¡Este componente es requerido!
-      </div>
+        if (!data.nombre) {
+            errors.nombre = 'Name is required.';
+        }
+
+        if (!data.email) {
+            errors.email = 'Email is required.';
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+            errors.email = 'Invalid email address. E.g. example@email.com';
+        }
+
+        if (!data.password) {
+            errors.password = 'Password is required.';
+        }
+
+        if (!data.nroCelular){
+            errors.nroCelular = "Numero de celular es requerido"
+        }
+
+        return errors;
+    };
+
+    const onSubmit = (data, form) => {
+        const email = {
+            message: `Es un placer anunciarle que el 
+            dia de hoy ${Date.now()} se creo un nuevo, 
+            con el email ${data.email}, para que observer
+            si el usuario necesita tener un rol.`
+        }
+        const email2 = {
+            to_email: data.email,
+            to_name: data.nombre,
+            message: `Es un placer anunciarle que se creo 
+            su usuario, por el momento no tiene un rol definido
+            por tal motivo solo corre como un usuario, le 
+            solicitamos que espere para que se le otorgue un
+            rol.`
+        }
+        setFormData(data);
+
+        dispatch(register(null, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
+        .then(() => {
+            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
+            .then((reponse) => {
+                console.log("Enviado con exito");
+            },(error) => {
+                console.log("Error");
+            });
+            emailjs.send(ApiKey.SERVICE_ID, 'template_qu7hag2' , email2, ApiKey.USER_ID)
+            .then((reponse) => {
+                console.log("Enviado con exito");
+            },(error) => {
+                console.log("Error");
+            });
+            setShowMessage(true);
+            navigate("/login");
+            window.location.reload();
+        })
+        .catch(() => {
+            form.restart();
+        });
+    };
+
+    const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
+    const getFormErrorMessage = (meta) => {
+        return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+    };
+
+    const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
+    const passwordHeader = <h6>Pick a password</h6>;
+    const passwordFooter = (
+        <React.Fragment>
+            <Divider />
+            <p className="mt-2">Suggestions</p>
+            <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: '1.5' }}>
+                <li>At least one lowercase</li>
+                <li>At least one uppercase</li>
+                <li>At least one numeric</li>
+                <li>Minimo 8 caracteres</li>
+            </ul>
+        </React.Fragment>
     );
-  }
-};
 
-const validEmail = (value) => {
-  if (!isEmail(value)) {
     return (
-      <div className="alert alert-danger" role="alert">
-        ¡No es un Email valido!
-      </div>
-    );
-  }
-};
 
-const vnombre = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        ¡El usuario esta muy corto!
-      </div>
-    );
-  }
-};
+        <div className="form-demo">
+            <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
+                <div className="flex align-items-center flex-column pt-6 px-3">
+                    <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
+                    <h5>Registration Successful!</h5>
+                    <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
+                        Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
+                    </p>
+                </div>
+            </Dialog>
 
-const vnroCelular = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        ¡El numero de celular esta muy corto¡
-      </div>
-    );
-  }
-};
 
-const vdireccion = (value) => {
-  if (value.length < 3) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        La direccion esta muy corta
-      </div>
-    );
-  }
-};
+            <div className="flex justify-content-center">
+                    <div className='card card-container'>
+                    <h5 className="text-center">Registrarse</h5>
+                    <Form onSubmit={onSubmit} initialValues={{ nombre: '', email: '', password: '', nroCelular: '', direccion: ''}} validate={validate} render={({ handleSubmit }) => (
+                        <form onSubmit={handleSubmit} className="p-fluid">
 
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        ¡La contraseña es muy debil!
-      </div>
-    );
-  }
-};
+                            <Field name="nombre" render={({ input, meta }) => (
+                                <div className="field">
+                                    <span className="p-float-label">
+                                        <InputText placeholder='Juanito Perez'  id="nombre" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                                        <label htmlFor="nombre" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Nombre*</label>
+                                    </span>
+                                    {getFormErrorMessage(meta)}
+                                </div>
+                            )} />
 
-const Register = () => {
-  const form = useRef();
-  const checkBtn = useRef();
+                            <Field name="email" render={({ input, meta }) => (
+                                <div className="field">
+                                    <span className="p-float-label p-input-icon-right">
+                                        <i className="pi pi-envelope" />
+                                        <InputText id="email" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} placeholder='example@gmail.com'/>
+                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Email*</label>
+                                    </span>
+                                    {getFormErrorMessage(meta)}
+                                </div>
+                            )} />
+                            <Field name="password" render={({ input, meta }) => (
+                                <div className="field">
+                                    <span className="p-float-label">
+                                        <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
+                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                                    </span>
+                                    {getFormErrorMessage(meta)}
+                                </div>
+                            )} />
 
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nroCelular, setNroCelular] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [successful, setSuccessful] = useState(false);
+                            <Field name="nroCelular" render={({ input, meta }) => (
+                                <div className="field">
+                                    <span className="p-float-label p-input-icon-right">
+                                        <InputText id="nroCelular" placeholder='+502 XXXX-XXXX' {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                                        <label htmlFor="nroCelular" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Contacto*</label>
+                                    </span>
+                                    {getFormErrorMessage(meta)}
+                                </div>
+                            )} />
 
-  const { message } = useSelector(state => state.message);
-  const dispatch = useDispatch();
+                            <Field name="direccion" render={({ input, meta }) => (
+                                <div className="field">
+                                    <span className="p-float-label p-input-icon-right">
+                                        <InputTextarea id="direccion" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} rows={5} cols={30} autoResize/>
+                                        <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Direccion*</label>
+                                    </span>
+                                    {getFormErrorMessage(meta)}
+                                </div>
+                            )} />
 
-  const onChangeNombre = (e) => {
-    const nombre = e.target.value;
-    setNombre(nombre);
-  };
-
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangeNroCelular = (e) => {
-    const celular = e.target.value;
-    setNroCelular(celular);
-  }
-
-  const onChangeDireccion = (e) => {
-    const direccion = e.target.value;
-    setDireccion(direccion);
-  } 
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-
-    setSuccessful(false);
-
-    form.current.validateAll();
-      if (checkBtn.current.context._errors.length === 0) {
-        dispatch(register(null, nombre, email, password, nroCelular, direccion, 1))
-          .then(() => {
-            setSuccessful(true);
-          })
-          .catch(() => {
-            setSuccessful(false);
-          });
-      }
-  };
-
-  return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="nombre">Nombre</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="nombre"
-                  value={nombre}
-                  onChange={onChangeNombre}
-                  validations={[required, vnombre]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="nroCelular">Telefono</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="nroCelular"
-                  value={nroCelular}
-                  onChange={onChangeNroCelular}
-                  validations={[required, vnroCelular]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="direccion">Direccion</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="direccion"
-                  value={direccion}
-                  onChange={onChangeDireccion}
-                  validations={[required, vdireccion]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Contraseña</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
-
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Registrar</button>
-              </div>
+                            <Button type="submit" label="Ingresar" className="mt-2" />
+                        </form>
+                    )} />
+                </div>
             </div>
-          )}
+        </div>
+    );
+}
 
-          {message && (
-            <div className="form-group">
-              <div className={ successful ? "alert alert-success" : "alert alert-danger" } role="alert">
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-      </div>
-    </div>
-  );
-};
-
-export default Register;
+export default ReactFinalFormDemo;

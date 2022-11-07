@@ -3,8 +3,30 @@ const router = express.Router();
 const mysqlconexion = require('../db');
 
 //get
+
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT * FROM detalleKardex',
+    mysqlconexion.query('SELECT d.id, d.idKardex, k.correlativo as KardexCorrelativo, d.idLote, l.correlativo as LoteCorrelativo, d.fecha, d.nroReferencia, remitente, entradaCantidad, entradaPrecio, salidadPrecio, salidaCantidad, reajusteCantidad, reajustePrecio, saldoCantidad, saldoPrecio, fechaRequisicion'+
+        ' FROM detalleKardex as d'+ 
+        ' INNER JOIN kardex as k ON d.idKardex = k.id'+
+        ' INNER JOIN lotes as l on d.idLote = l.id',
+    (error,rows,fields)=>{
+        if(!error){
+            res.json(rows);
+        }
+        else{
+            console.log(error);
+        }
+    }) 
+});
+/*
+router.get('/:id',(req,res)=>{
+    const {id} = req.params;
+    mysqlconexion.query('SELECT d.id, d.idKardex, k.correlativo as KardexCorrelativo, d.idLote, l.correlativo as LoteCorrelativo, d.fecha, d.nroReferencia, remitente, entradaCantidad, entradaPrecio, salidadPrecio, salidaCantidad, reajusteCantidad, reajustePrecio, saldoCantidad, saldoPrecio, fechaRequisicion'+
+        ' FROM detalleKardex as d'+ 
+        ' INNER JOIN kardex as k ON d.idKardex = k.id'+
+        ' INNER JOIN lotes as l on d.idLote = l.id'+
+        ' WHERE k.id = ?',
+        [id],
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);
@@ -16,6 +38,7 @@ router.get('/',(req,res)=>{
 });
 
 //get con ID
+/*
 router.get('/:id', (req,res)=>{
     const {id} = req.params;
     mysqlconexion.query('SELECT * FROM detalleKardex WHERE id=?', [id],(error,rows,fields)=>{
@@ -26,7 +49,7 @@ router.get('/:id', (req,res)=>{
             console.log(error);
         }
     });
-});
+});*/
 
 //post
 router.post('/', (req,res)=>{
