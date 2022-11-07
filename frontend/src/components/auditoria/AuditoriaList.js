@@ -1,9 +1,11 @@
-import React, {useContext} from "react";
+import React, {useContext, useRef} from "react";
 import { AuditoriaContext } from "../../context/AuditoriaContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
 import moment from "moment";
+import { SplitButton } from 'primereact/splitbutton';
+import {Toast} from 'primereact/toast';
 
 
 const AuditoriaList = () =>{
@@ -12,20 +14,54 @@ const AuditoriaList = () =>{
     const datefecha = (auditorias) => {
         return moment(auditorias.fechaCad).format("DD/MM/YYYY");
     }
+
+    const toast = useRef(null);
+    const items = [
+        {
+            label: 'Auditoria',
+            icon: 'pi pi-building',
+            command: () => {
+                toast.current.show({severity:'success', summary:'Listo', detail:'Reporte Generado'});
+            }
+        },
+        {
+            label: 'Requisicion Reactivos Quimicos',
+            icon: 'pi pi-heart',
+            command: () => {
+                toast.current.show({ severity: 'success', summary: 'Listo', detail: 'Reporte Generado' });
+            }
+        },
+        {
+            label: 'Requisicion Productos Medicinales',
+            icon: 'pi pi-heart-fill',
+            command: () => {
+                window.location.href = 'https://facebook.github.io/react/'
+            }
+        },
+        {   label: 'Suministros',
+            icon: 'pi pi-table',
+            command: () => {
+                window.location.hash = "/fileupload"
+            }
+        }
+    ];
+
+
     return(
         <div>
+            <Toast ref={toast}></Toast>
+            <SplitButton label="Reportes" icon="pi pi-book" model={items}></SplitButton>
+            <br />
+
         <Panel
             header="Reporte Auditoria" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
-            <DataTable 
+            <DataTable
                 value={auditorias}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                //paginator className="p-datatable-customers" showGridlines rows={10}
-                //dataKey="id" filters={filters1} filterDisplay="menu"
-                //globalFilterFields={['nombre', 'presentacion', 'unidadMedida', 'fechaCad', 'correlativo', 'correlativo', 'cantidad', 'precioUnitario', 'total']} header={header1} emptyMessage="No hay datos"
                 >
                 <Column field="no" header="No." sortable/>
                 <Column field="nombre" header="Descripcion" sortable/>
