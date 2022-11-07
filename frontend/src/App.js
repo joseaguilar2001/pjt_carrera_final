@@ -177,7 +177,6 @@ const App = () => {
           <Route path="/presentacion" element={<Presentacion />} />
           <Route path="/servicios" element={<Servicios />} />
           <Route path="/auditoria" element={<Auditoria />} />
-          <Route path="/reporterequisicion" element={<ReporteRequisicion />} />
           <Route path="/solicitantes" element={<Solicitantes />} />
           <Route path="/ejecutores" element={<Ejecutores />} />
           <Route path="/kardex" element={<Kardexs />} />
@@ -186,7 +185,7 @@ const App = () => {
           <Route path="/pedido/:idP" element={<DPedido />} />
           <Route path="/requisicion" element={<Requisicion />} />
           <Route path="/requisicion/:idR" element={<DRequisicion />} />
-          <Route path="/requisicionreporte/:idR" element={<DRequisicion />} />
+          <Route path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />

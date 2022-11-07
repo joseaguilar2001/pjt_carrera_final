@@ -1,12 +1,12 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
-import { ERequisicionService } from "../services/ERequisicionService";
-import { DERequisicionService } from "../services/DERequisicionService";
+import { RequisicionService } from "../services/RequisicionService";
+import { DRequisicionService } from "../services/DRequisicionService";
 
 export const ERequisicionContext = createContext();
 
 const ProductContextProvider = (props)=>{
-    const erequisicionService = useMemo(() => new ERequisicionService(), []);
-    const derequisicionService = useMemo(() => new DERequisicionService(), []);
+    const erequisicionService = useMemo(() => new RequisicionService(), []);
+    const derequisicionService = useMemo(() => new DRequisicionService(), []);
     
     const [erequisicions, setErequisicions] = useState([]);
     const [derequisicions, setDErequisicions] = useState([]);
