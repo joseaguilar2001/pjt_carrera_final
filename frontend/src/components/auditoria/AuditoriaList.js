@@ -15,44 +15,8 @@ const AuditoriaList = () =>{
         return moment(auditorias.fechaCad).format("DD/MM/YYYY");
     }
 
-    const toast = useRef(null);
-    const items = [
-        {
-            label: 'Auditoria',
-            icon: 'pi pi-building',
-            command: () => {
-                toast.current.show({severity:'success', summary:'Listo', detail:'Reporte Generado'});
-            }
-        },
-        {
-            label: 'Requisicion Reactivos Quimicos',
-            icon: 'pi pi-heart',
-            command: () => {
-                toast.current.show({ severity: 'success', summary: 'Listo', detail: 'Reporte Generado' });
-            }
-        },
-        {
-            label: 'Requisicion Productos Medicinales',
-            icon: 'pi pi-heart-fill',
-            command: () => {
-                window.location.href = 'https://facebook.github.io/react/'
-            }
-        },
-        {   label: 'Suministros',
-            icon: 'pi pi-table',
-            command: () => {
-                window.location.hash = "/fileupload"
-            }
-        }
-    ];
-
-
     return(
         <div>
-            <Toast ref={toast}></Toast>
-            <SplitButton label="Reportes" icon="pi pi-book" model={items}></SplitButton>
-            <br />
-
         <Panel
             header="Reporte Auditoria" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
