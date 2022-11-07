@@ -24,6 +24,7 @@ var auditoriaRoute = require('./routes/auditoria');
 var requisicionRRoute = require('./routes/reporteRequisicionR');
 var detalleRequisicionRRoute = require('./routes/reporteDetalleRequisicionR')
 //var index = require('./routes/index');
+const vistas = require('./routes/vistas');
 
 app.set('port', process.env.PORT || 8080);
 var corsOptions = {
@@ -65,9 +66,10 @@ app.use('/permisos', permisosRoute);
 app.use('/ingreso', ingresoRoute);
 app.use('/requisicion', requisicionRoute);
 app.use('/detalleRequisicion', dRequisicionRoute);
-app.use('/auditoria', auditoriaRoute)
+app.use('/auditoria', auditoriaRoute);
 app.use('/reporteRequisicionR', requisicionRRoute);
 app.use('/reporteDetalleRequisicionR', detalleRequisicionRRoute);
+app.use('/vistas', vistas);
 //app.use('/index', index);
 
 app.listen(app.get('port'), () => {

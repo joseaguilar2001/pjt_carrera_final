@@ -1,51 +1,62 @@
 import React, {useContext, useState, useEffect} from "react";
-import { SolicitanteContext } from "../../context/SolicitantesContext";
+import { useNavigate, useParams } from "react-router-dom";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
-import SolicitanteForm from './SolicitanteForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode } from 'primereact/api';
+import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
-import { useNavigate } from "react-router-dom";
 
-const SolicitanteList = () =>{
-    const {solicitantes, findSolicitante} = useContext(SolicitanteContext);
-    
-    const statusBodyTemplate = (solicitantes) => {
-        return <span className={`${solicitantes.estado ? "activo" : "inactivo"}`}>{solicitantes.estado ? " Activo " : " Inactivo "}</span>;
-    }
+import DeRequisicionForm from './Form';
+import { DRequisicionContext } from "../../context/DRequisicionContext";
+
+
+const DeRequisicionList = () =>{
+    const {dsRequisicion, findDeRequisicion} = useContext(DRequisicionContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const saveSolicitante = (id) => {
-        findSolicitante(id);
+    const { idR } = useParams();
+
+    let cont=0;
+
+    const numero =  () => {
+        cont = parseInt(cont) + 1;
+        return cont;
+    }
+
+    const saveDRequisicion = (id) => {
+        findDeRequisicion(id);
         setIsVisible(true);
     };
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Solicitante" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Detalle" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
     }
 
     const navigate = useNavigate();
-    function linkRequisicion (){
+    function linkKardex (){
         navigate('/requisicion')
     }
-    function linkPedido (){
-        navigate('/pedido')
+    function linkProducto (){
+        navigate('/lote')
+    }
+    function linkReporte (){
+        navigate(`/requisicionreporte/${idR}`)
     }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkRequisicion}/>
-                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
+                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkKardex}/>
+                <Button label="Ir a lote" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
+                <Button label="Generar Reporte" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkReporte}/>
             </React.Fragment>
         )
     }
@@ -65,6 +76,7 @@ const SolicitanteList = () =>{
     useEffect(() => {
         initFilters1();
     }, []);
+    
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
         let _filters1 = { ...filters1 };
@@ -89,29 +101,35 @@ const SolicitanteList = () =>{
         <div>
         <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de solicitantes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de detalle requisición" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
             <DataTable 
-                value={solicitantes}
+                value={dsRequisicion.filter((p)=>p.Requisicion === parseInt(idR))}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveSolicitante(e.value.id)}
+                onSelectionChange={(e) => saveDRequisicion(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'cargo', 'estado']} header={header1} emptyMessage="No se encontraron solicitantes."
+                globalFilterFields={['Requisicion', 'Lote', 'descripcion', 'cantidad', 'cantidaDespachada', 'precioUnitario', 'precioTotal']} 
+                header={header1} emptyMessage="No se encontraron detalles de requisición."
                 >
-                <Column field="id" header="No." sortable/>
-                <Column field="nombre" header="Nombre" sortable/>
-                <Column field="cargo" header="Cargo" sortable/>
-                <Column body={statusBodyTemplate} header="Estado" sortable/>
+                <Column body={numero} header="No." sortable/>
+                <Column field="Requisicion" header="Requisición" sortable/>
+                <Column field="Lote" header="Lote" sortable/>
+                <Column field="descripcion" header="Descripción" sortable/>
+                <Column field="cantidad" header="Cantidad solicitada" sortable/>
+                <Column field="cantidaDespachada" header="Cantidad despachada" sortable/>
+                <Column field="precioUnitario" header="Precio unitario" sortable/>
+                <Column field="precioTotal" header="Precio Total" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <SolicitanteForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        {//<DeRequisicionForm idk={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
+}
         </div>
     );
 }
 
-export default SolicitanteList;
+export default DeRequisicionList;

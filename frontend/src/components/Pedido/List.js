@@ -18,12 +18,11 @@ const PedidoList = () =>{
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const navigate = useNavigate();
     const dateSolicitud = (pedidos) => {
         return moment(pedidos.fechaSolicitud).format("L");
     }
-    const statusBodyTemplate = (productos) => {
-        return <span className={`${productos.estado ? "activo" : "inactivo"}`}>{productos.estado ? " Activo " : " Inactivo "}</span>;
+    const statusBodyTemplate = (pedidos) => {
+        return <span className={`${pedidos.estado ? "activo" : "inactivo"}`}>{pedidos.estado ? " Activo " : " Inactivo "}</span>;
     }
 
     const savePedido = (id) => {
@@ -40,6 +39,7 @@ const PedidoList = () =>{
         )
     }
 
+    const navigate = useNavigate();
     function linkSolicitante (){
         navigate('/solicitantes')
     }

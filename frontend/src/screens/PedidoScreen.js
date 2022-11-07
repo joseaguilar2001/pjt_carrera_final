@@ -7,7 +7,7 @@ import PedidoList from '../components/Pedido/List';
 
 function PedidoScreen (){
     return (
-        <div className='LoteScreen'>
+        <div className='PedidoScreen'>
             <PedidoContextProvider>
                 <PedidoList />
             </PedidoContextProvider>

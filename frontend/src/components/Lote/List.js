@@ -20,10 +20,10 @@ const LoteList = () =>{
 
     const navigate = useNavigate();
     const dateCaducidad = (lotes) => {
-        return moment(lotes.fechaCad).format("L");
+        return moment(lotes.fechaCad).format("DD/MM/YYYY");
     }
     const datePrefConsumo = (lotes) => {
-        return moment(lotes.fechaConPref).format("L");
+        return moment(lotes.fechaConPref).format("DD/MM/YYYY");
     }
     
     const montoTotal = (lotes) =>{

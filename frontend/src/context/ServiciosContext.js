@@ -3,7 +3,7 @@ import {ServicioService} from "../services/ServiciosService"
 
 export const ServicioContext = createContext();
 
-const ProductContextProvider = (props)=>{
+const ServicioContextProvider = (props)=>{
     const servicioService = useMemo(() => new ServicioService(), []);
     
     const [servicios, setServicios] = useState([]);
@@ -55,4 +55,4 @@ const ProductContextProvider = (props)=>{
         </ServicioContext.Provider>
     );
 };
-export default ProductContextProvider;
+export default ServicioContextProvider;

@@ -7,29 +7,35 @@ import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
-import moment from "moment";
 
 import DePedidoForm from './Form';
 import { DPedidoContext } from "../../context/DPedidoContext";
 
 
-const DeKardexList = () =>{
-    const {dsKardex, findDeKardex} = useContext(DPedidoContext);
+const DePedidoList = () =>{
+    const {dsPedido, findDePedido} = useContext(DPedidoContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
     const navigate = useNavigate();
-    const { idK } = useParams();
+    const { idP } = useParams();
 
-    const datefecha = (dkardexs) => {
-        return moment(dkardexs.fecha).format("L");
+    const statusContrato = (dePedidos) => {
+        return <span className={`${dePedidos.contratoAbierto ? "activo" : "inactivo"}`}>{dePedidos.contratoAbierto ? " Si " : " No "}</span>;
     }
-    const dateRequisicion = (dkardexs) => {
-        return moment(dkardexs.fechaRequisicion).format("L");
+    const statusIPaac = (dePedidos) => {
+        return <span className={`${dePedidos.IncluidoPAAC ? "activo" : "inactivo"}`}>{dePedidos.IncluidoPAAC ? " Si " : " No "}</span>;
     }
 
-    const saveDkardex = (id) => {
-        findDeKardex(id);
+    let cont=0;
+
+    const numero =  () => {
+        cont = parseInt(cont) + 1;
+        return cont;
+    }
+
+    const saveDpedido = (id) => {
+        findDePedido(id);
         setIsVisible(true);
     };
 
@@ -42,14 +48,19 @@ const DeKardexList = () =>{
         )
     }
 
-    function linkKardex (){
-        navigate('/kardex')
+    function linkPedido (){
+        navigate('/pedido')
+    }
+    
+    function linkProducto (){
+        navigate('/producto')
     }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Kardex" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkKardex}/>
+                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkPedido}/>
+                <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
             </React.Fragment>
         )
     }
@@ -94,42 +105,39 @@ const DeKardexList = () =>{
         <div>
         <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de detalle kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de detalle pedido" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
             <DataTable 
-                value={dsKardex.filter((p)=>p.idKardex === parseInt(idK))}
+                value={dsPedido.filter((p)=>p.idPedido === parseInt(idP))}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveDkardex(e.value.id)}
+                onSelectionChange={(e) => saveDpedido(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['KardexCorrelativo', 'LoteCorrelativo', datefecha, 'nroReferencia', 'remitente', 'entradaCantidad', 'entradaPrecio', 'salidadPrecio',
-                'salidaCantidad', 'reajusteCantidad', 'reajustePrecio', 'saldoCantidad', 'saldoPrecio', dateRequisicion]} 
-                header={header1} emptyMessage="No se encontraron detalles de kardex."
+                globalFilterFields={['cantidad', 'cantidadAutorizada', 'codInsumo', 'pedido', 'unidadMedida', 'producto',
+                'descripcion', 'renglonAfectado', 'valorEstimado', 'IncluidoPAAC', 'contratoAbierto']}
+                header={header1} emptyMessage="No se encontraron detalles del pedido."
                 >
-                <Column field="id" header="No." sortable/>
-                <Column field="KardexCorrelativo" header="Kardex" sortable/>
-                <Column field="LoteCorrelativo" header="Lote" sortable/>
-                <Column body={datefecha} header="Fecha" sortable/>
-                <Column field="nroReferencia" header="Numero de referencia" sortable/>
-                <Column field="remitente" header="Remitente" sortable/>
-                <Column field="entradaCantidad" header="Entrada cantidad" sortable/>
-                <Column field="entradaPrecio" header="Entrada Precio" sortable/>
-                <Column field="salidadPrecio" header="Salida Precio" sortable/>
-                <Column field="salidaCantidad" header="Salida cantidad" sortable/>
-                <Column field="reajusteCantidad" header="Reajuste Cantidad" sortable/>
-                <Column field="reajustePrecio" header="Reajuste Precio" sortable/>
-                <Column field="saldoCantidad" header="Saldo cantidad" sortable/>
-                <Column field="saldoPrecio" header="Saldo precio" sortable/>
-                <Column body={dateRequisicion} header="Fecha requisición" sortable/>
+                <Column field={numero} header="No."/>
+                <Column field="cantidad" header="Cantidad solicitada" sortable/>
+                <Column field="cantidadAutorizada" header="Cantidad autorizada" sortable/>
+                <Column field="codInsumo" header="Código de insumo" sortable/>
+                <Column field="pedido" header="Pedido" sortable/>
+                <Column field="unidadMedida" header="Unidad de medida" sortable/>
+                <Column field="producto" header="Producto" sortable/>
+                <Column field="descripcion" header="Descripcion" sortable/>
+                <Column field="renglonAfectado" header="Renglón afectado" sortable/>
+                <Column field="valorEstimado" header="Valor estimado" sortable/>
+                <Column body={statusIPaac} header="Incluido en PAAC" sortable/>
+                <Column body={statusContrato} header="Esta en contrato abierto" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <DePedidoForm idk={idK} isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <DePedidoForm idp={idP} isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }
 
-export default DeKardexList;
+export default DePedidoList;

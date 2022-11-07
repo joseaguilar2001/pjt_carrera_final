@@ -1,51 +1,56 @@
 import React, {useContext, useState, useEffect} from "react";
-import { SolicitanteContext } from "../../context/SolicitantesContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
-import SolicitanteForm from './SolicitanteForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode } from 'primereact/api';
+import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-const SolicitanteList = () =>{
-    const {solicitantes, findSolicitante} = useContext(SolicitanteContext);
-    
-    const statusBodyTemplate = (solicitantes) => {
-        return <span className={`${solicitantes.estado ? "activo" : "inactivo"}`}>{solicitantes.estado ? " Activo " : " Inactivo "}</span>;
-    }
+import { RequisicionContext } from "../../context/RequisicionContext";
+import RequisicionForm from './Form';
+
+const RequisicionList = () =>{
+    const {requisiciones, findRequisicion} = useContext(RequisicionContext);
 
     const [isVisible, setIsVisible] = useState(false);
 
-    const saveSolicitante = (id) => {
-        findSolicitante(id);
+    const date = (requisiciones) => {
+        return moment(requisiciones.fecha).format("DD/MM/YYYY");
+    }
+    const statusAprovado = (requisiciones) => {
+        return <span className={`${requisiciones.aprobado ? "activo" : "inactivo"}`}>{requisiciones.aprobado ? " Si " : " No "}</span>;
+    }
+
+    const saveRequisicion = (id) => {
+        findRequisicion(id);
         setIsVisible(true);
     };
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Solicitante" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Requisición" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
     }
 
     const navigate = useNavigate();
-    function linkRequisicion (){
-        navigate('/requisicion')
+    function linkSolicitante (){
+        navigate('/solicitantes')
     }
-    function linkPedido (){
-        navigate('/pedido')
+    function linkServicio (){
+        navigate('/servicio')
     }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkRequisicion}/>
-                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
+                <Button label="Ir a Solicitante" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkSolicitante}/>
+                <Button label="Ir a Servicio" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkServicio}/>
             </React.Fragment>
         )
     }
@@ -89,29 +94,34 @@ const SolicitanteList = () =>{
         <div>
         <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de solicitantes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de requisiciones" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
             <DataTable 
-                value={solicitantes}
+                value={requisiciones}
                 responsiveLayout="scroll"
                 selectionMode="single"
-                onSelectionChange={(e) => saveSolicitante(e.value.id)}
+                onSelectionChange={(e) => saveRequisicion(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['nombre', 'cargo', 'estado']} header={header1} emptyMessage="No se encontraron solicitantes."
+                globalFilterFields={['id', 'Encargado', 'Servicio', 'Solicitante', date, 'categoria', 'codigoAprobacion', 'aprovado']} 
+                header={header1} emptyMessage="No se encontraron requisiciones."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column field="nombre" header="Nombre" sortable/>
-                <Column field="cargo" header="Cargo" sortable/>
-                <Column body={statusBodyTemplate} header="Estado" sortable/>
+                <Column field="Encargado" header="Encargado" sortable/>
+                <Column field="Servicio" header="Servicio" sortable/>
+                <Column field="Solicitante" header="Solicitante" sortable/>
+                <Column body={date} header="Fecha de aprovación" sortable/>
+                <Column field="categoria" header="Categoría" sortable/>
+                <Column body={statusAprovado} header="Aprobado" sortable/>
+                <Column field="codigoAprobacion" header="Código de aprovación" sortable/>
             </DataTable>
             </div>
         </Panel>
-        <SolicitanteForm isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <RequisicionForm isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );
 }
 
-export default SolicitanteList;
+export default RequisicionList;

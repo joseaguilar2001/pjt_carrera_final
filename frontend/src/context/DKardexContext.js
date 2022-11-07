@@ -1,26 +1,22 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { DKardexService } from "../services/DetalleKardexService";
 import { LoteService} from "../services/LoteService";
-import { KardexsService } from "../services/KardexsService";
 
 export const DKardexContext = createContext();
 
 const DeKardexContextProvider = (props)=>{
     const dKardexService = useMemo(() => new DKardexService(), []);
     const loteService = useMemo(() => new LoteService(), []);
-    const kardexService = useMemo(() => new KardexsService(), []);
 
     const [dsKardex, setDsKardex] = useState([]);
     const [lote, setLote] = useState([]);
-    const [kardex, setKardex] = useState([]);
 
     const [editDeKardex, setEditDeKardex] = useState(null);
 
-    useEffect((i) => {
+    useEffect(() => {
         dKardexService.readAll().then((data) => setDsKardex(data));
         loteService.readAll().then((data) => setLote(data));
-        kardexService.readAll().then((data) => setKardex(data));
-    }, [dKardexService, dsKardex, loteService, kardexService]);
+    }, [dKardexService, dsKardex, loteService]);
 
     const createDeKardex =(lote)=>{
         dKardexService
@@ -58,8 +54,7 @@ const DeKardexContextProvider = (props)=>{
                 updateDeKardex,
                 editDeKardex,
                 dsKardex,
-                lote,
-                kardex
+                lote
             }}>
             {props.children}
         </DKardexContext.Provider>
