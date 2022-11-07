@@ -1,22 +1,26 @@
 import React, {createContext, useState, useEffect, useMemo } from "react";
 import { DRequisicionService } from "../services/DRequisicionService";
 import { LoteService} from "../services/LoteService";
+import { ProductoService} from "../services/ProductoService";
 
 export const DRequisicionContext = createContext();
 
 const DeRequisicionContextProvider = (props)=>{
     const dRequisicionService = useMemo(() => new DRequisicionService(), []);
     const loteService = useMemo(() => new LoteService(), []);
+    const productoService = useMemo(() => new ProductoService(), []);
 
     const [dsRequisicion, setDsRequisicion] = useState([]);
     const [lote, setLote] = useState([]);
+    const [producto, setProducto] = useState([]);
 
     const [editDeRequisicion, setEditDeRequisicion] = useState(null);
 
     useEffect(() => {
         dRequisicionService.readAll().then((data) => setDsRequisicion(data));
         loteService.readAll().then((data) => setLote(data));
-    }, [dRequisicionService, dsRequisicion, loteService]);
+        productoService.readAll().then((data) => setProducto(data));
+    }, [dRequisicionService, dsRequisicion, loteService, productoService]);
 
     const createDeRequisicion =(deRequisicion)=>{
         dRequisicionService
@@ -54,7 +58,8 @@ const DeRequisicionContextProvider = (props)=>{
                 updateDeRequisicion,
                 editDeRequisicion,
                 dsRequisicion,
-                lote
+                lote,
+                producto
             }}>
             {props.children}
         </DRequisicionContext.Provider>
