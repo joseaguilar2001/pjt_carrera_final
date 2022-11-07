@@ -10,7 +10,7 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { useDispatch } from "react-redux";
 import { register } from '../actions/auth';
-import emailjs from 'emailjs-co';
+import emailjs from 'emailjs-com';
 import ApiKey from '../ApiKey';
 const ReactFinalFormDemo = () => {
     const [showMessage, setShowMessage] = useState(false);

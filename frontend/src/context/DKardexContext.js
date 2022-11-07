@@ -16,7 +16,6 @@ const DeKardexContextProvider = (props)=>{
     useEffect(() => {
         dKardexService.readAll().then((data) => setDsKardex(data));
         loteService.readAll().then((data) => setLote(data));
-        kardexService.readAll().then((data) => setKardex(data));
     }, [dKardexService, dsKardex, loteService]);
 
     const createDeKardex =(lote)=>{

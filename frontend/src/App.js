@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import 'primereact/resources/primereact.min.css';
-import Navigation from "./components/MenuBar/Navigate";
+//import Navigation from "./components/MenuBar/Navigate";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-/*
+
 import Login from "./components/Login";
 
 import Home from "./components/Home";
@@ -31,16 +31,12 @@ import Usuario from "./screens/UsuarioScreen";
 import Rol from "./screens/RolScreen";
 import Permisos from "./screens/PermisosScreen";
 
-import Pedido from "./screens/PedidoScreen";
-import DKardexScreen from "./screens/DKardexScreen";
+import ReactFinalFormDemo from "./components/Register"; 
 
-import Auditoria from "./screens/AuditoriaScreen";
-import DKardexs from "./screens/DKardexScreen";
-import ReactFinalFormDemo from "./components/Register"; */
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-import AppRoute from "./AppRoute";
-import routes from "./config/Routings";
+/*import AppRoute from "./AppRoute";
+import routes from "./config/Routings";*/
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -66,8 +62,9 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navigation />
-      { /*<Navbar bg="white" expand="lg">
+      {//<Navigation />
+}
+      <Navbar bg="white" expand="lg">
         <Container>
         <Link to={"/"} className="navbar-brand">
         <i class="fa fa-solid fa-hospital"></i>
@@ -168,11 +165,11 @@ const App = () => {
           </div>
         )}
         </Container>
-        </Navbar> */}
+        </Navbar>
 
       <div className="container mt-3">
         <Routes>
-{ /*         <Route path="/" element={<Home />} />
+         <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
@@ -191,9 +188,8 @@ const App = () => {
           <Route path="/usuarios" element={<Usuario />} />
           <Route path="/permiso" element={<Permisos />} />
           <Route path="/rol" element={<Rol />} />
-          <Route path="/dkardex" element={<DKardexScreen />} />
-        <Route path="/register" element={<ReactFinalFormDemo />} /> */}
-        {
+        <Route path="/register" element={<ReactFinalFormDemo />} />
+        {/*
           routes.map(
             route => (
               <AppRoute
@@ -203,7 +199,7 @@ const App = () => {
                 isPrivate={route.isPrivate} 
               />
             )
-          )
+          )*/
         }
         </Routes>
       </div>

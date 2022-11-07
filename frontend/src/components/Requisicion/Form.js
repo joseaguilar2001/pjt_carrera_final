@@ -12,7 +12,7 @@ const Form =(props) =>{
 
     const [isVisibleButton, setIsVisibleButton] = useState(false);
 
-    const { user: currentUser } = useSelector((state) => state.auth);
+    //const { user: currentUser } = useSelector((state) => state.auth);
     const {
         createRequisicion,
         deleteRequisicion,
@@ -24,7 +24,7 @@ const Form =(props) =>{
     
     const inicialRequisicionesState ={
         id:null,
-        idUsuarioEncargado: currentUser.id,
+        idUsuarioEncargado: 1,//currentUser.id,
         idServicio: 0,
         idSolicitante: 0,
         aprobado: 0,
