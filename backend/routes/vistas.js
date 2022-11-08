@@ -18,27 +18,16 @@ router.get('/pedido/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params
     mysql.query(`SELECT e.codigoUE as CodigoUE, p.correlativoUE as Correlativo, e.nombreUE as NombreUE, 
     e.solicitanteDepto as Solicitante, p.fechaSolicitud as Fecha, 
-    p.telefonoExt as Telefono, p.justificacion_Observacion as JO  
-    FROM pedido p INNER JOIN solicitante s
-    s.nombre as NombreS, s.cargo as Cargo 
+    p.telefonoExt as Telefono, p.justificacion_Observacion as JO,
+    s.nombre as NombreS, s.cargo as Cargo  
+    FROM pedido p INNER JOIN solicitante s 
     ON p.idSolicitante = s.id 
     INNER JOIN ejecutores e 
     ON p.idUE = e.id 
     WHERE p.id  = ?`, [id],
     async function(error, rows, field){
         if(!error){
-            res.send({
-                status: 200,
-                CodigoUE: rows[0].CodigoUE,
-                Correlativo: rows[0].Correlativo,
-                NombreUE: rows[0].NombreUE,
-                Solicitante: rows[0].Solicitante,
-                Fecha: rows[0].Fecha,
-                Telefono: rows[0].Telefono,
-                JO: rows[0].JO,
-                NombreS: rows[0].NombreS,
-                Cargo: rows[0].Cargo,
-            })
+            res.json(rows)
         }else{
             res.send(error.message);
         }
@@ -64,4 +53,24 @@ router.get('/pedidoDetalle/:id', expressAsyncHandler(async(req, res) => {
     })    
 }));
 
+router.get("/controlSuministros", expressAsyncHandler(async (req, res) => {
+    mysql.query(`SELECT d.id as ID, d.idKardex as IDK, k.correlativo as KardexCorrelativo, d.idLote as IDL, 
+    l.correlativo as LoteCorrelativo, d.fecha as FDK, d.nroReferencia as Ref, remitente as Remitente, 
+    entradaCantidad as EntradaC, entradaPrecio as EntradaP, salidadPrecio as SalidaP, salidaCantidad as SalidaC, 
+    reajusteCantidad as ReajusC, reajustePrecio as ReajusP, saldoCantidad as SaldoC, saldoPrecio as SaldoP, fechaRequisicion as FechaReq 
+    FROM detalleKardex as d 
+    INNER JOIN kardex as k ON d.idKardex = k.id
+    INNER JOIN lotes as l on d.idLote = l.id;`, 
+    async function(error, rows, fields){
+        if(!error){
+            res.json(rows);
+        }else{
+            console.log(error.message);
+        }
+    })
+}));
+
+router.get("/controlKardex", expressAsyncHandler(async(req, res) => {
+
+}))
 module.exports = router;

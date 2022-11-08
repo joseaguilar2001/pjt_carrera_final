@@ -11,26 +11,36 @@ const VistaTable = (props) => {
     const vistaServicePedido = new VistasService();
     
     useEffect(() => {
-        vistaServicePedido.readAllPedido(id)
+        vistaServicePedido.readAllPedido(1)
         .then(data => setPedido(data));
-        vistaServicePedido.readAllPedidoDetalle(id)
+        
+        vistaServicePedido.readAllPedidoDetalle(1)
         .then(data => setPedidoDetalle(data));
     },[id, vistaServicePedido]);
+    const pedidoDatos = {
+        codigoUE: pedido.map((e) => e.CodigoUE),
+        correlativo:pedido.map((e) => e.Correlativo),
+        nombreUE: pedido.map((e) => e.NombreUE),
+        solicitante: pedido.map((e) => e.Solicitante),
+        fecha: pedido.map((e) => e.Fecha),
+        telefono: pedido.map((e) => e.Telefono),
+        JO: pedido.map((e) => e.JO),
+        nombreS: pedido.map((e) => e.NombreS),
+        cargo: pedido.map((e) => e.Cargo),
+    }
 
     return (
         <div>
             <div className='flex justify-content-right'>
             <h4>Solicitud de Pedido</h4>
-            <p>
-            <strong>
-            Codigo Unidad Ejecutora:__<u>{pedido.CodigoUE}</u>____ Correlativo Seccion de Compras UE: ___<u>{pedido.Correlativo}</u>___
-            Nombre Unidad Ejecutora:__<u>{pedido.NombreUE}</u>_________________________________________________________________________
-            Nombre Unidad/Depto/Seccion solicitante:__<u>{pedido.Solicitante}</u>______________________________________________________
-            Fecha de la solicitud:___<u>{pedido.Fecha}</u>__Telefono/ext:__<u>{pedido.Telefono}</u>____________________________________         
-            </strong>
-            </p>
+            <p>Codigo Unidad Ejecutora:__<u>{pedidoDatos.codigoUE}</u>____ Correlativo Seccion de Compras UE: ___<u>{pedidoDatos.correlativo}</u>___</p>
+            <p>Nombre Unidad Ejecutora:__<u>{pedidoDatos.nombreUE}</u>_________________________________________________________________________</p>
+            <p>Nombre Unidad/Depto/Seccion solicitante:__<u>{pedidoDatos.solicitante}</u>______________________________________________________</p>
+            <br/>
+            <p>Fecha de la solicitud:___<u>{pedidoDatos.fecha}</u>__Telefono/ext:__<u>{pedidoDatos.telefono}</u>____________________________________</p>     
+            
             </div>
-            <div className='card'>
+            <div>
             <DataTable value={pedidoDetalle} responsiveLayout="scroll">
                     <Column field="ID" header="No."/>
                     <Column field="Cant" header="Cantidad Solicitada"/>
@@ -43,18 +53,19 @@ const VistaTable = (props) => {
                     <Column field='CAB' header="Esta en contrato abierto"/>
             </DataTable>
             </div>
-            <br/>
             <p>
             <strong>
-            Justificacion/Observacion:____<u> {pedido.JO}</u>____________________________________
+            Justificacion/Observacion:____<u> {pedidoDatos.JO}</u>____________________________________
             </strong>
             </p>
             <br/>
             <p>
                 <b><u>Solicitante:</u></b>
-            ___<u>{pedido.Nombre}</u>_________   ________________________  ____________<u>{pedido.Cargo}</u>_________
-             Nombre completo Servidor Publico              Firma                                Cargo
             </p>
+            <p>___<u>{pedidoDatos.nombreS}</u>_________&nbsp;&nbsp;&nbsp;________________________&nbsp;&nbsp;&nbsp;____________<u>{pedidoDatos.cargo}</u>_________</p>
+            <p>Nombre completo Servidor Publico &nbsp;&nbsp;&nbsp;       Firma    &nbsp;&nbsp;&nbsp;&nbsp;                            Cargo                            </p>
+            
         </div>
     )
 }
+export default VistaTable;
