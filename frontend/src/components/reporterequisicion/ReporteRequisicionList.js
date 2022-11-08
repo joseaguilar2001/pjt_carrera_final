@@ -82,8 +82,7 @@ const ReporteRequisicionList = () => {
                     selectionMode="single"
                     dataKey="id"
                 >
-                    {// <Column field="nombre" header="Producto" sortable/>
-                    }
+                    <Column field="nombre" header="Producto" sortable/>
                     <Column field="descripcion" header="Descripcion" />
                     <Column field="cantidad" header="Cantidad Pedida" />
                     <Column field="cantidaDespachada" header="Cantidad Despachada"/>
@@ -109,8 +108,7 @@ const ReporteRequisicionList = () => {
                 </DataTable>
             </div>
             <br/><br/>
-            <div className="d-flex justify-items-start">
-                <h6><strong>PDF</strong></h6>
+            <div className="speeddial-linear-demo" style={{ position: 'relative', height: '100px' }}>
                 {header}
             </div>
         </div>

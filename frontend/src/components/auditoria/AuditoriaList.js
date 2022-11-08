@@ -84,7 +84,7 @@ const AuditoriaList = () =>{
             </div>
         </Panel>
         <br/><br/>
-        <div className="d-flex justify-items-start">
+        <div className="speeddial-linear-demo" style={{ position: 'relative', height: '100px' }}>
                 <h6><strong>PDF</strong></h6>
                 {header}
             </div>
