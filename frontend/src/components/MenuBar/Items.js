@@ -7,21 +7,8 @@ const navlistW = [
       }
     },
     {
-      label: "Sobre de",
-      icon: "pi pi-fw pi-calendar",
-      command: () => {
-        window.location.href = '/about';
-      }
-    },
-    {
-      label: "Contacto",
-      icon: "pi pi-fw pi-phone",
-      command: () => {
-        window.location.href = "/contact";
-      }
-    },
-    {
       separator: true,
+
     },
     {
       label: "Registrarse",

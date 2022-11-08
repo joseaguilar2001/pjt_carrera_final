@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="about-container">
       <div className="about-desc">
-        <h3>Hospital de Retalhuleu</h3>
+        <h3>Hospital Nacional de Retalhuleu</h3>
         <p align="justify">
           Este centro médico es una entidad hospitalaria, que depende
           del Ministerio de Salud Pública y Asistencia Social de Guatemala, y es

@@ -127,8 +127,9 @@ const ReactFinalFormDemo = () => {
 
                             <Field name="nombre" render={({ input, meta }) => (
                                 <div className="field">
-                                    <span className="p-float-label">
-                                        <InputText placeholder='Juanito Perez'  id="nombre" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                                    <span className="p-float-label p-input-icon-right">
+                                    <i className="pi pi-user" />
+                                        <InputText placeholder='Nombre'  id="nombre" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                                         <label htmlFor="nombre" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Nombre*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
@@ -158,6 +159,7 @@ const ReactFinalFormDemo = () => {
                             <Field name="nroCelular" render={({ input, meta }) => (
                                 <div className="field">
                                     <span className="p-float-label p-input-icon-right">
+                                    <i className="pi pi-id-card" />
                                         <InputText id="nroCelular" placeholder='+502 XXXX-XXXX' {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                                         <label htmlFor="nroCelular" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Contacto*</label>
                                     </span>
@@ -168,6 +170,7 @@ const ReactFinalFormDemo = () => {
                             <Field name="direccion" render={({ input, meta }) => (
                                 <div className="field">
                                     <span className="p-float-label p-input-icon-right">
+                                    <i className="pi pi-send" />
                                         <InputTextarea id="direccion" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} rows={5} cols={30} autoResize/>
                                         <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Direccion*</label>
                                     </span>
