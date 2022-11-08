@@ -1,5 +1,4 @@
-const navlist = [{
-  welcome : [
+const navlistW = [
     {
       label: "Inicio", 
       icon: "pi pi-fw pi-home",
@@ -8,21 +7,8 @@ const navlist = [{
       }
     },
     {
-      label: "Sobre de",
-      icon: "pi pi-fw pi-calendar",
-      command: () => {
-        window.location.href = '/about';
-      }
-    },
-    {
-      label: "Contacto",
-      icon: "pi pi-fw pi-phone",
-      command: () => {
-        window.location.href = "/contact";
-      }
-    },
-    {
       separator: true,
+
     },
     {
       label: "Registrarse",
@@ -38,12 +24,6 @@ const navlist = [{
         window.location.href = "/login";
       }
     }
-  ],
-  digitador: [
-    {
+];
 
-    }
-  ]
-}];
-
-export default navlist;
+export default navlistW;

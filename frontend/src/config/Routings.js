@@ -4,14 +4,12 @@ const KARDEX = {
     component: Index.Kardex,
     path: "/kardex",
     isPrivate: true,
-    isRol: "DG",
 }
 
 const EJECUTORES = {
     component: Index.Ejecutores,
     path: "/ejecutores",
     isPrivate: true,
-    isRol: 2,
 }
 
 const DKARDEX = {
@@ -22,6 +20,7 @@ const DKARDEX = {
 
 const LOTE = {
     component: Index.Lote,
+    isPrivate: true,
     path: "/lote",
 }
 

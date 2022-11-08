@@ -12,4 +12,9 @@ export class VistasService {
         return axios.get(this.url + 'pedidoDetalle/' + id)
         .then(res => res.data);
     }
+
+    readAllSuministros(){
+        return axios.get(this.url + 'controlSuministros/')
+        .then(res => res.data);
+    }
 }
