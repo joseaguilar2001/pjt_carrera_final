@@ -13,6 +13,7 @@ const Navigation = () => {
         dispatch(logout());
       }, [dispatch]);
     const start = <img alt="logo" src={logo} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2"></img>;
+    //const end = <InputText placeholder="Search" type="text" />;
     const endL = {
       label: "Info",
       icon: "pi pi-fw pi-users",
@@ -38,7 +39,7 @@ const Navigation = () => {
         ): !currentUser && (
           <Menubar model={items} start={start} end={end} />
         ) */}
-              <Menubar model={navlistW} start={start} />
+              <Menubar model={navlistW} start={start}/>
         </header>
     );
 }
