@@ -5,38 +5,150 @@ const navlistW = [
       command: () => {
         window.location.href = '/';
       }
-    },
-    {
-      label: "Sobre de",
-      icon: "pi pi-fw pi-calendar",
-      command: () => {
-        window.location.href = '/about';
-      }
-    },
-    {
-      label: "Contacto",
-      icon: "pi pi-fw pi-phone",
-      command: () => {
-        window.location.href = "/contact";
-      }
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Registrarse",
-      icon: "pi pi-fw pi-sign-in",
-      command: () => {
-        window.location.href = "/register";
-      }
-    },
-    {
-      label: "Iniciar sesion",
-      icon: "pi pi-fw pi-user",
-      command: () => {
-        window.location.href = "/login";
-      }
     }
 ];
 
-export default navlistW;
+const navlistDespachador = [
+  {
+    label: "Inicio", 
+    icon: "pi pi-fw pi-home",
+    command: () => {
+      window.location.href = '/';
+    }
+  },
+  {
+    label: "Lote",
+    icon: "pi pi-fw pi-clone",
+    command: () => {
+      window.location.href = '/lote';
+    },
+  },
+  {
+    label: "Presentacion",
+    icon: "pi pi-fw pi-clock",
+    command: () => {
+      window.location.href = '/presentacion';
+    },
+  },
+  {
+    label: "Requisicion",
+    icon: "pi pi-fw pi-cloud",
+    command: () => {
+      window.location.href = '/requision';
+    },
+  },
+  {
+    label: "Servicio",
+    icon: "pi pi-fw pi-code",
+    command: () => {
+      window.location.href = '/servicio';
+    },
+  },
+  {
+    label: "Pedido",
+    icon: "pi pi-fw pi-cog",
+    command: () => {
+      window.location.href = '/pedido';
+    },
+  }
+];
+
+const navListKardex = [
+  {
+    label: "Inicio", 
+    icon: "pi pi-fw pi-home",
+    command: () => {
+      window.location.href = '/';
+    }
+  },
+  {
+    label: "Kardex",
+    icon: "pi pi-fw pi-cloud",
+    command: () => {
+      window.location.href = '/kardex';
+    }
+  },
+    {
+      label: "Detalle Kardex",
+      icon: "pi pi-fw pi-cloud",
+      command: () => {
+        window.location.href = '/detalleKardex/:id';
+      },
+    }
+]
+
+const navListAdmin = [
+  {
+    label: "Inicio", 
+    icon: "pi pi-fw pi-home",
+    command: () => {
+      window.location.href = '/';
+    }
+  },
+  {
+    label: "Registros", 
+    icon: "pi pi-fw pi-compass",
+    items:[
+      {
+        label: "Inicio", 
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/';
+        }
+      }
+    ]
+  },
+  {
+    label: "Reportes", 
+    icon: "pi pi-fw pi-compass",
+    items:[
+      {
+        label: "Inicio", 
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/';
+        }
+      }
+    ]
+  },
+  {
+    label: "Usuarios", 
+    icon: "pi pi-fw pi-compass",
+    items:[
+      {
+        label: "Inicio", 
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/';
+        }
+      }
+    ]
+  }
+]
+
+const navListUsuario = [
+    {
+      label: "Inicio", 
+      icon: "pi pi-fw pi-home",
+      command: () => {
+        window.location.href = '/';
+      }
+    },
+    {
+      label: "Requision", 
+      icon: "pi pi-fw pi-home",
+      command: () => {
+        window.location.href = '/requisicion';
+      }
+    },
+    {
+      label: "Detalles de Requision", 
+      icon: "pi pi-fw pi-home",
+      command: () => {
+        window.location.href = '/detallerequisiecion';
+      }
+    }
+]
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default [navListAdmin, navListKardex, navListUsuario, navlistDespachador, navlistW];
