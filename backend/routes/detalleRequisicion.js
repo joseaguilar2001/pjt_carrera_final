@@ -35,17 +35,16 @@ router.get('/:id', (req,res)=>{
 //post
 router.post('/', (req,res)=>{
     const requisiciondetalle = {
+        producto: req.body.idProducto,
         lote: req.body.idLote,
         requisicion: req.body.idRequisicion,
         descripcion: req.body.descripcion,
         cantidad: req.body.cantidad,
-        cantidadDespachada: req.body.cantidaDespachada,
-        precioUnitario: req.body.precioUnitario,
-        precioTotal: req.body.precioTotal
+        cantidadDespachada: req.body.cantidaDespachada
     };
     mysqlconexion.query(
-        `INSERT INTO requisiciondetalle(idLote, idRequisicion, descripcion, cantidad, cantidaDespachada, precioUnitario, precioTotal) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [requisiciondetalle.lote, requisiciondetalle.requisicion, requisiciondetalle.descripcion, requisiciondetalle.cantidad, requisiciondetalle.cantidadDespachada, requisiciondetalle.precioUnitario, requisiciondetalle.precioTotal], 
+        `CALL createRequisicionDes(?, ?, ?, ?, ?, ?)`,
+        [requisiciondetalle.lote, requisiciondetalle.producto, requisiciondetalle.requisicion, requisiciondetalle.descripcion, requisiciondetalle.cantidad, requisiciondetalle.cantidadDespachada], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -83,20 +82,18 @@ router.post('/solicitud/', (req,res)=>{
 router.put('/:id', (req,res)=>{
     const {id} = req.params;
     const requisiciondetalle = {
+        producto: req.body.idProducto,
         lote: req.body.idLote,
-        requisicion: req.body.idRequisicion,
         descripcion: req.body.descripcion,
         cantidad: req.body.cantidad,
-        cantidadDespachada: req.body.cantidaDespachada,
-        precioUnitario: req.body.precioUnitario,
-        precioTotal: req.body.precioTotal
+        cantidadDespachada: req.body.cantidaDespachada
     };
-    mysqlconexion.query(`UPDATE requisiciondetalle SET idLote=?, idRequisicion=?, descripcion=?, cantidad=?, cantidaDespachada=?, precioUnitario=?, precioTotal=? WHERE id=?`,
-        [requisiciondetalle.lote, requisiciondetalle.requisicion, requisiciondetalle.descripcion, requisiciondetalle.cantidad, requisiciondetalle.cantidadDespachada, requisiciondetalle.precioUnitario, requisiciondetalle.precioTotal, id], 
+    mysqlconexion.query(`CALL editRequisicionDes(?, ?, ?, ?, ?, ?);`,
+        [requisiciondetalle.lote, requisiciondetalle.producto, requisiciondetalle.descripcion, requisiciondetalle.cantidad, requisiciondetalle.cantidadDespachada, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
-                console.log('Se ha actualizado');
+                console.log('Se ha actualizado despachador');
             }
             else{
                 console.log(error);

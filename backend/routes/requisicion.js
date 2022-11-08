@@ -4,7 +4,7 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT r.id, r.idUsuarioEncargado, u.nombre as Encargado, r.idServicio, se.nombre as Servicio, r.idSolicitante, so.nombre as Solicitante, aprobado, fecha, categoria, codigoAprobacion '+
+    mysqlconexion.query('SELECT r.id, r.idUsuarioEncargado, u.nombre as Encargado, r.idServicio, se.nombre as Servicio, r.idSolicitante, so.nombre as Solicitante, aprobado, fecha, categoria '+
 	'FROM requisicion as r '+
     'INNER JOIN usuario as u ON r.idUsuarioEncargado = u.id '+
     'INNER JOIN solicitante as so ON r.idSolicitante = so.id '+
@@ -43,7 +43,7 @@ router.post('/', (req,res)=>{
         cAprobacion: req.body.codigoAprobacion
     };
     mysqlconexion.query(
-        `INSERT INTO requisicion(idUsuarioEncargado, idServicio, idSolicitante, aprobado, fecha, categoria, codigoAprobacion) VALUES (?, ?, ?, ?, curdate(), ?, ?)`,
+        `INSERT INTO requisicion(idUsuarioEncargado, idServicio, idSolicitante, aprobado, fecha, categoria) VALUES (?, ?, ?, ?, curdate(), ?)`,
         [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.categoria, requisicion.cAprobacion], 
         (error,rows,fields)=>{
             if(!error){
@@ -67,8 +67,8 @@ router.put('/:id', (req,res)=>{
         categoria: req.body.categoria,
         cAprobacion: req.body.codigoAprobacion
     };
-    mysqlconexion.query(`UPDATE requisicion SET idUsuarioEncargado=?, idServicio=?,  idSolicitante=?, aprobado=?, categoria=?, codigoAprobacion=? WHERE id=?`,
-        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.categoria, requisicion.cAprobacion, id], 
+    mysqlconexion.query(`UPDATE requisicion SET idUsuarioEncargado=?, idServicio=?,  idSolicitante=?, aprobado=?, categoria=? WHERE id=?`,
+        [requisicion.uEncargado, requisicion.servicio, requisicion.solicitante, requisicion.aprobado, requisicion.categoria, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);

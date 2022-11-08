@@ -7,14 +7,17 @@ import { Dropdown } from 'primereact/dropdown';
 
 import { DRequisicionContext } from "../../context/DRequisicionContext";
 
-const Form =(props) =>{
+const FormD =(props) =>{
     const {idr, isVisible, setIsVisible} = props;
     const {
         createDeRequisicion,
         deleteDeRequisicion,
         editDeRequisicion,
         updateDeRequisicion,
-        lote
+        lote,
+        /*loteFind,
+        lotefind,*/
+        producto
     } = useContext(DRequisicionContext);
     
     const inicialDRequisicionState ={
@@ -24,12 +27,12 @@ const Form =(props) =>{
         idLote: 0,
         descripcion: "",
         cantidad: 0,
-        cantidaDespachada: 0,
-        precioUnitario: 0,
-        precioTotal: 0
+        cantidaDespachada: 0
     };
 
     const [dRequisicionData, setdRequisicionData] = useState(inicialDRequisicionState);
+    //const [loteFindData, setloteFindData] = useState([]);
+
 
     useEffect(() => {
         if (editDeRequisicion) setdRequisicionData(editDeRequisicion);
@@ -41,11 +44,12 @@ const Form =(props) =>{
             [field]:data
         })
     };
-
+    //console.log(dRequisicionData);
     const saveDRequisicion = () => {
         if (!editDeRequisicion) {
             createDeRequisicion(dRequisicionData);
         } else {
+            //findLote(dRequisicionData.idLote);
             updateDeRequisicion(dRequisicionData);
         }
         setdRequisicionData(inicialDRequisicionState);
@@ -76,6 +80,10 @@ const Form =(props) =>{
         setdRequisicionData(inicialDRequisicionState);
     };
 
+    const labelLote =(lotes) =>{
+        return lotes.correlativo + " Existencia: " + lotes.existencia + " " + lotes.estado;
+    }
+
     return(<div>
         <Dialog
             visible={isVisible}
@@ -89,14 +97,21 @@ const Form =(props) =>{
             <div className="p-grid p-fluid">
                 <br/>
                 <div className="p-float-label">
-                    <Dropdown value={dRequisicionData.idLote} options={lote} optionLabel="nombre" optionValue="id" 
+                    <Dropdown value={dRequisicionData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
                     <label>Producto</label>
                 </div><br />
                 <div className="p-float-label">
-                    <Dropdown value={dRequisicionData.idLote} options={lote} optionLabel="nombre" optionValue="id" 
-                    onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
+                    <Dropdown value={dRequisicionData.idLote} options={lote.filter((p)=>(p.idProducto === parseInt(dRequisicionData.idProducto)) && (p.estado !== "Finalizado"))} optionLabel={labelLote} optionValue="id" 
+                    onChange={(e) => updateField(e.target.value, "idLote")} filter showClear filterBy="correlativo" placeholder="Seleccione un lote"/>
                     <label>Lote</label>
+                </div><br />
+                <div className="p-float-label">
+                    <InputText
+                        value={dRequisicionData.descripcion}
+                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                    />
+                    <label>Descripcion</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -109,55 +124,14 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <InputNumber
                         value={dRequisicionData.cantidaDespachada}
-                        onChange={(e)=>updateField(e.value, "cantidadAutorizada")}
+                        onChange={(e)=>updateField(e.value, "cantidaDespachada")}
                         locale="en-US"
                     />
-                    <label>Cantidad Autorizada</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.codInsumo}
-                        onChange={(e)=>updateField(e.target.value.trim(), "codInsumo")}
-                    />
-                    <label>Código de insumo</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
-                    />
-                    <label>Descripcion</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.precioUnitario}
-                        onChange={(e)=>updateField(e.target.value.trim(), "renglonAfectado")}
-                    />
-                    <label>Renglón Afectado</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
-                        value={dRequisicionData.precioTotal}
-                        onChange={(e)=>updateField(e.value, "valorEstimado")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
-                    />
-                    <label>Valor Estimado</label>
-                </div><br />
-                <div className="p-float-label">
-                    <Dropdown 
-                        value={dRequisicionData.IncluidoPAAC} options={estados} 
-                        onChange={(e) => updateField(e.target.value, "IncluidoPAAC")}/>
-                    <label>Incluido en PAAC</label>
-                </div><br />
-                <div className="p-float-label">
-                    <Dropdown 
-                        value={dRequisicionData.contratoAbierto} options={estados} 
-                        onChange={(e) => updateField(e.target.value, "contratoAbierto")}/>
-                    <label>Esta en contrato abierto</label>
+                    <label>Cantidad despachada</label>
                 </div>
             </div>
         </Dialog>
     </div>);
 }
 
-export default Form;
+export default FormD;

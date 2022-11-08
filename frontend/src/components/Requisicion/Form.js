@@ -28,8 +28,7 @@ const Form =(props) =>{
         idServicio: 0,
         idSolicitante: 0,
         aprobado: 0,
-        categoria:"",
-        codigoAprobacion: ""
+        categoria:""
     };
     const [requisicionData, setRequisicionData] = useState(inicialRequisicionesState);
 
@@ -125,13 +124,6 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.categoria} options={categorias} onChange={(e) => updateField(e.target.value, "categoria")}/>
                     <label>Categoria</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText keyfilter="int"
-                        value={requisicionData.codigoAprobacion}
-                        onChange={(e)=>updateField(e.target.value, "codigoAprobacion")}
-                    />
-                    <label>Código de aprovación</label>
                 </div><br />
                 <div className="p-float-label">
                         <Dropdown value={requisicionData.aprobado} options={estados} onChange={(e) => updateField(e.target.value, "aprobado")}/>
