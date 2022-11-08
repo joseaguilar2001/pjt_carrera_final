@@ -97,7 +97,6 @@ const Form =(props) =>{
         <Dialog
             visible={isVisible}
             modal={true}
-            //resizable={true} 
             style={{maxHeight: "800px", width:"420px", overflow:"auto"}}
             contentStyle={{overflow:"visible"}}
             header = "Detalles del presentacion"
