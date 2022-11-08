@@ -7,9 +7,6 @@ import "./App.css";
 import 'primereact/resources/primereact.min.css';
 import Navigation from "./components/MenuBar/Navigate";
 
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-
 import Login from "./components/Login";
 
 import Home from "./components/Home";
@@ -25,10 +22,12 @@ import DKardexs from "./screens/DKardexScreen";
 import Pedido from "./screens/PedidoScreen";
 import DPedido from "./screens/DPedidoScreen";
 import Requisicion from "./screens/RequisicionScreen";
+import DRequisicion from "./screens/DRequisicionScreen";
 import Auditoria from "./screens/AuditoriaScreen";
+
+import ReporteRequisicion from "./screens/ReporteRequisicionScreen";
 import VistaTable from "./components/Vistas/vistaPedidos";
 import VistaTableSum from "./components/Vistas/suministrosVistas";
-
 import Usuario from "./screens/UsuarioScreen";
 import Rol from "./screens/RolScreen";
 import Permisos from "./screens/PermisosScreen";
@@ -37,8 +36,6 @@ import ReactFinalFormDemo from "./components/Register";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
-import AppRoute from "./AppRoute";
-import routes from "./config/Routings";
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -84,15 +81,14 @@ const App = () => {
               Lote
             </Link>
           </li>
-          <li className="nav-item">
-              <Link to={"/servicios"} className="nav-link">
-              <i class="fa-sharp fa-solid fa-plane"></i>
-                Servicios
-              </Link>
-            </li>
             <li className="nav-item">
               <Link to={"/auditoria"} className="nav-link">
                 Auditoria
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/reporterequisicion"} className="nav-link">
+                Reporte Requisicion
               </Link>
             </li>
             <li className="nav-item">
@@ -170,7 +166,7 @@ const App = () => {
 
       <div className="container mt-3">
         <Routes>
-         <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
@@ -184,6 +180,8 @@ const App = () => {
           <Route path="/pedido" element={<Pedido />} />
           <Route path="/pedido/:idP" element={<DPedido />} />
           <Route path="/requisicion" element={<Requisicion />} />
+          <Route path="/requisicion/:idR" element={<DRequisicion />} />
+          <Route path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />
