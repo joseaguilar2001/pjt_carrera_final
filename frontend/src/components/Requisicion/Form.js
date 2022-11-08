@@ -1,16 +1,17 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { RequisicionContext } from "../../context/RequisicionContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
-import {InputText} from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown';
-import { useSelector } from "react-redux";
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
 
     const [isVisibleButton, setIsVisibleButton] = useState(false);
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
 
     //const { user: currentUser } = useSelector((state) => state.auth);
     const {
@@ -66,13 +67,25 @@ const Form =(props) =>{
         setIsVisible(false);
     };
 
+    const toast = useRef(null);
+
     const _deleteRequisicion = () => {
         if (editRequisicion) {
             deleteRequisicion(requisicionData.id);
             setRequisicionData(inicialRequisicionesState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setRequisicionData(inicialRequisicionesState);
         setIsVisible(false);
     };
+
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
 
     //Navegacion
     const navigate = useNavigate();
@@ -82,9 +95,13 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteRequisicion}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteRequisicion} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                onClick={() => setisVisibleDelete(true)} 
+                icon="pi pi-times" label="Eliminar" />
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveRequisicion}/>
@@ -100,6 +117,7 @@ const Form =(props) =>{
     };
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}

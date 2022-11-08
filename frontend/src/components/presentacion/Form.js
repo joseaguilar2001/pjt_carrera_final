@@ -45,7 +45,7 @@ const Form =(props) =>{
         console.log(presentacionData);
     };
 
-    const saveProducto = () => {
+    const savePresentacion = () => {
         if (!editPresentacion) {
             createPresentacion(presentacionData);
         } else {
@@ -56,13 +56,13 @@ const Form =(props) =>{
     };
     
     const toast = useRef(null);
-    const _deleteProducto = () => {
+    const _deletePresentacion = () => {
         if (editPresentacion) {
             deletePresentacion(presentacionData.id);
             setPresentacionData(inicialPresentacionesState);
             showError();
         }
-        setIsVisible(false);
+        retornar();
     };
 
     const retornar =()=>{
@@ -76,14 +76,16 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Guardar" icon="pi pi-check"
-                onClick={saveProducto}/>
             <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
-                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteProducto} reject={retornar} 
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deletePresentacion} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" onClick={() => setisVisibleDelete(true)} icon="pi pi-check" label="Eliminar" />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                onClick={() => setisVisibleDelete(true)} 
+                icon="pi pi-times" label="Eliminar" />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
+                label="Guardar" icon="pi pi-check"
+                onClick={savePresentacion}/>
         </div>
     );
 

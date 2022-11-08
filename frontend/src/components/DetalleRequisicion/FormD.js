@@ -1,22 +1,25 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
 
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+
 import { DRequisicionContext } from "../../context/DRequisicionContext";
 
 const FormD =(props) =>{
     const {idr, isVisible, setIsVisible} = props;
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
+
     const {
         createDeRequisicion,
         deleteDeRequisicion,
         editDeRequisicion,
         updateDeRequisicion,
         lote,
-        /*loteFind,
-        lotefind,*/
         producto
     } = useContext(DRequisicionContext);
     
@@ -31,8 +34,6 @@ const FormD =(props) =>{
     };
 
     const [dRequisicionData, setdRequisicionData] = useState(inicialDRequisicionState);
-    //const [loteFindData, setloteFindData] = useState([]);
-
 
     useEffect(() => {
         if (editDeRequisicion) setdRequisicionData(editDeRequisicion);
@@ -44,31 +45,45 @@ const FormD =(props) =>{
             [field]:data
         })
     };
-    //console.log(dRequisicionData);
+
     const saveDRequisicion = () => {
         if (!editDeRequisicion) {
             createDeRequisicion(dRequisicionData);
         } else {
-            //findLote(dRequisicionData.idLote);
             updateDeRequisicion(dRequisicionData);
         }
-        setdRequisicionData(inicialDRequisicionState);
-        setIsVisible(false);
+        retornar();
     };
+
+    const toast = useRef(null);
 
     const _deleteDRequisicion = () => {
         if (editDeRequisicion) {
             deleteDeRequisicion(dRequisicionData.id);
             setdRequisicionData(inicialDRequisicionState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setdRequisicionData(inicialDRequisicionState);
         setIsVisible(false);
     };
 
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteDRequisicion}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteDRequisicion} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveDRequisicion}/>
@@ -85,6 +100,7 @@ const FormD =(props) =>{
     }
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}
