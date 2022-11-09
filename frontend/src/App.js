@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -8,7 +8,6 @@ import 'primereact/resources/primereact.min.css';
 import Navigation from "./components/MenuBar/Navigate";
 
 import Login from "./components/Login";
-
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Presentacion from "./screens/PresentacionScreen";
@@ -163,6 +162,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/register" element={<ReactFinalFormDemo />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/producto" element={<Producto />} />
           <Route path="/lote" element={<Lote />} />
           <Route path="/presentacion" element={<Presentacion />} />
@@ -177,25 +178,13 @@ const App = () => {
           <Route path="/requisicion" element={<Requisicion />} />
           <Route path="/requisicion/:idR" element={<DRequisicion />} />
           <Route path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/usuarios" element={<Usuario />} />
           <Route path="/permiso" element={<Permisos />} />
           <Route path="/rol" element={<Rol />} />
-          <Route path="/register" element={<ReactFinalFormDemo />} />
           <Route path="/vista" element={<VistaTable />} />
         <Route path="/suministros" element={<VistaTableSum />} /> 
-        { /*
-          routes.map(
-            route => (
-              <AppRoute
-                path={route.path}
-                element={route.element}
-                isPrivate={route.isPrivate} 
-              />
-            )
-          )
-            */}
+
         </Routes>
       </div>
 
