@@ -43,26 +43,25 @@ const Navigation = () => {
         label: "Salir", 
         icon: "pi pi-fw pi-sign-out",
         command: () => {
-          window.location.onClick = logOut();
         }
       }
     ]
     const start = <img alt="logo" src="showcase/images/logo.png" onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2"></img>;
     const end = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-info" label="Inicio" model={items} />
     const end2 = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label="Inicio"  model={items2}></SplitButton>
-    const end3 = <a onClick={logOut()} href="/login">Adios</a>
     return (
         <header>
       {currentUser && currentUser.Rol === "Administrador" ? (
           <Menubar model={navListAdmin} start={start} end={end2} />
         ): currentUser && currentUser.Rol === "Kardex" ? (
-          <Menubar model={items} start={start} end={endL} />
-        ): currentUser && currentUser.Rol === "Admin" ? (
-          <Menubar model={items} start={start} end={endL} />
-        ): !currentUser && (
-          <Menubar model={items} start={start} end={end} />
-        ) */}
-              <Menubar model={navlistW} start={start} end={end}/>
+          <Menubar model={navListKardex} start={start} end={end2} />
+        ): currentUser && currentUser.Rol === "Despachador" ? (
+          <Menubar model={navlistDespechador} start={start} end={end2} />
+        ): currentUser && currentUser==="Usuario" ?(
+          <Menubar model={navListUsuario} start={start} end={end2} />
+        ): (
+          <Menubar model={navlistW} start={start} end={end} />
+        )}
         </header>
     );
 }
