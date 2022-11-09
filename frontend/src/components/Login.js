@@ -10,17 +10,15 @@ import { Password } from 'primereact/password';
 
 import { Dialog } from 'primereact/dialog';
 import { classNames } from 'primereact/utils';
-import { useSelector } from 'react-redux';
 
 
 const Login = () => {
-const { user: currentUser } = useSelector((state) => state.auth);
+
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Navigate = useNavigate();
 
   const validate = (data) => {
       let errors = {};
@@ -61,9 +59,6 @@ const { user: currentUser } = useSelector((state) => state.auth);
 
   const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
 
-  if (!currentUser) {
-    return <Navigate to="/profile" />;
-  }
   return (
     <div className="form-demo">
       <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
