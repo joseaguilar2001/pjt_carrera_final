@@ -9,6 +9,7 @@ import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 
 import DeRequisicionForm from './Form';
+import DeRequisicionFormDespachado from './FormD';
 import { DRequisicionContext } from "../../context/DRequisicionContext";
 
 
@@ -27,16 +28,21 @@ const DeRequisicionList = () =>{
         return cont;
     }
 
+    function visibleForms(bool){
+        setIsVisible(bool);
+        setisVisibleF2(bool);
+    }
+
     const saveDRequisicion = (id) => {
         findDeRequisicion(id);
-        setIsVisible(true);
+        visibleForms(true);
     };
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
                 <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Detalle" 
-                onClick={()=>setIsVisible(true)}/>
+                onClick={()=>visibleForms(true)}/>
             </React.Fragment>
         )
     }
@@ -129,6 +135,8 @@ const DeRequisicionList = () =>{
             </div>
         </Panel>
         <DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
+        
+        <DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>
         </div>
     );
 }

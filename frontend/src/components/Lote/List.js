@@ -25,9 +25,52 @@ const LoteList = () =>{
     const datePrefConsumo = (lotes) => {
         return moment(lotes.fechaConPref).format("DD/MM/YYYY");
     }
-    
+    const statusBodyTemplate = (lotes) => {
+        if(lotes.estado==="Ingreso")
+            return <span className="ingreso">Ingreso</span>;
+        else if(lotes.estado==="En uso")
+            return <span className="enUso">En uso</span>;
+        else if(lotes.estado==="Finalizado")
+            return <span className="finalizado">Finalizado</span>;
+    }
+    const semaforo=(lotes)=>{
+        if(lotes.estado!=="Finalizado")
+        {
+            let today = new Date();
+            let fecha2 = new Date(lotes.fechaCad);
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months;
+            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+            months -= now.getMonth();
+            months += fecha2.getMonth();
+            console.log(months);
+            //return months;
+            if(months<0)
+                return <span className="finalizado">U. vencidas</span>
+            else if(months<=6)
+                return <span className="inactivo">Faltan: {months}</span>
+            else if(months>6 && months<=12)
+                return <span className="ama">Faltan: {months}</span>
+            else if(months>12)
+                return <span className="enUso">Faltan: {months}</span>
+        }
+        else{
+            return <span className="finalizado">Terminado</span>;
+        }
+    }
+
+    //console.log(now);
+    function formatNumber(number){
+        return new Intl.NumberFormat('en')
+            .format(number);
+    }
     const montoTotal = (lotes) =>{
-        return lotes.cantidad * lotes.precioUnitario;
+        let monto = lotes.cantidad * lotes.precioUnitario;
+        monto = formatNumber(monto);
+        return monto;
+    }
+    const precioU = (lotes) => {
+        return formatNumber(lotes.precioUnitario);
     }
 
     const saveLote = (id) => {
@@ -110,10 +153,12 @@ const LoteList = () =>{
                 onSelectionChange={(e) => saveLote(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['correlativo', 'producto', 'presentacion', 'cantidad', dateCaducidad, datePrefConsumo, 'cantidad', 'existencia', 'precioUnitario', montoTotal]} 
+                globalFilterFields={['estado','correlativo', 'producto', 'presentacion', 'cantidad', dateCaducidad, datePrefConsumo, 'cantidad', 'existencia', 'precioUnitario', montoTotal]} 
                 header={header1} emptyMessage="No se encontraron lotes."
                 >
                 <Column field="id" header="No." sortable/>
+                <Column body={semaforo} header="Semaforo" sortable/>
+                <Column body={statusBodyTemplate} header="Estado" sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="producto" header="Producto" sortable/>
                 <Column field="presentacion" header="Presentacion" sortable/>
@@ -121,7 +166,7 @@ const LoteList = () =>{
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
                 <Column field="cantidad" header="Cantidad Inicial" sortable/>
                 <Column field="existencia" header="Existencia" sortable/>
-                <Column field="precioUnitario" header="Precio Unitario" sortable/>
+                <Column body={precioU} header="Precio Unitario" sortable/>
                 <Column body={montoTotal} header="Monto Total" sortable/>
             </DataTable>
             </div>

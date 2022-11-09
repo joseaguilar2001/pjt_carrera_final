@@ -12,7 +12,10 @@ import Login from "../components/Login";
 import Signing from "../components/Register";
 import Home from "../components/Home";
 import Profile from "../components/Profile";
-import DKardex from "./DKardexScreen";
+import AuditoriaScreen from "./AuditoriaScreen";
+import DRequisicionScreen from "./DRequisicionScreen";
+import DPedidoScreen from "./DPedidoScreen";
+import DeKardexScreen from "./DKardexScreen";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     Kardex,
@@ -29,5 +32,8 @@ export default {
     Signing,
     Home, 
     Profile,
-    DKardex
+    AuditoriaScreen,
+    DRequisicionScreen,
+    DPedidoScreen, 
+    DeKardexScreen
 };

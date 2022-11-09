@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate  } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { useNavigate  } from 'react-router-dom';
 
 import { Form, Field } from 'react-final-form';
 import { login } from "../actions/auth";
@@ -9,17 +9,18 @@ import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 
 import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
-
+import { useSelector } from 'react-redux';
 
 
 const Login = () => {
+const { user: currentUser } = useSelector((state) => state.auth);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const Navigate = useNavigate();
 
   const validate = (data) => {
       let errors = {};
@@ -59,25 +60,10 @@ const Login = () => {
   };
 
   const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
-  const passwordHeader = <h6>Pick a password</h6>;
-  const passwordFooter = (
-      <React.Fragment>
-          <Divider />
-          <p className="mt-2">Suggestions</p>
-          <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: '1.5' }}>
-              <li>At least one lowercase</li>
-              <li>At least one uppercase</li>
-              <li>At least one numeric</li>
-              <li>Minimo 8 caracteres</li>
-          </ul>
-      </React.Fragment>
-  );
-  const { isLoggedIn } = useSelector(state => state.auth);
 
-  if (isLoggedIn) {
+  if (!currentUser) {
     return <Navigate to="/profile" />;
   }
-
   return (
     <div className="form-demo">
       <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
@@ -107,7 +93,7 @@ const Login = () => {
                           <Field name="password" render={({ input, meta }) => (
                                 <div className="field">
                                     <span className="p-float-label">
-                                        <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
+                                        <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })}/>
                                         <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}

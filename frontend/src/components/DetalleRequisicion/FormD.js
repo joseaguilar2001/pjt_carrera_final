@@ -1,20 +1,26 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
 
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+
 import { DRequisicionContext } from "../../context/DRequisicionContext";
 
-const Form =(props) =>{
+const FormD =(props) =>{
     const {idr, isVisible, setIsVisible} = props;
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
+
     const {
         createDeRequisicion,
         deleteDeRequisicion,
         editDeRequisicion,
         updateDeRequisicion,
-        lote
+        lote,
+        producto
     } = useContext(DRequisicionContext);
     
     const inicialDRequisicionState ={
@@ -24,9 +30,7 @@ const Form =(props) =>{
         idLote: 0,
         descripcion: "",
         cantidad: 0,
-        cantidaDespachada: 0,
-        precioUnitario: 0,
-        precioTotal: 0
+        cantidaDespachada: 0
     };
 
     const [dRequisicionData, setdRequisicionData] = useState(inicialDRequisicionState);
@@ -48,23 +52,38 @@ const Form =(props) =>{
         } else {
             updateDeRequisicion(dRequisicionData);
         }
-        setdRequisicionData(inicialDRequisicionState);
-        setIsVisible(false);
+        retornar();
     };
+
+    const toast = useRef(null);
 
     const _deleteDRequisicion = () => {
         if (editDeRequisicion) {
             deleteDeRequisicion(dRequisicionData.id);
             setdRequisicionData(inicialDRequisicionState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setdRequisicionData(inicialDRequisicionState);
         setIsVisible(false);
     };
 
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteDRequisicion}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteDRequisicion} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveDRequisicion}/>
@@ -76,7 +95,12 @@ const Form =(props) =>{
         setdRequisicionData(inicialDRequisicionState);
     };
 
+    const labelLote =(lotes) =>{
+        return lotes.correlativo + " Existencia: " + lotes.existencia + " " + lotes.estado;
+    }
+
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}
@@ -89,14 +113,21 @@ const Form =(props) =>{
             <div className="p-grid p-fluid">
                 <br/>
                 <div className="p-float-label">
-                    <Dropdown value={dRequisicionData.idLote} options={lote} optionLabel="nombre" optionValue="id" 
+                    <Dropdown value={dRequisicionData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
                     <label>Producto</label>
                 </div><br />
                 <div className="p-float-label">
-                    <Dropdown value={dRequisicionData.idLote} options={lote} optionLabel="nombre" optionValue="id" 
-                    onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
+                    <Dropdown value={dRequisicionData.idLote} options={lote.filter((p)=>(p.idProducto === parseInt(dRequisicionData.idProducto)) && (p.estado !== "Finalizado"))} optionLabel={labelLote} optionValue="id" 
+                    onChange={(e) => updateField(e.target.value, "idLote")} filter showClear filterBy="correlativo" placeholder="Seleccione un lote"/>
                     <label>Lote</label>
+                </div><br />
+                <div className="p-float-label">
+                    <InputText
+                        value={dRequisicionData.descripcion}
+                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                    />
+                    <label>Descripcion</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -109,55 +140,14 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <InputNumber
                         value={dRequisicionData.cantidaDespachada}
-                        onChange={(e)=>updateField(e.value, "cantidadAutorizada")}
+                        onChange={(e)=>updateField(e.value, "cantidaDespachada")}
                         locale="en-US"
                     />
-                    <label>Cantidad Autorizada</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.codInsumo}
-                        onChange={(e)=>updateField(e.target.value.trim(), "codInsumo")}
-                    />
-                    <label>Código de insumo</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
-                    />
-                    <label>Descripcion</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputText
-                        value={dRequisicionData.precioUnitario}
-                        onChange={(e)=>updateField(e.target.value.trim(), "renglonAfectado")}
-                    />
-                    <label>Renglón Afectado</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
-                        value={dRequisicionData.precioTotal}
-                        onChange={(e)=>updateField(e.value, "valorEstimado")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
-                    />
-                    <label>Valor Estimado</label>
-                </div><br />
-                <div className="p-float-label">
-                    <Dropdown 
-                        value={dRequisicionData.IncluidoPAAC} options={estados} 
-                        onChange={(e) => updateField(e.target.value, "IncluidoPAAC")}/>
-                    <label>Incluido en PAAC</label>
-                </div><br />
-                <div className="p-float-label">
-                    <Dropdown 
-                        value={dRequisicionData.contratoAbierto} options={estados} 
-                        onChange={(e) => updateField(e.target.value, "contratoAbierto")}/>
-                    <label>Esta en contrato abierto</label>
+                    <label>Cantidad despachada</label>
                 </div>
             </div>
         </Dialog>
     </div>);
 }
 
-export default Form;
+export default FormD;

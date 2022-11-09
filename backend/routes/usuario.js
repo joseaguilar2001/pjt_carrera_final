@@ -34,6 +34,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
                     nroCelular: nuevo.nroCelular,
                     direccion:  nuevo.direccion,
                     estado: 1,
+
                 });
             }});
 }));
@@ -41,7 +42,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT u.id, r.nombre, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
+    mysql.query("SELECT u.id, r.nombre as rol, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
     + " INNER JOIN rol r " 
     + "ON u.idRol  = r.id "
     + "WHERE u.email = ?; ", [email], async function(error, results, fields){
@@ -70,12 +71,13 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                         code:200,
                         success:"login successful",
                         id: results[0].id,
-                        rol: results[0].idRol,
+                        rol: results[0].rol,
                         nombre: results[0].nombre,
                         email: results[0].email,
                         nroCelular: results[0].nroCelular,
                         direccion: results[0].direccion,
                         estado: results[0].estado,
+                        token: token
                     });
                 }else{
                     res.send({code:204, error:"El correo y la contraseña no coinciden"});

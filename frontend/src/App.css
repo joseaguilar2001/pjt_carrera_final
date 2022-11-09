@@ -163,5 +163,56 @@ label {
     letter-spacing: .3px;
   background-color: rgb(253, 193, 193);
   color: red;
+}
+.ingreso{
+  border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+  background-color: rgb(193, 246, 253);
+  color: blue;
+}
+.enUso{
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+  background-color: rgb(143, 252, 143);
+  color: green;
+}
+.finalizado{
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+  background-color: rgb(164, 175, 164);
+  color: black;
+}
+.ama{
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+  background-color: beige;
+  color:rgb(187, 177, 38);
+}
 
+.toast-demo button {
+  min-width: 10rem;
+  margin-right: .5rem;
+}
+
+@media screen and (max-width: 960px) {
+  .toast-demo button {
+      width: 100%;
+      margin-bottom: .5rem;
+  }
 }
