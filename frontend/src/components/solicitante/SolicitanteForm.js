@@ -1,14 +1,16 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import { SolicitanteContext } from "../../context/SolicitantesContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
-//import {InputNumber} from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
 
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 const SolicitanteForm =(props) =>{
     const {isVisible, setIsVisible} = props;
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
 
     const {
         createSolicitante,
@@ -43,32 +45,46 @@ const SolicitanteForm =(props) =>{
         console.log(solicitanteData);
     };
 
-    const saveProducto = () => {
+    const saveSolicitante = () => {
         if (!editSolicitante) {
             createSolicitante(solicitanteData);
         } else {
             updateSolicitante(solicitanteData);
         }
+        retornar();
+    };
+
+    const toast = useRef(null);
+
+    const _deleteSolicitante = () => {
+        if (editSolicitante) {
+            deleteSolicitante(solicitanteData.id);
+            showError();
+        }
+        retornar();
+    };
+
+    const retornar =()=>{
         setSolicitanteData(inicialSolicitantesState);
         setIsVisible(false);
     };
 
-    const _deleteProducto = () => {
-        if (editSolicitante) {
-            deleteSolicitante(solicitanteData.id);
-            setSolicitanteData(inicialSolicitantesState);
-        }
-        setIsVisible(false);
-    };
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteProducto}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteSolicitante} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
-                onClick={saveProducto}/>
+                onClick={saveSolicitante}/>
         </div>
     );
 
@@ -78,6 +94,7 @@ const SolicitanteForm =(props) =>{
     };
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}
@@ -102,11 +119,11 @@ const SolicitanteForm =(props) =>{
                         value={solicitanteData.cargo}
                         onChange={(e)=>updateField(e.target.value.trim(), "cargo")}
                     />
-                    <label>Estado</label>
+                    <label>Cargo</label>
                 </div>
                 <br />
                 <div className="p-float-label">
-                        <Dropdown value={solicitanteData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
+                    <Dropdown value={solicitanteData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
                     <label>Estado</label>
                 </div>
             </div>
