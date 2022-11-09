@@ -61,8 +61,7 @@ const Form =(props) =>{
             loteData.fechaConPref = moment(loteData.fechaConPref).format("YYYY-MM-DD");
             updateLote(loteData);
         }
-        setLoteData(inicialLotesState);
-        setIsVisible(false);
+        retornar();
     };
 
     const toast = useRef(null);

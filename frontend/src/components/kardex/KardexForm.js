@@ -1,15 +1,18 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { KardexContext } from "../../context/KardexsContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
-//import {InputNumber} from "primereact/inputnumber";
 
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 const KardexForm =(props) =>{
     const {isVisible, setIsVisible} = props;
     const [isVisibleButton, setIsVisibleButton] = useState(false);
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
+
     const {
         createKardex,
         deleteKardex,
@@ -50,17 +53,27 @@ const KardexForm =(props) =>{
         } else {
             updateKardex(kardexData);
         }
-        setKardexData(inicialKardexsState);
-        setIsVisible(false);
+        retornar();
     };
 
+    const toast = useRef(null);
     const _deleteKardex = () => {
         if (editKardex) {
             deleteKardex(kardexData.id);
             setKardexData(inicialKardexsState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setKardexData(inicialKardexsState);
         setIsVisible(false);
     };
+
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
 
     //Navegacion
     const navigate = useNavigate();
@@ -70,9 +83,13 @@ const KardexForm =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteKardex}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteKardex} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveKardex}/>
@@ -88,6 +105,7 @@ const KardexForm =(props) =>{
     };
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}
