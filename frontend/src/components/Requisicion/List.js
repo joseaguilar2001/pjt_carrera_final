@@ -112,10 +112,9 @@ const RequisicionList = () =>{
                 <Column field="Encargado" header="Encargado" sortable/>
                 <Column field="Servicio" header="Servicio" sortable/>
                 <Column field="Solicitante" header="Solicitante" sortable/>
-                <Column body={date} header="Fecha de aprovación" sortable/>
+                <Column body={date} header="Fecha de aprobación" sortable/>
                 <Column field="categoria" header="Categoría" sortable/>
                 <Column body={statusAprovado} header="Aprobado" sortable/>
-                <Column field="codigoAprobacion" header="Código de aprovación" sortable/>
             </DataTable>
             </div>
         </Panel>

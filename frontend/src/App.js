@@ -86,11 +86,6 @@ const App = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/reporterequisicion"} className="nav-link">
-                Reporte Requisicion
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to={"/kardex"} className="nav-link">
               <i class="fa-sharp fa-solid fa-cart-shopping"></i>
                 Kardex

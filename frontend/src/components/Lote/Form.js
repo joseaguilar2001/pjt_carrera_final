@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import { LoteContext } from "../../context/LoteContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -7,11 +7,14 @@ import {InputNumber} from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
 import moment from "moment";
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
 
     const [isVisibleButton, setIsVisibleButton] = useState(true);
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
 
     const {
         createLote,
@@ -48,7 +51,6 @@ const Form =(props) =>{
             ...loteData,
             [field]:data
         })
-        //console.log(loteData);
     };
 
     const saveLote = () => {
@@ -63,19 +65,36 @@ const Form =(props) =>{
         setIsVisible(false);
     };
 
+    const toast = useRef(null);
+
     const _deleteLote = () => {
         if (editLote) {
             deleteLote(loteData.id);
             setLoteData(inicialLotesState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setLoteData(inicialLotesState);
         setIsVisible(false);
     };
 
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
+
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteLote}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteLote} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveLote}/>
@@ -89,6 +108,7 @@ const Form =(props) =>{
     };
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}

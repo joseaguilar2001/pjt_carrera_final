@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
@@ -6,11 +6,15 @@ import {InputNumber} from "primereact/inputnumber";
 import { Dropdown } from 'primereact/dropdown';
 import {Calendar} from 'primereact/calendar';
 import moment from "moment";
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 import { DKardexContext } from "../../context/DKardexContext";
 
 const Form =(props) =>{
     const {idk, isVisible, setIsVisible} = props;
+    const [isVisibleDelete, setisVisibleDelete] = useState(false);
+
     const {
         createDeKardex,
         deleteDeKardex,
@@ -58,23 +62,37 @@ const Form =(props) =>{
             dKardexData.fechaRequisicion = moment(dKardexData.fechaRequisicion).format("YYYY-MM-DD");
             updateDeKardex(dKardexData);
         }
-        setdKardexData(inicialDKardexsState);
-        setIsVisible(false);
+        retornar();
     };
 
+    const toast = useRef(null);
     const _deleteDKardex = () => {
         if (editDeKardex) {
             deleteDeKardex(dKardexData.id);
             setdKardexData(inicialDKardexsState);
+            showError();
         }
+        retornar();
+    };
+
+    const retornar =()=>{
+        setdKardexData(inicialDKardexsState);
         setIsVisible(false);
     };
 
+    const showError = () => {
+        toast.current.show({severity:'error', summary: 'Eliminado', detail:'Se ha eliminado con éxito', life: 3000});
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
-                label="Eliminar" icon="pi pi-times"
-                onClick={_deleteDKardex}/>
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteDKardex} reject={retornar} 
+                acceptClassName="p-button-danger"
+                />
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
+                icon="pi pi-times" label="Eliminar"
+                onClick={() => setisVisibleDelete(true)}/>
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveDKardex}/>
@@ -87,6 +105,7 @@ const Form =(props) =>{
     };
 
     return(<div>
+        <Toast ref={toast}></Toast>
         <Dialog
             visible={isVisible}
             modal={true}
