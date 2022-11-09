@@ -29,7 +29,6 @@ import VistaTable from "./components/Vistas/vistaPedidos";
 import VistaTableSum from "./components/Vistas/suministrosVistas";
 import Usuario from "./screens/UsuarioScreen";
 import Rol from "./screens/RolScreen";
-import Permisos from "./screens/PermisosScreen";
 import ReactFinalFormDemo from "./components/Register"; 
 
 const App = () => {

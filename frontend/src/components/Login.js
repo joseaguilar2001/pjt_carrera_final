@@ -10,17 +10,15 @@ import { Password } from 'primereact/password';
 
 import { Dialog } from 'primereact/dialog';
 import { classNames } from 'primereact/utils';
-import { useSelector } from 'react-redux';
 
 
 const Login = () => {
-const { user: currentUser } = useSelector((state) => state.auth);
+
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const Navigate = useNavigate();
 
   const validate = (data) => {
       let errors = {};
