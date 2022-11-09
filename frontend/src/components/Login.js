@@ -61,9 +61,6 @@ const { user: currentUser } = useSelector((state) => state.auth);
 
   const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
 
-  if (!currentUser) {
-    return <Navigate to="/profile" />;
-  }
   return (
     <div className="form-demo">
       <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
