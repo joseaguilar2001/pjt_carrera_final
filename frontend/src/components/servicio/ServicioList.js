@@ -82,7 +82,7 @@ const ServicioList = () =>{
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="descripcion" header="Descripcion" sortable/>
+                <Column field="descripcion" header="Descripción" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

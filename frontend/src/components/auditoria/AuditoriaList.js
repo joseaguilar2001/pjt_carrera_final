@@ -71,8 +71,8 @@ const AuditoriaList = () =>{
                 dataKey="id"
                 >
                 <Column field="no" header="No." sortable/>
-                <Column field="nombre" header="Descripcion" sortable/>
-                <Column field="presentacion" header="Presentacion" sortable/>
+                <Column field="nombre" header="Descripción" sortable/>
+                <Column field="presentacion" header="Presentación" sortable/>
                 <Column field="unidadMedida" header="Unidad de Medida" sortable/>
                 <Column body={datefecha} header="Fecha de Caducidad" sortable/>
                 <Column field="lote" header="No. De Lote" sortable/>

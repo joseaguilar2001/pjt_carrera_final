@@ -53,7 +53,7 @@ const Navigation = () => {
       },
     },
     {
-      label: "Presentacion",
+      label: "Presentación",
       icon: "pi pi-fw pi-briefcase",
       command: () => {
         window.location.href = '/presentacion';
@@ -133,7 +133,7 @@ const Navigation = () => {
           }
         },
         {
-          label: "Presentacion", 
+          label: "Presentación", 
           icon: "pi pi-fw pi-sitemap",
           command: () => {
             window.location.href = '/presentacion';
@@ -260,7 +260,7 @@ const Navigation = () => {
     /*Items 2 */
     const items = [
       {
-        label: "Inicio de Sesion", 
+        label: "Inicio de Sesión", 
         icon: "pi pi-fw pi-user",
         command: () => {
           window.location.href = '/login';

@@ -86,7 +86,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteDKardex} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -135,7 +135,7 @@ const Form =(props) =>{
                         value={dKardexData.nroReferencia}
                         onChange={(e)=>updateField(e.target.value.trim(), "nroReferencia")}
                     />
-                    <label>Numero de referencia</label>
+                    <label>Número de referencia</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
@@ -150,7 +150,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "entradaCantidad")}
                         locale="en-US"
                     />
-                    <label>Entrada Cantidad</label>
+                    <label>Entrada cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -158,7 +158,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "entradaPrecio")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Entreda Precio</label>
+                    <label>Entreda precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -166,7 +166,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "salidaCantidad")}
                         locale="en-US"
                     />
-                    <label>Salida Cantidad</label>
+                    <label>Salida cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -174,7 +174,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "salidadPrecio")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Salida Precio</label>
+                    <label>Salida precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -182,7 +182,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "saldoCantidad")}
                         locale="en-US"
                     />
-                    <label>Saldo Cantidad</label>
+                    <label>Saldo cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -190,7 +190,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "saldoPrecio")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Saldo Precio</label>
+                    <label>Saldo precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -198,7 +198,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "reajusteCantidad")}
                         locale="en-US"
                     />
-                    <label>Reajuste Cantidad</label>
+                    <label>Reajuste cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -206,7 +206,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "reajustePrecio")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Reajuste Precio</label>
+                    <label>Reajuste precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar

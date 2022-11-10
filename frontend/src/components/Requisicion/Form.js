@@ -40,7 +40,7 @@ const Form =(props) =>{
         {label: 'No', value: 0}
     ];
     const categorias = [
-        {label: 'Reactivos Quimicos', value: 'Reactivos Quimicos'},
+        {label: 'Reactivos Químicos', value: 'Reactivos Quimicos'},
         {label: 'Productos Medicinales', value: 'Productos Medicinales'}
     ];
 
@@ -97,7 +97,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteRequisicion} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -143,11 +143,11 @@ const Form =(props) =>{
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.categoria} options={categorias} onChange={(e) => updateField(e.target.value, "categoria")}/>
-                    <label>Categoria</label>
+                    <label>Categoría</label>
                 </div><br />
                 <div className="p-float-label">
                         <Dropdown value={requisicionData.aprobado} options={estados} onChange={(e) => updateField(e.target.value, "aprobado")}/>
-                    <label>Aprovación</label>
+                    <label>Aprobación</label>
                 </div>
             </div>
         </Dialog>

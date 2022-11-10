@@ -98,7 +98,7 @@ const LoteList = () =>{
         return (
             <React.Fragment>
                 <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
-                <Button label="Ir a Presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a Presentación" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
             </React.Fragment>
         )
     }
@@ -157,11 +157,11 @@ const LoteList = () =>{
                 header={header1} emptyMessage="No se encontraron lotes."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column body={semaforo} header="Semaforo" sortable/>
+                <Column body={semaforo} header="Semáforo" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="producto" header="Producto" sortable/>
-                <Column field="presentacion" header="Presentacion" sortable/>
+                <Column field="presentacion" header="Presentación" sortable/>
                 <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
                 <Column field="cantidad" header="Cantidad Inicial" sortable/>

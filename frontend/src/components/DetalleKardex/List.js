@@ -120,14 +120,14 @@ const DeKardexList = () =>{
                 <Column field="KardexCorrelativo" header="Kardex" sortable/>
                 <Column field="LoteCorrelativo" header="Lote" sortable/>
                 <Column body={datefecha} header="Fecha" sortable/>
-                <Column field="nroReferencia" header="Numero de referencia" sortable/>
+                <Column field="nroReferencia" header="Número de referencia" sortable/>
                 <Column field="remitente" header="Remitente" sortable/>
                 <Column field="entradaCantidad" header="Entrada cantidad" sortable/>
-                <Column field="entradaPrecio" header="Entrada Precio" sortable/>
-                <Column field="salidadPrecio" header="Salida Precio" sortable/>
+                <Column field="entradaPrecio" header="Entrada precio" sortable/>
+                <Column field="salidadPrecio" header="Salida precio" sortable/>
                 <Column field="salidaCantidad" header="Salida cantidad" sortable/>
-                <Column field="reajusteCantidad" header="Reajuste Cantidad" sortable/>
-                <Column field="reajustePrecio" header="Reajuste Precio" sortable/>
+                <Column field="reajusteCantidad" header="Reajuste cantidad" sortable/>
+                <Column field="reajustePrecio" header="Reajuste precio" sortable/>
                 <Column field="saldoCantidad" header="Saldo cantidad" sortable/>
                 <Column field="saldoPrecio" header="Saldo precio" sortable/>
                 <Column body={dateRequisicion} header="Fecha requisición" sortable/>
