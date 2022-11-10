@@ -22,7 +22,7 @@ const cookieSession = require("cookie-session");
 var dRequisicionRoute = require('./routes/detalleRequisicion');
 var auditoriaRoute = require('./routes/auditoria');
 var requisicionRRoute = require('./routes/reporteRequisicionR');
-var detalleRequisicionRRoute = require('./routes/reporteDetalleRequisicionR')
+var detalleRequisicionRRoute = require('./routes/reporteDetalleRequisicionR');
 //var index = require('./routes/index');
 const vistas = require('./routes/vistas');
 
