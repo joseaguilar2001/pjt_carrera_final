@@ -62,7 +62,7 @@ const ReactFinalFormDemo = () => {
         }
         setFormData(data);
 
-        dispatch(register(null, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
+        dispatch(register(5, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
         .then(() => {
             emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
             .then((reponse) => {

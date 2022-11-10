@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken";
+const jwt =  require("jsonwebtoken");
 
 verifyToken = (req, res, next) => {
     let token = req.session.token;
@@ -9,7 +9,7 @@ verifyToken = (req, res, next) => {
       });
     }
   
-    verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
       if (err) {
         return res.status(401).send({
           message: "Unauthorized!",
@@ -18,4 +18,4 @@ verifyToken = (req, res, next) => {
       req.userId = decoded.id;
       next();
     });
-  };
+};

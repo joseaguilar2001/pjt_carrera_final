@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { clearMessage } from "../../actions/message";
 import logo from "../../images/fondo2.ico";
 const Navigation = () => {
-
+    const { isLoggedIn } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { user: currentUser } = useSelector((state) => state.auth);
     const logOut = useCallback(() => {
@@ -300,11 +300,11 @@ const Navigation = () => {
       }
     ]
     const start = <img alt="logo" src={logo} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2"></img>;
-    const end = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-info" label="Inicio" model={items} />
-    const end2 = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label="Inicio"  model={items2}></SplitButton>
+    const end = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-info" label="Acciones" model={items} />
+    const end2 = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label="Acciones"  model={items2}></SplitButton>
     return (
         <header>
-      {currentUser && currentUser.Rol === "Administrador" ? (
+      {/*currentUser && currentUser.Rol === "Administrador" ? (
           <Menubar model={navListAdmin} start={start} end={end2} />
         ): currentUser && currentUser.Rol === "Kardex" ? (
           <Menubar model={navListKardex} start={start} end={end2} />
@@ -313,8 +313,10 @@ const Navigation = () => {
         ): currentUser && currentUser==="Usuario" ?(
           <Menubar model={navListUsuario} start={start} end={end2} />
         ): (
-          <Menubar model={navlistW} start={start} end={end} />
-        )}
+          <Menubar model={navlistW} start={start} end={end} / >
+        )*/}
+        {isLoggedIn ? ( <Menubar model={navListAdmin} start={start} end={end2} /> ):
+        (<Menubar model={navlistW} start={start} end={end} />)}
         </header>
     );
 }

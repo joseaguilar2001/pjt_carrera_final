@@ -15,7 +15,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
         password: encryptedPassword,
         nroCelular: req.body.nroCelular,
         direccion: req.body.direccion,
-        estado: 1,
+        estado: req.body.estado,
     };
     mysql.query('INSERT INTO usuario(idRol, nombre, email, password, nroCelular, direccion, estado) VALUES (?, ?, ?, ?, ?, ?, ?)', 
     [nuevo.idRol, nuevo.nombre, nuevo.email, nuevo.password, nuevo.nroCelular, nuevo.direccion, nuevo.estado], 
@@ -199,8 +199,10 @@ router.delete('/:id', expressAsyncHandler(async(req, res) => {
     })
 }));
 
-router.post('/signout', expressAsyncHandler(async(req, res) => {
+router.get('/signout', expressAsyncHandler(async(req, res) => {
     req.session = null;
     res.status(200).send({message: 'Adiosito'});
-}))
+}));
+
+
 module.exports = router;

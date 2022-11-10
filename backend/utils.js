@@ -5,7 +5,7 @@ async function generateToken(user){
     return sign({
         user: user
     }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
+        expiresIn: 86400,
     });
 };
 
