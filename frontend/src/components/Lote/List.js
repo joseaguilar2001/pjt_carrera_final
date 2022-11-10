@@ -9,15 +9,18 @@ import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
-
+import { LoteService } from "../../services/LoteService";
+import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-
+import ApiKey from '../../ApiKey';
 
 const LoteList = () =>{
     const {lotes, findLote} = useContext(LoteContext);
-
+    const [lote, setLote] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const vistaServicioLote = new LoteService();
     const navigate = useNavigate();
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("DD/MM/YYYY");
@@ -33,7 +36,47 @@ const LoteList = () =>{
         else if(lotes.estado==="Finalizado")
             return <span className="finalizado">Finalizado</span>;
     }
+    useEffect(() => {
+        vistaServicioLote.readAll()
+        .then(data => setLote(data));
+    },[vistaServicioLote]);
+
+    function semaforoAnalitics()
+    {
+        const prdo = [];
+        // eslint-disable-next-line array-callback-return
+        lote.map((e) => {
+            if(e.estado !== 0)
+            {
+                let today = new Date();
+                let fecha2 = new Date(e.fechaCad);
+                let now = new Date(today.toLocaleDateString('en-US'));
+                var months;
+                months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+                months -= now.getMonth();
+                months += fecha2.getMonth();
+                if(months<0)
+                    prdo.push(e.producto);   
+            }else{
+                prdo.push(e.nombre);
+            }
+        });
+        const email = {
+            message: `Los siguientes productos tienen que 
+            estar en observacion: ${prdo}, por favor entre a la pagina 
+            para poder ver que hacer`
+        }
+        if(prdo.length > 0){
+            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
+            .then((reponse) => {
+                console.log("Enviado con exito");
+            },(error) => {
+                console.log("Error");
+            });
+        }
+    }
     const semaforo=(lotes)=>{
+        semaforoAnalitics();
         if(lotes.estado!=="Finalizado")
         {
             let today = new Date();

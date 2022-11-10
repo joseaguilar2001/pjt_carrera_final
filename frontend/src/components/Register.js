@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -17,7 +16,6 @@ const ReactFinalFormDemo = () => {
     const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const validate = (data) => {
         let errors = {};
@@ -76,6 +74,7 @@ const ReactFinalFormDemo = () => {
         dispatch(register(4, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
         .then(() => {
             setShowMessage(true);
+            form.restart();
             //navigate("/login");
             //window.location.reload();
         })
@@ -110,9 +109,9 @@ const ReactFinalFormDemo = () => {
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Registration Successful!</h5>
+                    <h5>Registro hecho!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-                        Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
+                        ¿Que tal señor@ <b>{formData.name}</b>? ; Ya puede iniciar en el sistema como un usuario.<b>{formData.email}</b> for activation instructions.
                     </p>
                 </div>
             </Dialog>

@@ -188,13 +188,6 @@ const Navigation = () => {
                 window.location.href = '/requisicion';
               }
             },
-            {
-              label: "Roles", 
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location.href = '/rol';
-              }
-            }
           ]
         }
       ]
