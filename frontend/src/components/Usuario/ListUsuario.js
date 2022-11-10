@@ -15,7 +15,7 @@ const UsuarioList = () =>{
     const [isVisible, setIsVisible] = useState(false);
 
     const statusBodyTemplate = (usuarios) => {
-        return <span className={`${usuarios.Estado ? "activo" : "inactivo"}`}>{usuarios.estado ? " Activo " : " Inactivo "}</span>;
+        return <span className={`${usuarios.Estado ? "activo" : "inactivo"}`}>{usuarios.estado ? " Inactivo " : " Activo "}</span>;
     }
 
     const saveUsuario = (id) => {

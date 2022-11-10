@@ -10,7 +10,7 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { useDispatch } from "react-redux";
 import { register } from '../actions/auth';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import ApiKey from '../ApiKey';
 const ReactFinalFormDemo = () => {
     const [showMessage, setShowMessage] = useState(false);
@@ -45,6 +45,7 @@ const ReactFinalFormDemo = () => {
     };
 
     const onSubmit = (data, form) => {
+        setFormData(data);
         const email = {
             message: `Es un placer anunciarle que el 
             dia de hoy ${Date.now()} se creo un nuevo, 
@@ -60,11 +61,7 @@ const ReactFinalFormDemo = () => {
             solicitamos que espere para que se le otorgue un
             rol.`
         }
-        setFormData(data);
-
-        dispatch(register(5, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
-        .then(() => {
-            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
+        emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
             .then((reponse) => {
                 console.log("Enviado con exito");
             },(error) => {
@@ -76,9 +73,11 @@ const ReactFinalFormDemo = () => {
             },(error) => {
                 console.log("Error");
             });
+        dispatch(register(4, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
+        .then(() => {
             setShowMessage(true);
-            navigate("/login");
-            window.location.reload();
+            //navigate("/login");
+            //window.location.reload();
         })
         .catch(() => {
             form.restart();

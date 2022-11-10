@@ -117,21 +117,21 @@ const FormUsuario = (props) => {
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.nombre || ''}
+                        value={usuarioData.nombre}
                         onChange={(e)=>updateField(e.target.value.trim(), "nombre")}
                     />
                     <label>Nombre</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.email || ''}
+                        value={usuarioData.email}
                         onChange={(e)=>updateField(e.target.value.trim(), "email")}
                     />
                     <label>Email</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.password || ''}
+                        value={usuarioData.password}
                         onChange={(e)=>updateField(e.target.value.trim(), "password")}
                     />
                     <label>Contraseña</label>

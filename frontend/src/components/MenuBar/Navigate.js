@@ -231,7 +231,7 @@ const Navigation = () => {
       icon: "pi pi-fw pi-compass",
       items:[
         {
-          label: "Inicio", 
+          label: "Lista de usuarios", 
           icon: "pi pi-fw pi-users",
           command: () => {
             window.location.href = '/usuarios';
@@ -301,12 +301,25 @@ const Navigation = () => {
         return <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label={currentUser.nombre}  model={items2} />;
       }
     }
+
+    function isRol(currentUser, navList1, navList2, navList3, navList4, navList5){
+      if(!currentUser){
+        return navList1;
+      }else if(currentUser.rol === "Administrador"){
+        return navList2;
+      }else if(currentUser.rol === "Despachador"){
+        return navList3;
+      }else if(currentUser.rol === "Kardex"){
+        return navList4;
+      }else if(currentUser.rol === "Usuario"){
+        return navList5;
+      }
+    }
     const end = isLogin(currentUser, items, items2);
     const start = <img alt="logo" src={logo} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2"></img>;
     return (
         <header>
-        {currentUser ? ( <Menubar model={navListAdmin} start={start} end={end} /> ):
-        (<Menubar model={navlistW} start={start} end={end} />)}
+        <Menubar model={isRol(currentUser, navlistW, navListAdmin, navlistDespachador, navListKardex, navListUsuario)} start={start} end={end} />
         </header>
     );
 }
