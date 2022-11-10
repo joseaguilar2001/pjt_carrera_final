@@ -30,7 +30,7 @@ const PresentacionList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Presentacion" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Presentación" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )

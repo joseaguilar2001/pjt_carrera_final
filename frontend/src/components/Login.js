@@ -72,7 +72,7 @@ const Login = () => {
             </Dialog>
         <div className="flex justify-content-center">
         <div className='card card-container'>
-                    <h5 className="text-center">Inicio de Sesion</h5>
+                    <h5 className="text-center">Inicio de Sesión</h5>
                     <Form onSubmit={onSubmit} initialValues={{ nombre: '', email: '', password: ''}} validate={validate} render={({ handleSubmit }) => (
                         <form onSubmit={handleSubmit} className="p-fluid">
                           <Field name="email" render={({ input, meta }) => (

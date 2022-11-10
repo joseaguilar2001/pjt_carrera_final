@@ -78,9 +78,9 @@ const KardexList = () =>{
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
-                <Column field="descripcion" header="Descripcion" sortable/>
-                <Column field="codigo" header="Codigo" sortable/>
-                <Column field="areaDSalud" header="Area de salud" sortable/>
+                <Column field="descripcion" header="Descripción" sortable/>
+                <Column field="codigo" header="Código" sortable/>
+                <Column field="areaDSalud" header="Área de salud" sortable/>
                 <Column field="dependencia" header="Dependencia" sortable/>
             </DataTable>
             </div>

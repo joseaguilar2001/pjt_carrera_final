@@ -73,7 +73,7 @@ const List = () => {
                         >
                             <Column field="id" header="Id" sortable/>
                             <Column field="nombre" header="Nombre" sortable/>
-                            <Column field="descripcion" header="Descripcion" sortable/>
+                            <Column field="descripcion" header="Descripción" sortable/>
                             <Column field="estado" header="Estado" sortable/>
                         </DataTable>
                     </div>

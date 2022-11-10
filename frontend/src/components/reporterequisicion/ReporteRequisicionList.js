@@ -93,7 +93,7 @@ const ReporteRequisicionList = () => {
             </div>
             <br/><br/>
             <div>
-                <h4><center><strong>Informacion de Requisicion</strong></center></h4>
+                <h4><center><strong>Informacion de Requisición</strong></center></h4>
                 <DataTable
                     value={erequisicions.filter((q) => q.id === parseInt(idR))}
                     responsiveLayout="scroll"
@@ -103,8 +103,8 @@ const ReporteRequisicionList = () => {
                     <Column field="Solicitante" header="Solicitante" />
                     <Column field="Servicio" header="Servicio"  />
                     <Column body={datefecha} header="Fecha"  />
-                    <Column field="codigoAprobacion" header="Codigo de Aprobacion"  />
-                    <Column field="aprobado" header="Aprobacion"  />
+                    <Column field="codigoAprobacion" header="Código de Aprobación"  />
+                    <Column field="aprobado" header="Aprobación"  />
                 </DataTable>
             </div>
             <br/><br/>
