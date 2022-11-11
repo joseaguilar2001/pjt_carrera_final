@@ -7,7 +7,6 @@ import { Button } from "primereact/button";
 import { Dropdown } from 'primereact/dropdown';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
-import { useSelector } from "react-redux";
 
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
