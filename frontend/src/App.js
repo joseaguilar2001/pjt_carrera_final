@@ -29,7 +29,7 @@ import VistaTable from "./components/Vistas/vistaPedidos";
 import VistaTableSum from "./components/Vistas/suministrosVistas";
 import Usuario from "./screens/UsuarioScreen";
 import Permisos from "./screens/PermisosScreen";
-
+import Remitente from "./screens/RemitenteScreen";
 import ReactFinalFormDemo from "./components/Register"; 
 
 
@@ -72,6 +72,7 @@ const App = () => {
           <Route path="/permiso" element={<Permisos />} />
           <Route path="/vista" element={<VistaTable />} />
         <Route path="/suministros" element={<VistaTableSum />} /> 
+        <Route path="/remitentes" element={<Remitente />} /> 
 
         </Routes>
       </div>
