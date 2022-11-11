@@ -70,7 +70,7 @@ router.post('/', (req,res)=>{
         fechaRequisicion :req.body.fechaRequisicion
     };
     mysqlconexion.query(
-        `INSERT INTO detallekardex(idKardex, idLote, fecha, nroReferencia, remitente, entradaCantidad, entradaPrecio, salidadPrecio, salidaCantidad, reajusteCantidad, reajustePrecio, saldoCantidad, saldoPrecio, fechaRequisicion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO detalleKardex(idKardex, idLote, fecha, nroReferencia, remitente, entradaCantidad, entradaPrecio, salidadPrecio, salidaCantidad, reajusteCantidad, reajustePrecio, saldoCantidad, saldoPrecio, fechaRequisicion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [detalleKardex.kardex, detalleKardex.lote, detalleKardex.fecha, detalleKardex.noRef, detalleKardex.remitente, detalleKardex.eCantidad, detalleKardex.ePrecio, detalleKardex.sCantidad, detalleKardex.sPrecio, detalleKardex.rCantidad, detalleKardex.rPrecio, detalleKardex.saldoCantidad, detalleKardex.saldoPrecio, detalleKardex.fechaRequisicion], 
         (error,rows,fields)=>{
             if(!error){

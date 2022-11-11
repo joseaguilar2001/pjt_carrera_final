@@ -99,9 +99,9 @@ const EjecutorList = () =>{
                 globalFilterFields={['codigoUE', 'nombreUE', 'solicitanteDepto', 'estado']} header={header1} emptyMessage="No se encontraron ejecutores."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column field="codigoUE" header="CodigoUE" sortable/>
-                <Column field="nombreUE" header="nombreUE" sortable/>
-                <Column field="solicitanteDepto" header="SolicitanteDepto" sortable/>
+                <Column field="codigoUE" header="Código UE" sortable/>
+                <Column field="nombreUE" header="Nombre UE" sortable/>
+                <Column field="solicitanteDepto" header="Departamento Solicitante" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

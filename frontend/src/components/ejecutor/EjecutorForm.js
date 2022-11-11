@@ -76,7 +76,7 @@ const EjecutorForm =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteEjecutor} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -112,7 +112,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.codigoUE}
                         onChange={(e)=>updateField(e.target.value.trim(), "codigoUE")}
                     />
-                    <label>CodigoUE</label>
+                    <label>Código UE</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -120,7 +120,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.nombreUE}
                         onChange={(e)=>updateField(e.target.value.trim(), "nombreUE")}
                     />
-                    <label>NombreUE</label>
+                    <label>Nombre UE</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -128,7 +128,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.solicitanteDepto}
                         onChange={(e)=>updateField(e.target.value.trim(), "solicitanteDepto")}
                     />
-                    <label>SolicitanteDepto</label>
+                    <label>Departamento Solicitante</label>
                 </div>
                 <br />
                 <div className="p-float-label">

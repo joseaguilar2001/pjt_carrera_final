@@ -79,7 +79,7 @@ const FormUsuario = (props) => {
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteUsuario} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -117,21 +117,21 @@ const FormUsuario = (props) => {
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.nombre || ''}
+                        value={usuarioData.nombre}
                         onChange={(e)=>updateField(e.target.value.trim(), "nombre")}
                     />
                     <label>Nombre</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.email || ''}
+                        value={usuarioData.email}
                         onChange={(e)=>updateField(e.target.value.trim(), "email")}
                     />
                     <label>Email</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.password || ''}
+                        value={usuarioData.password}
                         onChange={(e)=>updateField(e.target.value.trim(), "password")}
                     />
                     <label>Contraseña</label>

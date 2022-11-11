@@ -13,12 +13,13 @@ import { Sidebar } from 'primereact/sidebar';
 import { Card } from 'primereact/card';
 import { Divider } from 'primereact/divider';
 import { ListBox } from 'primereact/listbox';
+import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-
+import ApiKey from '../../ApiKey';
 
 const LoteList = () =>{
     const {lotes, findLote} = useContext(LoteContext);
-
+    const [lote, setLote] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
     const [sidebarVisible, setSidebarVisible] = useState(false);
     let ciclo = false;
@@ -27,6 +28,8 @@ const LoteList = () =>{
     const [rojo, setRojo] = useState([]);
     const [amarillo, setAmarillo] = useState([]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const vistaServicioLote = new LoteService();
     const navigate = useNavigate();
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("DD/MM/YYYY");
@@ -42,9 +45,8 @@ const LoteList = () =>{
         else if(lotes.estado==="Finalizado")
             return <span className="finalizado">Finalizado</span>;
     }
-
-
     const semaforo=(lotes)=>{
+        semaforoAnalitics();
         if(lotes.estado!=="Finalizado")
         {
             let today = new Date();
@@ -265,11 +267,11 @@ const LoteList = () =>{
                 header={header1} emptyMessage="No se encontraron lotes."
                 >
                 <Column field="id" header="No." sortable/>
-                <Column body={semaforo} header="Semaforo" sortable/>
+                <Column body={semaforo} header="Semáforo" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="producto" header="Producto" sortable/>
-                <Column field="presentacion" header="Presentacion" sortable/>
+                <Column field="presentacion" header="Presentación" sortable/>
                 <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
                 <Column field="cantidad" header="Cantidad Inicial" sortable/>

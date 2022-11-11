@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { clearMessage } from "../../actions/message";
 import logo from "../../images/fondo2.ico";
 const Navigation = () => {
-    const { isLoggedIn } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { user: currentUser } = useSelector((state) => state.auth);
     const logOut = useCallback(() => {
@@ -54,7 +53,7 @@ const Navigation = () => {
       },
     },
     {
-      label: "Presentacion",
+      label: "Presentación",
       icon: "pi pi-fw pi-briefcase",
       command: () => {
         window.location.href = '/presentacion';
@@ -134,7 +133,7 @@ const Navigation = () => {
           }
         },
         {
-          label: "Presentacion", 
+          label: "Presentación", 
           icon: "pi pi-fw pi-sitemap",
           command: () => {
             window.location.href = '/presentacion';
@@ -172,13 +171,6 @@ const Navigation = () => {
           }
         },
         {
-          label: "Detalle Kardex", 
-          icon: "pi pi-fw pi-shopping-bag",
-          command: () => {
-            window.location.href = '/dkardex/:idK';
-          }
-        },
-        {
           label: "Otros", 
           icon: "pi pi-fw pi-map-marker",
           items: [
@@ -196,13 +188,6 @@ const Navigation = () => {
                 window.location.href = '/requisicion';
               }
             },
-            {
-              label: "Roles", 
-              icon: "pi pi-fw pi-bars",
-              command: () => {
-                window.location.href = '/rol';
-              }
-            }
           ]
         }
       ]
@@ -239,7 +224,7 @@ const Navigation = () => {
       icon: "pi pi-fw pi-compass",
       items:[
         {
-          label: "Inicio", 
+          label: "Lista de usuarios", 
           icon: "pi pi-fw pi-users",
           command: () => {
             window.location.href = '/usuarios';
@@ -268,7 +253,7 @@ const Navigation = () => {
     /*Items 2 */
     const items = [
       {
-        label: "Inicio de Sesion", 
+        label: "Inicio de Sesión", 
         icon: "pi pi-fw pi-user",
         command: () => {
           window.location.href = '/login';
@@ -299,24 +284,35 @@ const Navigation = () => {
         }
       }
     ]
+
+    
+    function isLogin(currentUser, items, items2){
+      if(!currentUser){
+        return <SplitButton className="mr-2 mb-2 p-button-rounded p-button-info" label="Acciones" model={items} />;
+      }else if(currentUser)
+      {
+        return <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label={currentUser.nombre}  model={items2} />;
+      }
+    }
+
+    function isRol(currentUser, navList1, navList2, navList3, navList4, navList5){
+      if(!currentUser){
+        return navList1;
+      }else if(currentUser.rol === "Administrador"){
+        return navList2;
+      }else if(currentUser.rol === "Despachador"){
+        return navList3;
+      }else if(currentUser.rol === "Kardex"){
+        return navList4;
+      }else if(currentUser.rol === "Usuario"){
+        return navList5;
+      }
+    }
+    const end = isLogin(currentUser, items, items2);
     const start = <img alt="logo" src={logo} onError={(e) => e.target.src='https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} height="40" className="mr-2"></img>;
-    const end = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-info" label="Acciones" model={items} />
-    const end2 = <SplitButton className="mr-2 mb-2 p-button-rounded p-button-success" label="Acciones"  model={items2}></SplitButton>
     return (
         <header>
-      {/*currentUser && currentUser.Rol === "Administrador" ? (
-          <Menubar model={navListAdmin} start={start} end={end2} />
-        ): currentUser && currentUser.Rol === "Kardex" ? (
-          <Menubar model={navListKardex} start={start} end={end2} />
-        ): currentUser && currentUser.Rol === "Despachador" ? (
-          <Menubar model={navlistDespachador} start={start} end={end2} />
-        ): currentUser && currentUser==="Usuario" ?(
-          <Menubar model={navListUsuario} start={start} end={end2} />
-        ): (
-          <Menubar model={navlistW} start={start} end={end} / >
-        )*/}
-        {isLoggedIn ? ( <Menubar model={navListAdmin} start={start} end={end2} /> ):
-        (<Menubar model={navlistW} start={start} end={end} />)}
+        <Menubar model={isRol(currentUser, navlistW, navListAdmin, navlistDespachador, navListKardex, navListUsuario)} start={start} end={end} />
         </header>
     );
 }

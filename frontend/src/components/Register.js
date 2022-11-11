@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
 import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -10,14 +9,13 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { useDispatch } from "react-redux";
 import { register } from '../actions/auth';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import ApiKey from '../ApiKey';
 const ReactFinalFormDemo = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({}); // eslint-disable-line react-hooks/exhaustive-deps
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const validate = (data) => {
         let errors = {};
@@ -45,6 +43,7 @@ const ReactFinalFormDemo = () => {
     };
 
     const onSubmit = (data, form) => {
+        setFormData(data);
         const email = {
             message: `Es un placer anunciarle que el 
             dia de hoy ${Date.now()} se creo un nuevo, 
@@ -60,11 +59,7 @@ const ReactFinalFormDemo = () => {
             solicitamos que espere para que se le otorgue un
             rol.`
         }
-        setFormData(data);
-
-        dispatch(register(5, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
-        .then(() => {
-            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
+        emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
             .then((reponse) => {
                 console.log("Enviado con exito");
             },(error) => {
@@ -76,9 +71,12 @@ const ReactFinalFormDemo = () => {
             },(error) => {
                 console.log("Error");
             });
+        dispatch(register(4, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
+        .then(() => {
             setShowMessage(true);
-            navigate("/login");
-            window.location.reload();
+            form.restart();
+            //navigate("/login");
+            //window.location.reload();
         })
         .catch(() => {
             form.restart();
@@ -111,9 +109,9 @@ const ReactFinalFormDemo = () => {
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Registration Successful!</h5>
+                    <h5>Registro hecho!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-                        Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
+                        ¿Que tal señor@ <b>{formData.name}</b>? ; Ya puede iniciar en el sistema como un usuario.<b>{formData.email}</b> for activation instructions.
                     </p>
                 </div>
             </Dialog>
