@@ -9,18 +9,27 @@ import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
-import { LoteService } from "../../services/LoteService";
-import emailjs from '@emailjs/browser';
+import { Sidebar } from 'primereact/sidebar';
+import { Card } from 'primereact/card';
+import { Divider } from 'primereact/divider';
+import { ListBox } from 'primereact/listbox';
+//import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-import ApiKey from '../../ApiKey';
+//import ApiKey from '../../ApiKey';
 
 const LoteList = () =>{
     const {lotes, findLote} = useContext(LoteContext);
     const [lote, setLote] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
+    const [sidebarVisible, setSidebarVisible] = useState(false);
+    let ciclo = false;
+
+
+    const [rojo, setRojo] = useState([]);
+    const [amarillo, setAmarillo] = useState([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const vistaServicioLote = new LoteService();
+    //const vistaServicioLote = new LoteService();
     const navigate = useNavigate();
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("DD/MM/YYYY");
@@ -36,47 +45,8 @@ const LoteList = () =>{
         else if(lotes.estado==="Finalizado")
             return <span className="finalizado">Finalizado</span>;
     }
-    useEffect(() => {
-        vistaServicioLote.readAll()
-        .then(data => setLote(data));
-    },[vistaServicioLote]);
-
-    function semaforoAnalitics()
-    {
-        const prdo = [];
-        // eslint-disable-next-line array-callback-return
-        lote.map((e) => {
-            if(e.estado !== 0)
-            {
-                let today = new Date();
-                let fecha2 = new Date(e.fechaCad);
-                let now = new Date(today.toLocaleDateString('en-US'));
-                var months;
-                months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-                months -= now.getMonth();
-                months += fecha2.getMonth();
-                if(months<0)
-                    prdo.push(e.producto);   
-            }else{
-                prdo.push(e.nombre);
-            }
-        });
-        const email = {
-            message: `Los siguientes productos tienen que 
-            estar en observacion: ${prdo}, por favor entre a la pagina 
-            para poder ver que hacer`
-        }
-        if(prdo.length > 0){
-            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
-            .then((reponse) => {
-                console.log("Enviado con exito");
-            },(error) => {
-                console.log("Error");
-            });
-        }
-    }
     const semaforo=(lotes)=>{
-        semaforoAnalitics();
+        //semaforoAnalitics();
         if(lotes.estado!=="Finalizado")
         {
             let today = new Date();
@@ -86,19 +56,72 @@ const LoteList = () =>{
             months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
             months -= now.getMonth();
             months += fecha2.getMonth();
-            console.log(months);
-            //return months;
             if(months<0)
                 return <span className="finalizado">U. vencidas</span>
             else if(months<=6)
+            {
+                if(ciclo === true)
+                {
+                    setRojo([...rojo, lotes.correlativo]);
+                    console.log(rojo);
+                }
                 return <span className="inactivo">Faltan: {months}</span>
+            }
             else if(months>6 && months<=12)
+            {
+                if(ciclo === true)
+                    setAmarillo([...amarillo, lotes.correlativo]);
                 return <span className="ama">Faltan: {months}</span>
+            }
             else if(months>12)
                 return <span className="enUso">Faltan: {months}</span>
         }
         else{
             return <span className="finalizado">Terminado</span>;
+        }
+    }
+
+    function noti(){
+        if(lotes.estado!=="Finalizado")
+        {
+            let today = new Date();
+            let fecha2 = new Date(lotes.fechaCad);
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months;
+            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+            months -= now.getMonth();
+            months += fecha2.getMonth();
+            if(months<=6)
+            {
+                //if(ciclo === true)
+                {
+                    setRojo([...rojo, lotes.correlativo]);
+                    console.log(rojo);
+                }
+            }
+            else if(months>6 && months<=12)
+            {
+                //if(ciclo === true)
+                    setAmarillo([...amarillo, lotes.correlativo]);
+            }
+        }
+    }
+
+    const rojos=(lotes)=>{
+        if(lotes.estado!=="Finalizado")
+        {
+            let today = new Date();
+            let fecha2 = new Date(lotes.fechaCad);
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months;
+            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+            months -= now.getMonth();
+            months += fecha2.getMonth();
+            if(months<=6 && months>0)
+            {
+                setRojo([...rojo, {"correlativo": lotes.correlativo}]);
+                return <span className="inactivo">Correlativo: {lotes.correlativo} Faltan: {months}</span>
+            }
         }
     }
 
@@ -137,11 +160,16 @@ const LoteList = () =>{
         navigate('/presentacion')
     }
 
+    function ciclotrue(){
+        ciclo = true;
+    }
+
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
                 <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
-                <Button label="Ir a Presentación" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a Presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button icon="pi pi-bell" className="p-button-rounded" onClick={(e) => (setSidebarVisible(true))}/>
             </React.Fragment>
         )
     }
@@ -160,7 +188,46 @@ const LoteList = () =>{
     }
     useEffect(() => {
         initFilters1();
-    }, []);
+        //rojos();
+        if(lotes.estado!=="Finalizado")
+        {
+            let today = new Date();
+            let fecha2 = new Date(lotes.fechaCad);
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months;
+            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+            months -= now.getMonth();
+            months += fecha2.getMonth();
+            if(months<=6)
+            {
+                setRojo([...rojo, {"correlativo": lotes.correlativo}]);
+                console.log(rojo);
+            }
+        }
+        /*if(lotes.estado!=="Finalizado")
+        {
+            let today = new Date();
+            let fecha2 = new Date(lotes.fechaCad);
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months;
+            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
+            months -= now.getMonth();
+            months += fecha2.getMonth();
+            if(months<=6)
+            {
+                //if(ciclo === true)
+                {
+                    setRojo([...rojo, lotes]);
+                    console.log(rojo);
+                }
+            }
+            else if(months>6 && months<=12)
+            {
+                //if(ciclo === true)
+                    setAmarillo([...amarillo, lotes]);
+            }
+        }*/
+    }, [ ]);
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
         let _filters1 = { ...filters1 };
@@ -214,6 +281,25 @@ const LoteList = () =>{
             </DataTable>
             </div>
         </Panel>
+        <Sidebar visible={sidebarVisible} position="right" className="p-sidebar-md"  onHide={() => setSidebarVisible(false)}>
+            <Card title="Próximos a vencer" style={{ width: '25rem', marginBottom: '2em', backgroundColor: '#FF9696'}}>
+                <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes menos de 6 meses</p>
+                {/*<ListBox options={rojo} optionLabel="correlativo" style={{ width: '15rem' }} virtualScrollerOptions={{ itemSize: 38 }} listStyle={{ height: '250px' }} />*/}
+                <DataTable 
+                value={lotes}
+                responsiveLayout="scroll"
+                selectionMode="single"
+                paginator className="p-datatable-customers" showGridlines rows={10}
+                >
+                <Column body={rojos} header="Correlativo" sortable/>
+            </DataTable>
+            </Card>
+            <Divider type="dashed" />
+            <Card title="Próximos a vencer" style={{ width: '25rem', marginBottom: '2em', backgroundColor: '#FCFF96'}}>
+                <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes entre 6 y 12 meses</p>
+                <ListBox options={amarillo} style={{ width: '15rem' }} virtualScrollerOptions={{ itemSize: 38 }} listStyle={{ height: '250px' }}/>
+            </Card>
+        </Sidebar>
         <LoteForm isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );

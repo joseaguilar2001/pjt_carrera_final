@@ -135,7 +135,6 @@ const DeRequisicionList = () =>{
             </div>
         </Panel>
         <DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
-        
         <DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>
         </div>
     );

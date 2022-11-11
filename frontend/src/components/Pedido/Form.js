@@ -164,7 +164,7 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={pedidoData.justificacion_Observacion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "justificacion_Observacion")}
+                        onChange={(e)=>updateField(e.target.value, "justificacion_Observacion")}
                     />
                     <label>Justificación o Observación</label>
                 </div><br />

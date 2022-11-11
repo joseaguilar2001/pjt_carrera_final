@@ -125,7 +125,7 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={dRequisicionData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                        onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
                     <label>Descripcion</label>
                 </div>

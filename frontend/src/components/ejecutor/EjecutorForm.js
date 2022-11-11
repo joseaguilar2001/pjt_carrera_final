@@ -110,7 +110,7 @@ const EjecutorForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={ejecutorData.codigoUE}
-                        onChange={(e)=>updateField(e.target.value.trim(), "codigoUE")}
+                        onChange={(e)=>updateField(e.target.value, "codigoUE")}
                     />
                     <label>Código UE</label>
                 </div>
@@ -118,7 +118,7 @@ const EjecutorForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={ejecutorData.nombreUE}
-                        onChange={(e)=>updateField(e.target.value.trim(), "nombreUE")}
+                        onChange={(e)=>updateField(e.target.value, "nombreUE")}
                     />
                     <label>Nombre UE</label>
                 </div>
@@ -126,7 +126,7 @@ const EjecutorForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={ejecutorData.solicitanteDepto}
-                        onChange={(e)=>updateField(e.target.value.trim(), "solicitanteDepto")}
+                        onChange={(e)=>updateField(e.target.value, "solicitanteDepto")}
                     />
                     <label>Departamento Solicitante</label>
                 </div>
