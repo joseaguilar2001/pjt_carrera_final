@@ -108,7 +108,7 @@ const ServicioForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={servicioData.nombre}
-                        onChange={(e)=>updateField(e.target.value.trim(), "nombre")}
+                        onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
                     <label>Nombre</label>
                 </div>
@@ -116,7 +116,7 @@ const ServicioForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={servicioData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                        onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
                     <label>Descripción</label>
                 </div>

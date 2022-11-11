@@ -33,13 +33,11 @@ router.post('/', (req,res)=>{
     const kardex = {
         correlativo: req.body.correlativo,
         descripcion: req.body.descripcion,
-        codigo: req.body.codigo,
-        area: req.body.areaDSalud,
-        dependencia: req.body.dependencia
+        codigo: req.body.codigo
     };
     //console.log(req.body);
-    mysqlconexion.query(`INSERT INTO kardex(correlativo, descripcion, codigo, areaDSalud, dependencia) VALUE (?, ?, ?, ?, ?)`,
-        [kardex.correlativo, kardex.descripcion,  kardex.codigo, kardex.area, kardex.dependencia], 
+    mysqlconexion.query(`INSERT INTO kardex(correlativo, descripcion, codigo ) VALUE (?, ?, ?)`,
+        [kardex.correlativo, kardex.descripcion,  kardex.codigo], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -57,12 +55,10 @@ router.put('/:id', (req,res)=>{
     const kardex = {
         correlativo: req.body.correlativo,
         descripcion: req.body.descripcion,
-        codigo: req.body.codigo,
-        area: req.body.areaDSalud,
-        dependencia: req.body.dependencia
+        codigo: req.body.codigo
     };
-    mysqlconexion.query(`UPDATE kardex SET correlativo=?, descripcion=?, codigo=?, areaDSalud=?, dependencia=? WHERE id=?`,
-        [kardex.correlativo, kardex.descripcion,  kardex.codigo, kardex.area, kardex.dependencia, id], 
+    mysqlconexion.query(`UPDATE kardex SET correlativo=?, descripcion=?, codigo=? WHERE id=?`,
+        [kardex.correlativo, kardex.descripcion,  kardex.codigo, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);

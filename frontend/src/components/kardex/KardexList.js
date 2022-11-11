@@ -6,7 +6,7 @@ import {Column} from 'primereact/column';
 import KardexForm from './KardexForm';
 import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 
 const KardexList = () =>{
     const {kardexs, findKardex} = useContext(KardexContext);
@@ -24,8 +24,6 @@ const KardexList = () =>{
     const initFilters1 = () => {
         setFilters1({
             'global': { value: null, matchMode: FilterMatchMode.CONTAINS },
-            'nombre': { operator: FilterOperator.AND, constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }] },
-            //'estado':  { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
         });
         setGlobalFilterValue1('');
     }
@@ -80,8 +78,6 @@ const KardexList = () =>{
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="descripcion" header="Descripción" sortable/>
                 <Column field="codigo" header="Código" sortable/>
-                <Column field="areaDSalud" header="Área de salud" sortable/>
-                <Column field="dependencia" header="Dependencia" sortable/>
             </DataTable>
             </div>
         </Panel>
