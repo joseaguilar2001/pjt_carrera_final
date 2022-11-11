@@ -16,8 +16,7 @@ const Form =(props) =>{
 
     const [isVisibleButton, setIsVisibleButton] = useState(false);
     const [isVisibleDelete, setisVisibleDelete] = useState(false);
-
-    const { user: currentUser } = useSelector((state) => state.auth);
+    
     const {
         createRequisicion,
         deleteRequisicion,
