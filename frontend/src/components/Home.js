@@ -1,11 +1,17 @@
 import React from "react";
-import fondo1 from "../images/fondo1.jpg";
-import fondo2 from "../images/fondo2.jpg";
-import fondo3 from "../images/fondo3.jpg";
+import hospi1 from "../images/hospi1.jpg";
+import hospi2 from "../images/hospi2.jpg";
+import hospi4 from "../images/hospi4.jpg";
+import hospi5 from "../images/hospi5.jpg";
+import hospi6 from "../images/hospi6.jpg";
+import hospi7 from "../images/hospi7.jpg";
+import hospi8 from "../images/hospi8.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
 
+
 const Home = () => {
+
   return (
     <div className="about-container">
       <div className="about-desc">
@@ -24,26 +30,65 @@ const Home = () => {
         <Carousel>
           <Carousel.Item>
             <img
-              className="d-block w-100"
-              src={fondo1}
-              width={600}
-              alt="First slide"
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={fondo2}
-              width={600}
+              className="d-block w-300"
+              src={hospi1}
+              width={510}
+              height={370}
               alt="Second slide"
             />
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className="d-block w-100"
-              src={fondo3}
-              height={500}
-              alt="Third slide"
+              className="d-block w-300"
+              src={hospi2}
+              width={510}
+              height={370}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-300"
+              src={hospi4}
+              width={510}
+              height={370}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-300"
+              src={hospi5}
+              width={510}
+              height={370}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-300"
+              src={hospi6}
+              width={510}
+              height={370}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-300"
+              src={hospi7}
+              width={510}
+              height={370}
+              alt="Second slide"
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="d-block w-300"
+              src={hospi8}
+              width={510}
+              height={370}
+              alt="Second slide"
             />
           </Carousel.Item>
         </Carousel>

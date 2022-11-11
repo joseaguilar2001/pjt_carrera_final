@@ -75,6 +75,11 @@ const App = () => {
 
         </Routes>
       </div>
+      <div>
+        <footer>
+        <p>&copy;Todos los derechos reervados :: Hospital Nacional de Retalhuleu :: 2022</p>
+        </footer>
+      </div>
 
     </div>
   );
