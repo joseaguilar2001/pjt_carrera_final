@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector} from "react-redux";
 import { RequisicionContext } from "../../context/RequisicionContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
@@ -13,7 +14,7 @@ const Form =(props) =>{
     const [isVisibleButton, setIsVisibleButton] = useState(false);
     const [isVisibleDelete, setisVisibleDelete] = useState(false);
 
-    //const { user: currentUser } = useSelector((state) => state.auth);
+    const { user: currentUser } = useSelector((state) => state.auth);
     const {
         createRequisicion,
         deleteRequisicion,
@@ -25,7 +26,7 @@ const Form =(props) =>{
     
     const inicialRequisicionesState ={
         id:null,
-        idUsuarioEncargado: 1,//currentUser.id,
+        idUsuarioEncargado: currentUser.id,
         idServicio: 0,
         idSolicitante: 0,
         aprobado: 0,
