@@ -12,25 +12,19 @@ import moment from "moment";
 import { Sidebar } from 'primereact/sidebar';
 import { Card } from 'primereact/card';
 import { Divider } from 'primereact/divider';
-import { ListBox } from 'primereact/listbox';
 //import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
 //import ApiKey from '../../ApiKey';
 
 const LoteList = () =>{
-    const {lotes, findLote} = useContext(LoteContext);
-    const [lote, setLote] = useState([]);
+    const {lotes, findLote, rojo, amarillo} = useContext(LoteContext); 
     const [isVisible, setIsVisible] = useState(false);
     const [sidebarVisible, setSidebarVisible] = useState(false);
-    let ciclo = false;
 
-
-    const [rojo, setRojo] = useState([]);
-    const [amarillo, setAmarillo] = useState([]);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    //const vistaServicioLote = new LoteService();
     const navigate = useNavigate();
+    const dateIngreso = (lotes) => {
+        return moment(lotes.fechaIngreso).format("DD/MM/YYYY");
+    }
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("DD/MM/YYYY");
     }
@@ -46,7 +40,6 @@ const LoteList = () =>{
             return <span className="finalizado">Finalizado</span>;
     }
     const semaforo=(lotes)=>{
-        //semaforoAnalitics();
         if(lotes.estado!=="Finalizado")
         {
             let today = new Date();
@@ -59,20 +52,9 @@ const LoteList = () =>{
             if(months<0)
                 return <span className="finalizado">U. vencidas</span>
             else if(months<=6)
-            {
-                if(ciclo === true)
-                {
-                    setRojo([...rojo, lotes.correlativo]);
-                    console.log(rojo);
-                }
                 return <span className="inactivo">Faltan: {months}</span>
-            }
             else if(months>6 && months<=12)
-            {
-                if(ciclo === true)
-                    setAmarillo([...amarillo, lotes.correlativo]);
                 return <span className="ama">Faltan: {months}</span>
-            }
             else if(months>12)
                 return <span className="enUso">Faltan: {months}</span>
         }
@@ -81,51 +63,6 @@ const LoteList = () =>{
         }
     }
 
-    function noti(){
-        if(lotes.estado!=="Finalizado")
-        {
-            let today = new Date();
-            let fecha2 = new Date(lotes.fechaCad);
-            let now = new Date(today.toLocaleDateString('en-US'));
-            var months;
-            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-            months -= now.getMonth();
-            months += fecha2.getMonth();
-            if(months<=6)
-            {
-                //if(ciclo === true)
-                {
-                    setRojo([...rojo, lotes.correlativo]);
-                    console.log(rojo);
-                }
-            }
-            else if(months>6 && months<=12)
-            {
-                //if(ciclo === true)
-                    setAmarillo([...amarillo, lotes.correlativo]);
-            }
-        }
-    }
-
-    const rojos=(lotes)=>{
-        if(lotes.estado!=="Finalizado")
-        {
-            let today = new Date();
-            let fecha2 = new Date(lotes.fechaCad);
-            let now = new Date(today.toLocaleDateString('en-US'));
-            var months;
-            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-            months -= now.getMonth();
-            months += fecha2.getMonth();
-            if(months<=6 && months>0)
-            {
-                setRojo([...rojo, {"correlativo": lotes.correlativo}]);
-                return <span className="inactivo">Correlativo: {lotes.correlativo} Faltan: {months}</span>
-            }
-        }
-    }
-
-    //console.log(now);
     function formatNumber(number){
         return new Intl.NumberFormat('en')
             .format(number);
@@ -160,10 +97,6 @@ const LoteList = () =>{
         navigate('/presentacion')
     }
 
-    function ciclotrue(){
-        ciclo = true;
-    }
-
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
@@ -188,45 +121,6 @@ const LoteList = () =>{
     }
     useEffect(() => {
         initFilters1();
-        //rojos();
-        if(lotes.estado!=="Finalizado")
-        {
-            let today = new Date();
-            let fecha2 = new Date(lotes.fechaCad);
-            let now = new Date(today.toLocaleDateString('en-US'));
-            var months;
-            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-            months -= now.getMonth();
-            months += fecha2.getMonth();
-            if(months<=6)
-            {
-                setRojo([...rojo, {"correlativo": lotes.correlativo}]);
-                console.log(rojo);
-            }
-        }
-        /*if(lotes.estado!=="Finalizado")
-        {
-            let today = new Date();
-            let fecha2 = new Date(lotes.fechaCad);
-            let now = new Date(today.toLocaleDateString('en-US'));
-            var months;
-            months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-            months -= now.getMonth();
-            months += fecha2.getMonth();
-            if(months<=6)
-            {
-                //if(ciclo === true)
-                {
-                    setRojo([...rojo, lotes]);
-                    console.log(rojo);
-                }
-            }
-            else if(months>6 && months<=12)
-            {
-                //if(ciclo === true)
-                    setAmarillo([...amarillo, lotes]);
-            }
-        }*/
     }, [ ]);
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
@@ -274,30 +168,41 @@ const LoteList = () =>{
                 <Column field="presentacion" header="Presentación" sortable/>
                 <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
-                <Column field="cantidad" header="Cantidad Inicial" sortable/>
+                <Column field="cantidad" header="Cantidad inicial" sortable/>
                 <Column field="existencia" header="Existencia" sortable/>
-                <Column body={precioU} header="Precio Unitario" sortable/>
-                <Column body={montoTotal} header="Monto Total" sortable/>
+                <Column body={precioU} header="Precio unitario" sortable/>
+                <Column body={montoTotal} header="Monto total" sortable/>
+                <Column body={dateIngreso} header="Fecha de ingreso" sortable/>
             </DataTable>
             </div>
         </Panel>
         <Sidebar visible={sidebarVisible} position="right" className="p-sidebar-md"  onHide={() => setSidebarVisible(false)}>
-            <Card title="Próximos a vencer" style={{ width: '25rem', marginBottom: '2em', backgroundColor: '#FF9696'}}>
+            <Card title="Próximos a vencer" style={{ width: '35rem', marginBottom: '2em', backgroundColor: '#FF9696'}}>
                 <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes menos de 6 meses</p>
-                {/*<ListBox options={rojo} optionLabel="correlativo" style={{ width: '15rem' }} virtualScrollerOptions={{ itemSize: 38 }} listStyle={{ height: '250px' }} />*/}
                 <DataTable 
-                value={lotes}
-                responsiveLayout="scroll"
-                selectionMode="single"
-                paginator className="p-datatable-customers" showGridlines rows={10}
-                >
-                <Column body={rojos} header="Correlativo" sortable/>
-            </DataTable>
+                    value={rojo}
+                    responsiveLayout="scroll"
+                    selectionMode="single"
+                    paginator className="p-datatable-customers" showGridlines rows={5}
+                    >
+                    <Column field="correlativo" header="Correlativo" sortable/>
+                    <Column field="difMeses" header="Meses" sortable/>
+                    <Column field="estado" header="Estado" sortable/>
+                </DataTable>
             </Card>
             <Divider type="dashed" />
-            <Card title="Próximos a vencer" style={{ width: '25rem', marginBottom: '2em', backgroundColor: '#FCFF96'}}>
+            <Card title="Próximos a vencer" style={{ width: '35rem', marginBottom: '2em', backgroundColor: '#FCFF96'}}>
                 <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes entre 6 y 12 meses</p>
-                <ListBox options={amarillo} style={{ width: '15rem' }} virtualScrollerOptions={{ itemSize: 38 }} listStyle={{ height: '250px' }}/>
+                <DataTable 
+                    value={amarillo}
+                    responsiveLayout="scroll"
+                    selectionMode="single"
+                    paginator className="p-datatable-customers" showGridlines rows={5}
+                    >
+                    <Column field="correlativo" header="Correlativo" sortable/>
+                    <Column field="difMeses" header="Meses" sortable/>
+                    <Column field="estado" header="Estado" sortable/>
+                </DataTable>
             </Card>
         </Sidebar>
         <LoteForm isVisible={isVisible} setIsVisible={setIsVisible}/>

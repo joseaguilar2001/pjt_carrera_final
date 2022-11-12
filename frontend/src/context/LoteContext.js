@@ -11,6 +11,8 @@ const LoteContextProvider = (props)=>{
     const presentacionService = useMemo(() => new PresentacionService(), []);
 
     const [lotes, setLotes] = useState([]);
+    const [rojo, setRojo] = useState([]);
+    const [amarillo, setAmarillo] = useState([]);
     const [producto, setProducto] = useState([]);
     const [presentacion, setPresentacion] = useState([]);
 
@@ -18,10 +20,12 @@ const LoteContextProvider = (props)=>{
 
     useEffect(() => {
         loteService.readAll().then((data) => setLotes(data));
+        loteService.rojoreadAll().then((data) => setRojo(data));
+        loteService.amarilloreadAll().then((data) => setAmarillo(data));
         productoService.readAll().then((data) => setProducto(data));
         presentacionService.readAll().then((data) => setPresentacion(data));
         
-    }, [loteService, lotes, presentacionService, productoService]);
+    }, [loteService, lotes, rojo, amarillo, presentacionService, productoService]);
 
     const createLote =(lote)=>{
         loteService
@@ -60,7 +64,9 @@ const LoteContextProvider = (props)=>{
                 editLote,
                 lotes,
                 producto,
-                presentacion
+                presentacion,
+                rojo,
+                amarillo
             }}>
             {props.children}
         </LoteContext.Provider>
