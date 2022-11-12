@@ -71,7 +71,7 @@ const ReactFinalFormDemo = () => {
             },(error) => {
                 console.log("Error");
             });
-        dispatch(register(4, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
+        dispatch(register(1, data.nombre, data.email, data.password, data.nroCelular, data.direccion, 1))
         .then(() => {
             setShowMessage(true);
             form.restart();

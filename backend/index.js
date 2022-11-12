@@ -22,6 +22,7 @@ var dRequisicionRoute = require('./routes/detalleRequisicion');
 var auditoriaRoute = require('./routes/auditoria');
 var requisicionRRoute = require('./routes/reporteRequisicionR');
 var detalleRequisicionRRoute = require('./routes/reporteDetalleRequisicionR');
+var remitenteRoute = require('./routes/remitente');
 //var index = require('./routes/index');
 const vistas = require('./routes/vistas');
 
@@ -68,6 +69,7 @@ app.use('/auditoria', auditoriaRoute);
 app.use('/reporteRequisicionR', requisicionRRoute);
 app.use('/reporteDetalleRequisicionR', detalleRequisicionRRoute);
 app.use('/vistas', vistas);
+app.use('/remitente', remitenteRoute);
 //app.use('/index', index);
 
 app.listen(app.get('port'), () => {

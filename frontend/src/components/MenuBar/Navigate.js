@@ -188,6 +188,13 @@ const Navigation = () => {
                 window.location.href = '/requisicion';
               }
             },
+            {
+              label: "Remitentes", 
+              icon: "pi pi-fw pi-plus-circle",
+              command: () => {
+                window.location.href = '/remitentes';
+              }
+            }
           ]
         }
       ]
