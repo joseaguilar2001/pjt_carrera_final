@@ -8,6 +8,7 @@ import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode } from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
+import { useNavigate } from "react-router-dom";
 
 
 const RemitenteList = () =>{
@@ -21,7 +22,6 @@ const RemitenteList = () =>{
         setIsVisible(true);
     };
 
-
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
@@ -30,6 +30,21 @@ const RemitenteList = () =>{
             </React.Fragment>
         )
     }
+
+    const navigate = useNavigate();
+
+    function linkLote (){
+        navigate('/lote')
+    }
+
+    const rightToolbarTemplate = () => {
+        return (
+            <React.Fragment>
+                <Button label="Regresar a lotes" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkLote}/>
+            </React.Fragment>
+        )
+    }
+
 
     //Filtro
     const [filters1, setFilters1] = useState(null);
@@ -68,7 +83,7 @@ const RemitenteList = () =>{
     const header1 = renderHeader1();
     return(
         <div>
-        <Toolbar className="mr-2" left={leftToolbarTemplate}></Toolbar>
+        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
             header="Listado de remitentes" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}

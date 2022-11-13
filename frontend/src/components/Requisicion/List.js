@@ -43,7 +43,7 @@ const RequisicionList = () =>{
         navigate('/solicitantes')
     }
     function linkServicio (){
-        navigate('/servicio')
+        navigate('/servicios')
     }
 
     const rightToolbarTemplate = () => {

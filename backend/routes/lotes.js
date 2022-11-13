@@ -4,10 +4,11 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    sql = "SELECT l.id, l.idProducto, pro.nombre as producto, correlativo, DATE(fechaIngreso) as fechaIngreso, DATE(fechaCad) AS fechaCad, DATE(fechaConPref) AS fechaConPref, cantidad, existencia, precioUnitario, idPresentacion, presentacion, l.estado "+
+    sql = "SELECT l.id, l.idProducto, pro.nombre as producto, correlativo, DATE(fechaIngreso) as fechaIngreso, DATE(fechaCad) AS fechaCad, DATE(fechaConPref) AS fechaConPref, cantidad, existencia, precioUnitario, idPresentacion, presentacion, idRemitente, re.nombre as remitente, l.estado "+
         "FROM lotes as l "+
         "INNER JOIN producto as pro on l.idProducto = pro.id "+
-        "INNER JOIN presentacion as pre on l.idPresentacion = pre.id";
+        "INNER JOIN presentacion as pre on l.idPresentacion = pre.id "+
+        "INNER JOIN remitente as re on l.idRemitente = re.id;";
     mysqlconexion.query(sql,
     (error,rows,fields)=>{
         if(!error){
@@ -65,13 +66,13 @@ router.post('/', (req,res)=>{
         fechaCad: req.body.fechaCad,
         fechaPref: req.body.fechaConPref,
         cantidad: req.body.cantidad,
-        //CANTIDAD = EXISTENCIA existencia: req.body.existencia,
         precioUnitario :req.body.precioUnitario,
         presentacion: req.body.idPresentacion,
+        remitente: req.body.idRemitente,
         estado: "Ingreso"
     };
-    mysqlconexion.query(`INSERT INTO lotes(idProducto, correlativo, fechaCad, fechaConPref, cantidad, existencia, precioUnitario, idPresentacion, estado, fechaIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())`,
-        [lotes.producto, lotes.correlativo,  lotes.fechaCad, lotes.fechaPref, lotes.cantidad, lotes.cantidad, lotes.precioUnitario, lotes.presentacion, lotes.estado], 
+    mysqlconexion.query(`INSERT INTO lotes(idProducto, correlativo, fechaCad, fechaConPref, cantidad, existencia, precioUnitario, idPresentacion, idRemitente, estado, fechaIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())`,
+        [lotes.producto, lotes.correlativo,  lotes.fechaCad, lotes.fechaPref, lotes.cantidad, lotes.cantidad, lotes.precioUnitario, lotes.presentacion, lotes.remitente, lotes.estado], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);
@@ -96,10 +97,11 @@ router.put('/:id', (req,res)=>{
         existencia: req.body.existencia,
         precioUnitario :req.body.precioUnitario,
         presentacion: req.body.idPresentacion,
+        remitente: req.body.idRemitente,
         estado: req.body.estado
     };
-    mysqlconexion.query(`UPDATE lotes SET idProducto=?, correlativo=?, fechaCad=?, fechaConPref=?, cantidad=?, existencia=?, precioUnitario=?, idPresentacion=?, estado=? WHERE id=?`,
-        [lotes.producto, lotes.correlativo,  lotes.fechaCad, lotes.fechaPref, lotes.cantidad, lotes.existencia, lotes.precioUnitario, lotes.presentacion, lotes.estado, id], 
+    mysqlconexion.query(`UPDATE lotes SET idProducto=?, correlativo=?, fechaCad=?, fechaConPref=?, cantidad=?, existencia=?, precioUnitario=?, idPresentacion=?, idRemitente=?, estado=? WHERE id=?`,
+        [lotes.producto, lotes.correlativo,  lotes.fechaCad, lotes.fechaPref, lotes.cantidad, lotes.existencia, lotes.precioUnitario, lotes.presentacion, lotes.remitente, lotes.estado, id], 
         (error,rows,fields)=>{
             if(!error){
                 res.json(rows);

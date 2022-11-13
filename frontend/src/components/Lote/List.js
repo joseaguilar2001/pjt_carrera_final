@@ -96,12 +96,16 @@ const LoteList = () =>{
     function linkPresentacion (){
         navigate('/presentacion')
     }
+    function linkRemitente (){
+        navigate('/remitentes')
+    }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
-                <Button label="Ir a Presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
+                <Button label="Ir a presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a remitente" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkRemitente}/>
                 <Button icon="pi pi-bell" className="p-button-rounded" onClick={(e) => (setSidebarVisible(true))}/>
             </React.Fragment>
         )
@@ -165,6 +169,7 @@ const LoteList = () =>{
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="producto" header="Producto" sortable/>
+                <Column field="remitente" header="Remitente" sortable/>
                 <Column field="presentacion" header="Presentación" sortable/>
                 <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>

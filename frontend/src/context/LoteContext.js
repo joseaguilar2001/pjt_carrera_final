@@ -2,6 +2,7 @@ import React, {createContext, useState, useEffect, useMemo } from "react";
 import { LoteService } from "../services/LoteService";
 import { ProductoService} from "../services/ProductoService";
 import { PresentacionService} from "../services/PresentacionService";
+import { RemitenteService} from "../services/RemitenteService";
 
 export const LoteContext = createContext();
 
@@ -9,12 +10,14 @@ const LoteContextProvider = (props)=>{
     const loteService = useMemo(() => new LoteService(), []);
     const productoService = useMemo(() => new ProductoService(), []);
     const presentacionService = useMemo(() => new PresentacionService(), []);
+    const remitenteService = useMemo(() => new RemitenteService(), []);
 
     const [lotes, setLotes] = useState([]);
     const [rojo, setRojo] = useState([]);
     const [amarillo, setAmarillo] = useState([]);
     const [producto, setProducto] = useState([]);
     const [presentacion, setPresentacion] = useState([]);
+    const [remitente, setRemitente] = useState([]);
 
     const [editLote, setEditLote] = useState(null);
 
@@ -24,8 +27,9 @@ const LoteContextProvider = (props)=>{
         loteService.amarilloreadAll().then((data) => setAmarillo(data));
         productoService.readAll().then((data) => setProducto(data));
         presentacionService.readAll().then((data) => setPresentacion(data));
+        remitenteService.readAll().then((data) => setRemitente(data));
         
-    }, [loteService, lotes, rojo, amarillo, presentacionService, productoService]);
+    }, [loteService, lotes, rojo, amarillo, presentacionService, productoService, remitenteService]);
 
     const createLote =(lote)=>{
         loteService
@@ -65,6 +69,7 @@ const LoteContextProvider = (props)=>{
                 lotes,
                 producto,
                 presentacion,
+                remitente,
                 rojo,
                 amarillo
             }}>
