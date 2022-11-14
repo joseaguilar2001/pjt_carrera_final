@@ -15,7 +15,7 @@ const UsuarioList = () =>{
     const [isVisible, setIsVisible] = useState(false);
 
     const statusBodyTemplate = (usuarios) => {
-        return <span className={`${usuarios.Estado ? "activo" : "inactivo"}`}>{usuarios.estado ? " Inactivo " : " Activo "}</span>;
+        return <span className={`${usuarios.estado ? "activo" : "inactivo"}`}>{usuarios.estado ? " Activo " : " Inactivo "}</span>;
     }
 
     const saveUsuario = (id) => {
@@ -80,16 +80,16 @@ const UsuarioList = () =>{
                 selectionMode="single"
                 onSelectionChange={(e) => saveUsuario(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
-                dataKey="ID" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['Rol','Nombre', 'Celular', 'Email', 'Direccion']} 
+                dataKey="id" filters={filters1} filterDisplay="menu"
+                globalFilterFields={['rol','nombre', 'celular', 'email', 'direccion']} 
                 header={header1} emptyMessage="No se encontraron usuarios."
                 >
-                <Column field="ID" header="No." sortable/>
-                <Column field="Rol" header="Rol" sortable/>
-                <Column field="Nombre" header="Nombre" sortable/>
-                <Column field="Email" header="Email" sortable/>
-                <Column field="Celular" header="Contacto" sortable/>
-                <Column field="Direccion" header="Direccion" sortable/>
+                <Column field="id" header="No." sortable/>
+                <Column field="rol" header="Rol" sortable/>
+                <Column field="nombre" header="Nombre" sortable/>
+                <Column field="email" header="Email" sortable/>
+                <Column field="celular" header="Contacto" sortable/>
+                <Column field="direccion" header="Direccion" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

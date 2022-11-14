@@ -5,7 +5,7 @@ const mysqlconexion = require('../db');
 //get
 router.get('/',(req,res)=>{
     mysqlconexion.query('SELECT d.id, d.idLote, l.correlativo as Lote, d.idProducto, p.nombre as Producto, d.idRequisicion as Requisicion, d.descripcion, d.cantidad, cantidaDespachada, d.precioUnitario, precioTotal '+
-	'FROM requisiciondetalle as d '+
+	'FROM requisicionDetalle as d '+
     'LEFT JOIN lotes as l ON d.idLote = l.id '+
     'INNER JOIN requisicion as r ON d.idRequisicion = r.id '+
     'LEFT JOIN producto as p on d.idProducto = p.id;',

@@ -90,6 +90,10 @@ const KardexForm =(props) =>{
         navigate(`/dkardex/${kardexData.id}`)
     }
 
+    function linkDeReporte (){
+        navigate(`/suministros/${kardexData.id}`)
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
             <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
@@ -104,6 +108,7 @@ const KardexForm =(props) =>{
                 onClick={saveKardex}/>
             <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkDeKardex}/>
+            <Button label="Reporte" className="p-button-rounded" visible={isVisibleButton} onClick={linkDeReporte}/>
         </div>
     );
 
@@ -120,7 +125,7 @@ const KardexForm =(props) =>{
             modal={true}
             style={{width:"420px"}}
             contentStyle={{overflow:"visible"}}
-            header = "Detalles de el kardex"
+            header = "Detalles del kardex"
             onHide={()=>clearSelected()}
             footer={dialogFooter}
         >

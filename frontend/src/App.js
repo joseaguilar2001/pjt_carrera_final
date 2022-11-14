@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
+import { ProtectedRoute } from "./components/ProtectedRouted";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -23,13 +24,14 @@ import DPedido from "./screens/DPedidoScreen";
 import Requisicion from "./screens/RequisicionScreen";
 import DRequisicion from "./screens/DRequisicionScreen";
 import Auditoria from "./screens/AuditoriaScreen";
+import Contact from "./components/Contacts";
 
 import ReporteRequisicion from "./screens/ReporteRequisicionScreen";
 import VistaTable from "./components/Vistas/vistaPedidos";
 import VistaTableSum from "./components/Vistas/suministrosVistas";
 import Usuario from "./screens/UsuarioScreen";
 import Remitente from "./screens/RemitenteScreen";
-
+import EditUser from "./components/EditUser";
 import ReactFinalFormDemo from "./components/Register"; 
 
 
@@ -49,30 +51,36 @@ const App = () => {
       <Navigation />
       <div className="container mt-3">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route index path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route element={<ProtectedRoute isAllowed={!currentUser} />} >
           <Route path="/register" element={<ReactFinalFormDemo />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/producto" element={<Producto />} />
-          <Route path="/lote" element={<Lote />} />
-          <Route path="/presentacion" element={<Presentacion />} />
-          <Route path="/servicios" element={<Servicios />} />
-          <Route path="/auditoria" element={<Auditoria />} />
-          <Route path="/solicitantes" element={<Solicitantes />} />
-          <Route path="/ejecutores" element={<Ejecutores />} />
-          <Route path="/kardex" element={<Kardexs />} />
-          <Route path="/dkardex/:idK" element={<DKardexs />} />
-          <Route path="/pedido" element={<Pedido />} />
-          <Route path="/pedido/:idP" element={<DPedido />} />
-          <Route path="/requisicion" element={<Requisicion />} />
-          <Route path="/requisicion/:idR" element={<DRequisicion />} />
-          <Route path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/usuarios" element={<Usuario />} />
-          <Route path="/vista" element={<VistaTable />} />
-        <Route path="/suministros" element={<VistaTableSum />} /> 
-        <Route path="/remitentes" element={<Remitente />} /> 
-
+          </Route>
+          <Route element={<ProtectedRoute isAllowed={!!currentUser} />} >
+          <Route  path="/producto"     element={<Producto />} />
+          <Route  path="/edituser"     element={<EditUser />} />
+          <Route  path="/lote"         element={<Lote /> } />
+          <Route  path="/presentacion" element={<Presentacion /> } />
+          <Route  path="/servicios"    element={<Servicios /> } />
+          <Route  path="/auditoria"    element={<Auditoria /> } />
+          <Route  path="/solicitantes" element={<Solicitantes /> } />
+          <Route  path="/ejecutores"   element={<Ejecutores /> } />
+          <Route  path="/kardex"       element={<Kardexs /> } />
+          <Route  path="/dkardex/:idK" element={<DKardexs /> } />
+          <Route  path="/pedido"       element={<Pedido /> } />
+          <Route  path="/dpedido/:idP"  element={<DPedido /> } />
+          <Route  path="/requisicion"      element={<Requisicion />} />
+          <Route  path="/drequisicion/:idR" element={<DRequisicion />} />
+          <Route  path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
+          <Route  path="/profile" element={<Profile />} />
+          <Route  path="/usuarios" element={<Usuario />} />
+          <Route  path="/permiso" element={<Permisos />} />
+          <Route  path="/vista" element={<VistaTable />} />
+          <Route  path="/suministros/:idK" element={<VistaTableSum />} />
+          <Route path="/remitentes" element={<Remitente />} /> 
+          </Route>
         </Routes>
       </div>
       <div>

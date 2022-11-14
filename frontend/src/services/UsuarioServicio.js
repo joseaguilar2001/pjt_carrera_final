@@ -4,7 +4,7 @@ export class UsuarioService {
     url = "http://localhost:8080/usuario/";
 
     create(usuario){
-        return axios.post(this.url, usuario).then(res => res.data);
+        return axios.post(this.url + "create", usuario).then(res => res.data);
     }
     readAll(){
         return axios.get(this.url).then(res => res.data);

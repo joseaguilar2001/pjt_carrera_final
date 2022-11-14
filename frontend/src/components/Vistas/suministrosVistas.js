@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { VistasService } from '../../services/VistasService';
 import Table from 'react-bootstrap/Table';
-const VistaTableSum = () => {
+const VistaTableSum = (props) => {
     const [suministros, setSuministros] = useState([]);
+    const [kardex, setKardex] = useState([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const vistaServicePedido = new VistasService();
-
+    const {idK} = props;
     useEffect(() => {
-        vistaServicePedido.readAllSuministros()
+        vistaServicePedido.readAllSuministros(idK)
         .then(data => setSuministros(data));
-    },[vistaServicePedido]);
+        vistaServicePedido.readAllKardex(idK)
+        .then(data => setKardex(data));
+    },[idK, vistaServicePedido]);
+
     return (
-        <div>
-            <div>
-                <p>AREA DE SALUD<u>___RETALHULEU___</u>DEPENDENCIA<u>____HOSPITAL_______</u></p>
-                <p>DESCRIPCION<u>___ANTIGENO PROSTATICO___</u>CODIGO<u>____________</u></p>
-            </div>
-        <p></p>
+        <div className='p-grid p-fluid'>
+        <p>
+                {kardex.map((e) => (
+                    <div>
+                    <p>AREA DE SALUD<u>___{e.areaDSalud}___</u>DEPENDENCIA<u>____{e.dependencia}_______</u></p>
+                    <p>DESCRIPCION<u>___{e.descripcion}___</u>CODIGO<u>_____{e.codigo}______</u></p>
+                    </div>
+                ))}
+        </p>
         <Table border={2} bordered={4} hover>
             <thead>
                 <tr>

@@ -42,7 +42,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT u.id, r.nombre as rol, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
+    mysql.query("SELECT u.id, r.id as idR, r.nombre as rol, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
     + " INNER JOIN rol r " 
     + "ON u.idRol  = r.id "
     + "WHERE u.email = ?; ", [email], async function(error, results, fields){
@@ -58,6 +58,7 @@ router.post('/signin', expressAsyncHandler(async(req, res) => {
                 if(comparison){
                     const user = {
                         id: results[0].id,
+                        idR: results[0].idR,
                         rol: results[0].rol,
                         nombre: results[0].nombre,
                         email: results[0].email,
@@ -123,9 +124,9 @@ router.post('/create', expressAsyncHandler(async(req, res) => {
 }));
 
 router.get('/', expressAsyncHandler(async(req, res) => {
-    mysql.query(`SELECT u.id as ID, r.nombre as Rol, u.nombre as Nombre, 
-    u.nroCelular as Celular, u.email as Email, u.direccion as Direccion, 
-    u.estado AS Estado 
+    mysql.query(`SELECT u.id as id, r.nombre as rol, u.nombre as nombre, 
+    u.nroCelular as celular, u.email as email, u.direccion as direccion, 
+    u.estado AS estado 
     FROM usuario u 
     INNER JOIN rol AS r 
     ON u.idRol = r.id`, async (error, rows, fields) => {
@@ -151,7 +152,7 @@ router.get('/:id', expressAsyncHandler(async(req, res) => {
 router.put('/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
     const password = req.body.password;    
-    const encryptedPassword = bcrypt.hashSync(password)
+    const encryptedPassword = bcrypt.hashSync(password, 10)
     const nuevo = {
         idRol: req.body.idRol,
         nombre: req.body.nombre,
@@ -163,7 +164,7 @@ router.put('/:id', expressAsyncHandler(async(req, res) => {
     };
     mysql.query(`UPDATE usuario SET idRol = ?, 
     nombre = ?, email=?, password=?, nroCelular=?,
-    direccion=?, estado=? VALUES (?,?,?,?,?,?,?)`, [nuevo.idRol, nuevo.nombre, nuevo.email,
+    direccion=?, estado=? WHERE id = ?`, [nuevo.idRol, nuevo.nombre, nuevo.email,
     nuevo.password, nuevo.nroCelular, nuevo.direccion, nuevo.estado, id], async function(error, rows, fields){
         if (error) {        
             res.send({          
@@ -190,7 +191,7 @@ router.put('/:id', expressAsyncHandler(async(req, res) => {
 
 router.delete('/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
-    mysql.query('UPDATE usuario SET estado = ?',[id], async function(error, rows, fields){
+    mysql.query('UPDATE usuario SET estado = 0 WHERE id = ?',[id], async function(error, rows, fields){
         if(error){
             res.send({code: 400, failed: "Error en actualizar"});
         }else{
@@ -200,8 +201,13 @@ router.delete('/:id', expressAsyncHandler(async(req, res) => {
 }));
 
 router.get('/signout', expressAsyncHandler(async(req, res) => {
-    req.session = null;
-    res.status(200).send({message: 'Adiosito'});
+    req.session.destroy(function(err){
+        if(!err){
+
+        }else{
+            res.status(200).send({message: 'Adiosito'});
+        }
+    })
 }));
 
 

@@ -13,8 +13,13 @@ export class VistasService {
         .then(res => res.data);
     }
 
-    readAllSuministros(){
-        return axios.get(this.url + 'controlSuministros/')
+    readAllSuministros(id){
+        return axios.get(this.url + 'controlSuministros/' + id)
+        .then(res => res.data);
+    }
+
+    readAllKardex(id){
+        return axios.get(this.url + 'controlKardex/' + id)
         .then(res => res.data);
     }
 }

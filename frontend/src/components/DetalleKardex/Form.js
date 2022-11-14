@@ -177,7 +177,7 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaRequisicion")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha requisisción</label>
+                    <label>Fecha requisición</label>
                 </div>
             </div>
         </Dialog>

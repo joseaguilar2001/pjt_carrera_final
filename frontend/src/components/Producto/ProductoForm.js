@@ -1,8 +1,8 @@
 import React, {useContext, useState, useEffect, useRef} from "react";
 import { ProductoContext } from "../../context/ProductoContext";
-import {Dialog} from "primereact/dialog";
+import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import {InputText} from "primereact/inputtext";
+import { InputText } from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown';
 
 import { ConfirmDialog } from 'primereact/confirmdialog';

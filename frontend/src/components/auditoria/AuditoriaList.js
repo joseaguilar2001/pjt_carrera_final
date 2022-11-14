@@ -16,12 +16,12 @@ const AuditoriaList = () =>{
 
     const cols = [
         { field: "no", header: "No." },
-        { field: "nombre", header: "Descripcion" },
-        { field: "presentacion", header: "Presentacion" },
+        { field: "nombre", header: "Descripción" },
+        { field: "presentacion", header: "Presentación" },
         { field: "unidadMedida", header: "Unidad de medida" },
         { field: "fechaCad", header: "Fecha de caducidad" },
         { field: "lote", header: "No. de lote" },
-        { field: "kardex", header: "No. de kardex" },
+        { field: "kardex", header: "No. de Kardex" },
         { field: "cantidad", header: "Cantidad" },
         { field: "precioUnitario", header: "Precio unitario" },
         { field: "total", header: "Total" },
