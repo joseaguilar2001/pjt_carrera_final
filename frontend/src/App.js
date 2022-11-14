@@ -30,7 +30,7 @@ import ReporteRequisicion from "./screens/ReporteRequisicionScreen";
 import VistaTable from "./components/Vistas/vistaPedidos";
 import VistaTableSum from "./components/Vistas/suministrosVistas";
 import Usuario from "./screens/UsuarioScreen";
-import Permisos from "./screens/PermisosScreen";
+import Remitente from "./screens/RemitenteScreen";
 import EditUser from "./components/EditUser";
 import ReactFinalFormDemo from "./components/Register"; 
 
@@ -78,9 +78,15 @@ const App = () => {
           <Route  path="/usuarios" element={<Usuario />} />
           <Route  path="/permiso" element={<Permisos />} />
           <Route  path="/vista" element={<VistaTable />} />
-          <Route  path="/suministros/:idK" element={<VistaTableSum />} /> 
+          <Route  path="/suministros/:idK" element={<VistaTableSum />} />
+          <Route path="/remitentes" element={<Remitente />} /> 
           </Route>
         </Routes>
+      </div>
+      <div>
+        <footer>
+        <p>&copy;Todos los derechos reervados :: Hospital Nacional de Retalhuleu :: 2022</p>
+        </footer>
       </div>
 
     </div>

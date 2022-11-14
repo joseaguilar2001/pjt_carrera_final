@@ -9,6 +9,12 @@ export class LoteService {
     readAll(){
         return axios.get(this.url).then(res=> res.data);
     }
+    amarilloreadAll(){
+        return axios.get(this.url+'amarillo').then(res=> res.data);
+    }
+    rojoreadAll(){
+        return axios.get(this.url+'rojo').then(res=> res.data);
+    }
     update(lote){
         return axios.put(this.url+lote.id, lote).then(res=> res.data);
     }

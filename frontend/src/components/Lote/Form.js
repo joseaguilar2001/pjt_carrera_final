@@ -22,7 +22,8 @@ const Form =(props) =>{
         editLote,
         updateLote,
         producto,
-        presentacion
+        presentacion,
+        remitente
     } = useContext(LoteContext);
     
     const inicialLotesState ={
@@ -34,7 +35,8 @@ const Form =(props) =>{
         cantidad: 0,
         existencia: 0,
         precioUnitario: 0.0,
-        idPresentacion: 0
+        idPresentacion: 0,
+        idRemitente: 0
     };
     const [loteData, setLoteData] = useState(inicialLotesState);
 
@@ -173,8 +175,13 @@ const Form =(props) =>{
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={loteData.idPresentacion} options={presentacion} optionLabel="presentacion" optionValue="id" 
-                    onChange={(e) => updateField(e.target.value, "idPresentacion")} filter showClear filterBy="presentacion" placeholder="Seleccione un producto"/>
+                    onChange={(e) => updateField(e.target.value, "idPresentacion")} filter showClear filterBy="presentacion" placeholder="Seleccione una presentación"/>
                     <label>Presentacion</label>
+                </div><br />
+                <div className="p-float-label">
+                    <Dropdown value={loteData.idRemitente} options={remitente} optionLabel="nombre" optionValue="id" 
+                    onChange={(e) => updateField(e.target.value, "idRemitente")} filter showClear filterBy="nombre" placeholder="Seleccione un remitente"/>
+                    <label>Remitente</label>
                 </div>
             </div>
         </Dialog>

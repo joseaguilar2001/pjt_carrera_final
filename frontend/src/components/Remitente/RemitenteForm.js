@@ -1,10 +1,8 @@
 import React, {useContext, useState, useEffect, useRef } from "react";
-import { PresentacionContext } from "../../context/PresentacionContext";
+import { RemitenteContext } from "../../context/RemitenteContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import {InputText} from "primereact/inputtext";
-import { Dropdown } from 'primereact/dropdown';
-
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 
@@ -14,59 +12,55 @@ const Form =(props) =>{
     const [isVisibleDelete, setisVisibleDelete] = useState(false);
 
     const {
-        createPresentacion,
-        deletePresentacion,
-        editPresentacion,
-        updatePresentacion
-    } = useContext(PresentacionContext);
+        createRemitente,
+        deleteRemitente,
+        editRemitente,
+        updateRemitente
+    } = useContext(RemitenteContext);
 
-    const inicialPresentacionesState ={
+    const inicialRemitentesState ={
         id:null,
-        presentacion:"",
-        estado:1
+        nombre:"",
+        descripcion:""
     };
 
-    const estados = [
-        {label: 'Activo', value: 1},
-        {label: 'Inactivo', value: 0}
-    ];
 
-    const [presentacionData, setPresentacionData] = useState(inicialPresentacionesState);
+    const [remitenteData, setRemitenteData] = useState(inicialRemitentesState);
 
     useEffect(() => {
-        if (editPresentacion) setPresentacionData(editPresentacion);
-    }, [editPresentacion]);
+        if (editRemitente) setRemitenteData(editRemitente);
+    }, [editRemitente]);
 
     const updateField = (data, field) =>{
-        setPresentacionData({
-            ...presentacionData,
+        setRemitenteData({
+            ...remitenteData,
             [field]:data
         })
-        console.log(presentacionData);
+        console.log(remitenteData);
     };
 
-    const savePresentacion = () => {
-        if (!editPresentacion) {
-            createPresentacion(presentacionData);
+    const saveRemitente = () => {
+        if (!editRemitente) {
+            createRemitente(remitenteData);
         } else {
-            updatePresentacion(presentacionData);
+            updateRemitente(remitenteData);
         }
-        setPresentacionData(inicialPresentacionesState);
+        setRemitenteData(inicialRemitentesState);
         setIsVisible(false);
     };
     
     const toast = useRef(null);
-    const _deletePresentacion = () => {
-        if (editPresentacion) {
-            deletePresentacion(presentacionData.id);
-            setPresentacionData(inicialPresentacionesState);
+    const _deleteRemitente = () => {
+        if (editRemitente) {
+            deleteRemitente(remitenteData.id);
+            setRemitenteData(inicialRemitentesState);
             showError();
         }
         retornar();
     };
 
     const retornar =()=>{
-        setPresentacionData(inicialPresentacionesState);
+        setRemitenteData(inicialRemitentesState);
         setIsVisible(false);
     };
 
@@ -77,7 +71,7 @@ const Form =(props) =>{
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
             <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
-                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deletePresentacion} reject={retornar} 
+                header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteRemitente} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info" 
@@ -85,13 +79,13 @@ const Form =(props) =>{
                 icon="pi pi-times" label="Eliminar" />
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
-                onClick={savePresentacion}/>
+                onClick={saveRemitente}/>
         </div>
     );
 
     const clearSelected = () => {
         setIsVisible(false);
-        setPresentacionData(inicialPresentacionesState);
+        setRemitenteData(inicialRemitentesState);
     };
 
     return(<div>
@@ -101,7 +95,7 @@ const Form =(props) =>{
             modal={true}
             style={{maxHeight: "800px", width:"420px", overflow:"auto"}}
             contentStyle={{overflow:"visible"}}
-            header = "Detalles del presentacion"
+            header = "Detalles de remitente"
             onHide={()=>clearSelected()}
             footer={dialogFooter}
         >
@@ -109,15 +103,18 @@ const Form =(props) =>{
                 <br/>
                 <div className="p-float-label">
                     <InputText
-                        value={presentacionData.presentacion}
-                        onChange={(e)=>updateField(e.target.value, "presentacion")}
+                        value={remitenteData.nombre}
+                        onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
                     <label>Nombre</label>
                 </div>
                 <br />
                 <div className="p-float-label">
-                        <Dropdown value={presentacionData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")} placeholder="Seleccione un estado"/>
-                    <label>Estado</label>
+                    <InputText
+                        value={remitenteData.descripcion}
+                        onChange={(e)=>updateField(e.target.value, "descripcion")}
+                    />
+                    <label>Descripción</label>
                 </div>
             </div>
         </Dialog>

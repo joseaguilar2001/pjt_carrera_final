@@ -133,7 +133,7 @@ const KardexForm =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={kardexData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                        onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
                     <label>Descripción</label>
                 </div>
@@ -144,22 +144,6 @@ const KardexForm =(props) =>{
                         onChange={(e)=>updateField(e.target.value.trim(), "codigo")}
                     />
                     <label>Código</label>
-                </div>
-                <br/>
-                <div className="p-float-label">
-                    <InputText
-                        value={kardexData.areaDSalud}
-                        onChange={(e)=>updateField(e.target.value.trim(), "areaDSalud")}
-                    />
-                    <label>Área de Salud</label>
-                </div>
-                <br/>
-                <div className="p-float-label">
-                    <InputText
-                        value={kardexData.dependencia}
-                        onChange={(e)=>updateField(e.target.value.trim(), "dependencia")}
-                    />
-                    <label>Dependencia</label>
                 </div>
             </div>
         </Dialog>

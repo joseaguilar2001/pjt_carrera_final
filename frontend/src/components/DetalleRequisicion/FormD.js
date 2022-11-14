@@ -48,6 +48,7 @@ const FormD =(props) =>{
 
     const saveDRequisicion = () => {
         if (!editDeRequisicion) {
+            console.log(dRequisicionData);
             createDeRequisicion(dRequisicionData);
         } else {
             updateDeRequisicion(dRequisicionData);
@@ -60,7 +61,6 @@ const FormD =(props) =>{
     const _deleteDRequisicion = () => {
         if (editDeRequisicion) {
             deleteDeRequisicion(dRequisicionData.id);
-            setdRequisicionData(inicialDRequisicionState);
             showError();
         }
         retornar();
@@ -125,7 +125,7 @@ const FormD =(props) =>{
                 <div className="p-float-label">
                     <InputText
                         value={dRequisicionData.descripcion}
-                        onChange={(e)=>updateField(e.target.value.trim(), "descripcion")}
+                        onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
                     <label>Descripcion</label>
                 </div><br />

@@ -9,19 +9,22 @@ import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
-import { LoteService } from "../../services/LoteService";
-import emailjs from '@emailjs/browser';
+import { Sidebar } from 'primereact/sidebar';
+import { Card } from 'primereact/card';
+import { Divider } from 'primereact/divider';
+//import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-import ApiKey from '../../ApiKey';
+//import ApiKey from '../../ApiKey';
 
 const LoteList = () =>{
-    const {lotes, findLote} = useContext(LoteContext);
-    const [lote, setLote] = useState([]);
+    const {lotes, findLote, rojo, amarillo} = useContext(LoteContext); 
     const [isVisible, setIsVisible] = useState(false);
+    const [sidebarVisible, setSidebarVisible] = useState(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const vistaServicioLote = new LoteService();
     const navigate = useNavigate();
+    const dateIngreso = (lotes) => {
+        return moment(lotes.fechaIngreso).format("DD/MM/YYYY");
+    }
     const dateCaducidad = (lotes) => {
         return moment(lotes.fechaCad).format("DD/MM/YYYY");
     }
@@ -36,47 +39,7 @@ const LoteList = () =>{
         else if(lotes.estado==="Finalizado")
             return <span className="finalizado">Finalizado</span>;
     }
-    useEffect(() => {
-        vistaServicioLote.readAll()
-        .then(data => setLote(data));
-    },[vistaServicioLote]);
-
-    function semaforoAnalitics()
-    {
-        const prdo = [];
-        // eslint-disable-next-line array-callback-return
-        lote.map((e) => {
-            if(e.estado !== 0)
-            {
-                let today = new Date();
-                let fecha2 = new Date(e.fechaCad);
-                let now = new Date(today.toLocaleDateString('en-US'));
-                var months;
-                months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
-                months -= now.getMonth();
-                months += fecha2.getMonth();
-                if(months<0)
-                    prdo.push(e.producto);   
-            }else{
-                prdo.push(e.nombre);
-            }
-        });
-        const email = {
-            message: `Los siguientes productos tienen que 
-            estar en observacion: ${prdo}, por favor entre a la pagina 
-            para poder ver que hacer`
-        }
-        if(prdo.length > 0){
-            emailjs.send(ApiKey.SERVICE_ID, ApiKey.TEMPLATE_ID, email, ApiKey.USER_ID)
-            .then((reponse) => {
-                console.log("Enviado con exito");
-            },(error) => {
-                console.log("Error");
-            });
-        }
-    }
     const semaforo=(lotes)=>{
-        semaforoAnalitics();
         if(lotes.estado!=="Finalizado")
         {
             let today = new Date();
@@ -86,8 +49,6 @@ const LoteList = () =>{
             months = (fecha2.getFullYear() - now.getFullYear()) * 12; 
             months -= now.getMonth();
             months += fecha2.getMonth();
-            console.log(months);
-            //return months;
             if(months<0)
                 return <span className="finalizado">U. vencidas</span>
             else if(months<=6)
@@ -102,7 +63,6 @@ const LoteList = () =>{
         }
     }
 
-    //console.log(now);
     function formatNumber(number){
         return new Intl.NumberFormat('en')
             .format(number);
@@ -136,12 +96,17 @@ const LoteList = () =>{
     function linkPresentacion (){
         navigate('/presentacion')
     }
+    function linkRemitente (){
+        navigate('/remitentes')
+    }
 
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
-                <Button label="Ir a Presentación" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a producto" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkProducto}/>
+                <Button label="Ir a presentacion" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPresentacion}/>
+                <Button label="Ir a remitente" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkRemitente}/>
+                <Button icon="pi pi-bell" className="p-button-rounded" onClick={(e) => (setSidebarVisible(true))}/>
             </React.Fragment>
         )
     }
@@ -160,7 +125,7 @@ const LoteList = () =>{
     }
     useEffect(() => {
         initFilters1();
-    }, []);
+    }, [ ]);
     const onGlobalFilterChange1 = (e) => {
         const value = e.target.value;
         let _filters1 = { ...filters1 };
@@ -204,16 +169,47 @@ const LoteList = () =>{
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
                 <Column field="correlativo" header="Correlativo" sortable/>
                 <Column field="producto" header="Producto" sortable/>
+                <Column field="remitente" header="Remitente" sortable/>
                 <Column field="presentacion" header="Presentación" sortable/>
                 <Column body={dateCaducidad} header="Fecha de caducidad" sortable/>
                 <Column body={datePrefConsumo} header="Fecha de preferencia de consumo" sortable/>
-                <Column field="cantidad" header="Cantidad Inicial" sortable/>
+                <Column field="cantidad" header="Cantidad inicial" sortable/>
                 <Column field="existencia" header="Existencia" sortable/>
-                <Column body={precioU} header="Precio Unitario" sortable/>
-                <Column body={montoTotal} header="Monto Total" sortable/>
+                <Column body={precioU} header="Precio unitario" sortable/>
+                <Column body={montoTotal} header="Monto total" sortable/>
+                <Column body={dateIngreso} header="Fecha de ingreso" sortable/>
             </DataTable>
             </div>
         </Panel>
+        <Sidebar visible={sidebarVisible} position="right" className="p-sidebar-md"  onHide={() => setSidebarVisible(false)}>
+            <Card title="Próximos a vencer" style={{ width: '35rem', marginBottom: '2em', backgroundColor: '#FF9696'}}>
+                <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes menos de 6 meses</p>
+                <DataTable 
+                    value={rojo}
+                    responsiveLayout="scroll"
+                    selectionMode="single"
+                    paginator className="p-datatable-customers" showGridlines rows={5}
+                    >
+                    <Column field="correlativo" header="Correlativo" sortable/>
+                    <Column field="difMeses" header="Meses" sortable/>
+                    <Column field="estado" header="Estado" sortable/>
+                </DataTable>
+            </Card>
+            <Divider type="dashed" />
+            <Card title="Próximos a vencer" style={{ width: '35rem', marginBottom: '2em', backgroundColor: '#FCFF96'}}>
+                <p className="m-0" style={{lineHeight: '1.5'}}>Listado de lotes entre 6 y 12 meses</p>
+                <DataTable 
+                    value={amarillo}
+                    responsiveLayout="scroll"
+                    selectionMode="single"
+                    paginator className="p-datatable-customers" showGridlines rows={5}
+                    >
+                    <Column field="correlativo" header="Correlativo" sortable/>
+                    <Column field="difMeses" header="Meses" sortable/>
+                    <Column field="estado" header="Estado" sortable/>
+                </DataTable>
+            </Card>
+        </Sidebar>
         <LoteForm isVisible={isVisible} setIsVisible={setIsVisible}/>
         </div>
     );

@@ -15,7 +15,6 @@ var pedidoDetalleRoute = require('./routes/pedidoDetalle');
 var usuarioRoute = require('./routes/usuario');
 var rolRoute = require('./routes/rol');
 var bingresoSistemaRoute = require('./routes/bingresoSistema');
-var permisosRoute = require('./routes/permisos');
 var ingresoRoute = require('./routes/ingreso');
 var requisicionRoute = require('./routes/requisicion');
 const cookieSession = require("cookie-session");
@@ -23,6 +22,7 @@ var dRequisicionRoute = require('./routes/detalleRequisicion');
 var auditoriaRoute = require('./routes/auditoria');
 var requisicionRRoute = require('./routes/reporteRequisicionR');
 var detalleRequisicionRRoute = require('./routes/reporteDetalleRequisicionR');
+var remitenteRoute = require('./routes/remitente');
 //var index = require('./routes/index');
 const vistas = require('./routes/vistas');
 
@@ -62,7 +62,6 @@ app.use('/pedidoDetalle', pedidoDetalleRoute);
 app.use('/usuario', usuarioRoute);
 app.use('/rol', rolRoute);
 app.use('/bingresoSistema', bingresoSistemaRoute);
-app.use('/permisos', permisosRoute);
 app.use('/ingreso', ingresoRoute);
 app.use('/requisicion', requisicionRoute);
 app.use('/detalleRequisicion', dRequisicionRoute);
@@ -70,6 +69,7 @@ app.use('/auditoria', auditoriaRoute);
 app.use('/reporteRequisicionR', requisicionRRoute);
 app.use('/reporteDetalleRequisicionR', detalleRequisicionRRoute);
 app.use('/vistas', vistas);
+app.use('/remitente', remitenteRoute);
 //app.use('/index', index);
 
 app.listen(app.get('port'), () => {

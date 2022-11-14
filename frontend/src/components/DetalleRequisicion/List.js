@@ -30,7 +30,7 @@ const DeRequisicionList = () =>{
     }
 
     function visibleForms(bool){
-        setIsVisible(bool);
+        //setIsVisible(bool);
         setisVisibleF2(bool);
     }
 

@@ -1,12 +1,12 @@
 import React, {useContext, useState, useEffect, useRef} from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector} from "react-redux";
 import { RequisicionContext } from "../../context/RequisicionContext";
 import {Dialog} from "primereact/dialog";
 import { Button } from "primereact/button";
 import { Dropdown } from 'primereact/dropdown';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
-import { useSelector } from "react-redux";
 
 const Form =(props) =>{
     const {isVisible, setIsVisible} = props;
@@ -15,7 +15,7 @@ const Form =(props) =>{
 
     const [isVisibleButton, setIsVisibleButton] = useState(false);
     const [isVisibleDelete, setisVisibleDelete] = useState(false);
-
+    
     const {
         createRequisicion,
         deleteRequisicion,
