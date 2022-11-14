@@ -76,7 +76,6 @@ const App = () => {
           <Route  path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
           <Route  path="/profile" element={<Profile />} />
           <Route  path="/usuarios" element={<Usuario />} />
-          <Route  path="/permiso" element={<Permisos />} />
           <Route  path="/vista" element={<VistaTable />} />
           <Route  path="/suministros/:idK" element={<VistaTableSum />} />
           <Route path="/remitentes" element={<Remitente />} /> 
