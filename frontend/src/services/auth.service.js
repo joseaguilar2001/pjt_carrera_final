@@ -33,9 +33,38 @@ const logout = () => {
  return localStorage.removeItem("user");
 };
 
+const signout = () => {
+  return axios
+  .get(API_URL + 'signout')
+  .then((response) => {
+    return response.data;
+  });
+ };
+
+const update = (
+  id,
+  idRol, 
+  nombre, 
+  email, 
+  password,
+  nroCelular, 
+  direccion, 
+  estado) => {
+  return axios.put(API_URL + `${id}`, {
+    idRol, 
+    nombre, 
+    email, 
+    password,
+    nroCelular, 
+    direccion, 
+    estado,
+  });
+}
 
 export default {
   login, 
   logout, 
-  register
+  register,
+  signout,
+  update
 };

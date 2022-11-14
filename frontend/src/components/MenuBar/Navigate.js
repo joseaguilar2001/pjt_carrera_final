@@ -204,7 +204,7 @@ const Navigation = () => {
           }
         },
         {
-          label: "Vista", 
+          label: "Pedido reporte", 
           icon: "pi pi-fw pi-eye",
           command: () => {
             window.location.href = '/vista';
@@ -214,7 +214,14 @@ const Navigation = () => {
           label: "Suministros", 
           icon: "pi pi-fw pi-truck",
           command: () => {
-            window.location.href = '/suministros';
+            window.location.href = '/suministros/:idK';
+          }
+        },
+        {
+          label: "Reporte requisicion", 
+          icon: "pi pi-fw pi-truck",
+          command: () => {
+            window.location.href = '/requisicionreporte/:idR';
           }
         }
       ]
@@ -273,6 +280,13 @@ const Navigation = () => {
         icon: "pi pi-fw pi-user",
         command: () => {
           window.location.href = '/profile';
+        }
+      },
+      {
+        label: "Editar perfil", 
+        icon: "pi pi-fw pi-users",
+        command: () => {
+          window.location.href = '/edituser';
         }
       },
       {

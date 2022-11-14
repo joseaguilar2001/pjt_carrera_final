@@ -29,7 +29,7 @@ const UsuarioContextProvider = (props) => {
             .then(()=>setUsuario(usuarios.filter((p)=>p.id !== id)));
     };
     
-    const findUsuario =(id)=>{
+    const findUsuario = (id) =>{
         const usuario = usuarios.find((p)=>p.id === id);
         setEditUsuario(usuario);
     };

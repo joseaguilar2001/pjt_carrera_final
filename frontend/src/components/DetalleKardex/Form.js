@@ -158,7 +158,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "entradaPrecio")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Entreda precio</label>
+                    <label>Entrada precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -214,7 +214,7 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaRequisicion")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha requisisción</label>
+                    <label>Fecha requisición</label>
                 </div>
             </div>
         </Dialog>

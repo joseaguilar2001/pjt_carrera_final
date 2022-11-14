@@ -101,7 +101,7 @@ const DeKardexList = () =>{
         <div>
         <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Panel
-            header="Listado de detalle kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de detalle Kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>

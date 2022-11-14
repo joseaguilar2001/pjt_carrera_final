@@ -79,8 +79,27 @@ import {
   
   export const logout = () => (dispatch) => {
     AuthService.logout();
+    AuthService.signout();
   
     dispatch({
       type: LOGOUT,
     });
   };  
+  export const update = (  
+    id,
+    idRol, 
+    nombre, 
+    email, 
+    password,
+    nroCelular, 
+    direccion, 
+    estado) => {
+      AuthService.update(  id,
+        idRol, 
+        nombre, 
+        email, 
+        password,
+        nroCelular, 
+        direccion, 
+        estado);
+  }

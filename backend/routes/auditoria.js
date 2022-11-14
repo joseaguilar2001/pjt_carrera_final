@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         'FROM lotes as l '+
         'INNER JOIN producto as pro on l.idProducto = pro.id '+
         'INNER JOIN presentacion as pre on l.idPresentacion = pre.id '+
-        'INNER JOIN detallekardex as de on l.id = de.idLote '+
+        'INNER JOIN detalleKardex as de on l.id = de.idLote '+
         'INNER JOIN kardex as k on k.id = de.idKardex;',
         (error, rows, fields) => {
             if (!error) {

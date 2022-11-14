@@ -7,13 +7,14 @@ import {InputText} from "primereact/inputtext";
 import {Button} from 'primereact/button';
 import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
-
+import { useSelector } from "react-redux";
 import DeRequisicionForm from './Form';
 import DeRequisicionFormDespachado from './FormD';
 import { DRequisicionContext } from "../../context/DRequisicionContext";
 
 
 const DeRequisicionList = () =>{
+    const { user: currentUser } = useSelector((state) => state.auth);
     const {dsRequisicion, findDeRequisicion} = useContext(DRequisicionContext);
 
     const [isVisible, setIsVisible] = useState(false);
@@ -134,9 +135,8 @@ const DeRequisicionList = () =>{
             </DataTable>
             </div>
         </Panel>
-        <DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
-        
-        <DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>
+        {currentUser.Rol === 'Administrador' ? (<DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>):   
+        (<DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>)}
         </div>
     );
 }

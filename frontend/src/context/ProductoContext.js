@@ -33,7 +33,7 @@ const ProductContextProvider = (props)=>{
         setEditProducto(producto);
     };
 
-    const updateProducto =(producto)=>{
+    const updateProducto = (producto) => {
         productoService
         .update(producto)
         .then((data)=>

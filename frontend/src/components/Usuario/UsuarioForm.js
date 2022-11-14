@@ -104,7 +104,7 @@ const FormUsuario = (props) => {
             modal={true}
             style={{width:"420px"}}
             contentStyle={{overflow:"visible"}}
-            header = "Detalles del rol"
+            header = "Usuario"
             onHide={()=>clearSelected()}
             footer={dialogFooter}
         >
@@ -138,14 +138,14 @@ const FormUsuario = (props) => {
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.nroCelular || ''}
+                        value={usuarioData.celular}
                         onChange={(e)=>updateField(e.target.value.trim(), "nroCelular")}
                     />
                     <label>Numero de celular</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.direccion || ''}
+                        value={usuarioData.direccion}
                         onChange={(e)=>updateField(e.target.value.trim(), "direccion")}
                     />
                     <label>Dirección</label>
