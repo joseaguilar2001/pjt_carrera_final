@@ -47,14 +47,23 @@ const FormD =(props) =>{
     };
 
     const saveDRequisicion = () => {
-        if (!editDeRequisicion) {
-            console.log(dRequisicionData);
-            createDeRequisicion(dRequisicionData);
-        } else {
-            updateDeRequisicion(dRequisicionData);
+        if(dRequisicionData.idProducto===0 || dRequisicionData.cantidad===0){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editDeRequisicion) {
+                console.log(dRequisicionData);
+                createDeRequisicion(dRequisicionData);
+            } else {
+                updateDeRequisicion(dRequisicionData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -115,7 +124,7 @@ const FormD =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={dRequisicionData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
-                    <label>Producto</label>
+                    <label>Producto*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={dRequisicionData.idLote} options={lote.filter((p)=>(p.idProducto === parseInt(dRequisicionData.idProducto)) && (p.estado !== "Finalizado"))} optionLabel={labelLote} optionValue="id" 
@@ -127,7 +136,7 @@ const FormD =(props) =>{
                         value={dRequisicionData.descripcion}
                         onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
-                    <label>Descripcion</label>
+                    <label>Descripción</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -135,7 +144,7 @@ const FormD =(props) =>{
                         onChange={(e)=>updateField(e.value, "cantidad")}
                         locale="en-US"
                     />
-                    <label>Cantidad Solicitada</label>
+                    <label>Cantidad solicitada*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber

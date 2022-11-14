@@ -46,13 +46,22 @@ const SolicitanteForm =(props) =>{
     };
 
     const saveSolicitante = () => {
-        if (!editSolicitante) {
-            createSolicitante(solicitanteData);
-        } else {
-            updateSolicitante(solicitanteData);
+        if(solicitanteData.cargo==="" || solicitanteData.nombre===""){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editSolicitante) {
+                createSolicitante(solicitanteData);
+            } else {
+                updateSolicitante(solicitanteData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -111,7 +120,7 @@ const SolicitanteForm =(props) =>{
                         value={solicitanteData.nombre}
                         onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
-                    <label>Nombre</label>
+                    <label>Nombre*</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -119,7 +128,7 @@ const SolicitanteForm =(props) =>{
                         value={solicitanteData.cargo}
                         onChange={(e)=>updateField(e.target.value, "cargo")}
                     />
-                    <label>Cargo</label>
+                    <label>Cargo*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

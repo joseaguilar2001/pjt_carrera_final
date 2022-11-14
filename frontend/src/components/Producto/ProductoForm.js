@@ -46,14 +46,20 @@ const ProductoForm=(props)=>{
     };
 
     const saveProducto = () => {
+        if(productoData.unidadMedida==="" || productoData.nombre===""){
+            showInfo();
+        }
+        else{
         if (!editProducto) {
             createProducto(productoData);
         } else {
             updateProducto(productoData);
         }
-        retornar();
+        retornar();}
     };
-    
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
     const toast = useRef(null);
 
     const _deleteProducto = () => {
@@ -112,7 +118,7 @@ const ProductoForm=(props)=>{
                         value={productoData.nombre}
                         onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
-                    <label>Nombre</label>
+                    <label>Nombre*</label>
                 </div>
                 <br />
                 <div className="p-float-label">
@@ -120,7 +126,7 @@ const ProductoForm=(props)=>{
                         value={productoData.unidadMedida}
                         onChange={(e)=>updateField(e.target.value, "unidadMedida")}
                     />
-                    <label>Unidad de medida</label>
+                    <label>Unidad de medida*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

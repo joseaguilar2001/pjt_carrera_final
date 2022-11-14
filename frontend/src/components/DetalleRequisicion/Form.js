@@ -48,13 +48,21 @@ const Form =(props) =>{
     };
 
     const saveDRequisicion = () => {
-        if (!editDeRequisicion) {
-            createSolicitudDeRequisicion(dRequisicionData);
-        } else {
-            updateSolicitudDeRequisicion(dRequisicionData);
+        if(dRequisicionData.idProducto===0 || dRequisicionData.cantidad===0){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editDeRequisicion) {
+                createSolicitudDeRequisicion(dRequisicionData);
+            } else {
+                updateSolicitudDeRequisicion(dRequisicionData);
+            }
+            retornar();
+        }
     };
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -112,7 +120,7 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={dRequisicionData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
-                    <label>Producto</label>
+                    <label>Producto*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -120,14 +128,14 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "cantidad")}
                         locale="en-US"
                     />
-                    <label>Cantidad Solicitada</label>
+                    <label>Cantidad solicitada*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={dRequisicionData.descripcion}
                         onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
-                    <label>Descripcion</label>
+                    <label>Descripción</label>
                 </div>
             </div>
         </Dialog>

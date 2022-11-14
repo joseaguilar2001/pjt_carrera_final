@@ -60,14 +60,22 @@ const Form =(props) =>{
     };
 
     const saveRequisicion = () => {
-        if (!editRequisicion) {
-            createRequisicion(requisicionData);
-        } else {
-            updateRequisicion(requisicionData);
+        if(requisicionData.idServicio===0 || requisicionData.idSolicitante===0 || requisicionData.categoria===""){
+            showInfo();
         }
-        setRequisicionData(inicialRequisicionesState);
-        setIsVisible(false);
+        else{
+            if (!editRequisicion) {
+                createRequisicion(requisicionData);
+            } else {
+                updateRequisicion(requisicionData);
+            }
+            setRequisicionData(inicialRequisicionesState);
+            setIsVisible(false);
+        }
     };
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -134,16 +142,16 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.idServicio} options={servicio} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idServicio")} filter showClear filterBy="nombre" placeholder="Seleccione un servicio"/>
-                    <label>Servicio</label>
+                    <label>Servicio*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.idSolicitante} options={solicitante} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idSolicitante")} filter showClear filterBy="nombre" placeholder="Seleccione un Solicitante"/>
-                    <label>Solicitante</label>
+                    <label>Solicitante*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.categoria} options={categorias} onChange={(e) => updateField(e.target.value, "categoria")}/>
-                    <label>Categoría</label>
+                    <label>Categoría*</label>
                 </div><br />
                 <div className="p-float-label">
                         <Dropdown value={requisicionData.aprobado} options={estados} onChange={(e) => updateField(e.target.value, "aprobado")}/>

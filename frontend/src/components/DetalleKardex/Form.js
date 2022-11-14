@@ -49,15 +49,24 @@ const Form =(props) =>{
     };
 
     const saveDKardex = () => {
-        if (!editDeKardex) {
-            createDeKardex(dKardexData);
-        } else {
-            dKardexData.fecha = moment(dKardexData.fecha).format("YYYY-MM-DD");
-            dKardexData.fechaRequisicion = moment(dKardexData.fechaRequisicion).format("YYYY-MM-DD");
-            updateDeKardex(dKardexData);
+        if(dKardexData.idLote===0 || dKardexData.nroReferencia==="" || dKardexData.saldoCantidad ===""){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editDeKardex) {
+                createDeKardex(dKardexData);
+            } else {
+                dKardexData.fecha = moment(dKardexData.fecha).format("YYYY-MM-DD");
+                dKardexData.fechaRequisicion = moment(dKardexData.fechaRequisicion).format("YYYY-MM-DD");
+                updateDeKardex(dKardexData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
     const _deleteDKardex = () => {
@@ -113,7 +122,7 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={dKardexData.idLote} options={lote} optionLabel="correlativo" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idLote")} filter showClear filterBy="correlativo" placeholder="Seleccione un lote"/>
-                    <label>Lote</label>
+                    <label>Lote*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
@@ -128,7 +137,7 @@ const Form =(props) =>{
                         value={dKardexData.nroReferencia}
                         onChange={(e)=>updateField(e.target.value.trim(), "nroReferencia")}
                     />
-                    <label>Número de referencia</label>
+                    <label>Número de referencia*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -160,7 +169,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "saldoCantidad")}
                         locale="en-US"
                     />
-                    <label>Saldo cantidad</label>
+                    <label>Saldo cantidad*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar

@@ -40,15 +40,24 @@ const Form =(props) =>{
     };
 
     const saveRemitente = () => {
-        if (!editRemitente) {
-            createRemitente(remitenteData);
-        } else {
-            updateRemitente(remitenteData);
+        if(remitenteData.nombre===""){
+            showInfo();
         }
-        setRemitenteData(inicialRemitentesState);
-        setIsVisible(false);
+        else{
+            if (!editRemitente) {
+                createRemitente(remitenteData);
+            } else {
+                updateRemitente(remitenteData);
+            }
+            setRemitenteData(inicialRemitentesState);
+            setIsVisible(false);
+        }
     };
-    
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
+
     const toast = useRef(null);
     const _deleteRemitente = () => {
         if (editRemitente) {
@@ -106,7 +115,7 @@ const Form =(props) =>{
                         value={remitenteData.nombre}
                         onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
-                    <label>Nombre</label>
+                    <label>Nombre*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

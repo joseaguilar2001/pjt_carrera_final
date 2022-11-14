@@ -59,15 +59,22 @@ const Form =(props) =>{
     };
 
     const savePedido = () => {
-        if (!editPedido) {
-            createPedido(pedidoData);
-        } else {
-            pedidoData.fechaSolicitud = moment(pedidoData.fechaSolicitud).format("YYYY-MM-DD");
-            updatePedido(pedidoData);
+        if(pedidoData.idUE===0 || pedidoData.idSolicitante===0 || pedidoData.correlativoUE==="" || pedidoData.fechaSolicitud===""){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editPedido) {
+                createPedido(pedidoData);
+            } else {
+                pedidoData.fechaSolicitud = moment(pedidoData.fechaSolicitud).format("YYYY-MM-DD");
+                updatePedido(pedidoData);
+            }
+            retornar();
+        }
     };
-    
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
     const toast = useRef(null);
 
     const _deletePedido = () => {
@@ -132,19 +139,19 @@ const Form =(props) =>{
                 <div className="p-float-label">
                     <Dropdown value={pedidoData.idUE} options={ejecutor} optionLabel="nombreUE" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idUE")} filter showClear filterBy="nombreUE" placeholder="Seleccione un ejecutor"/>
-                    <label>Ejecutor</label>
+                    <label>Ejecutor*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={pedidoData.idSolicitante} options={solicitante} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idSolicitante")} filter showClear filterBy="nombre" placeholder="Seleccione un Solicitante"/>
-                    <label>Solicitante</label>
+                    <label>Solicitante*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={pedidoData.correlativoUE}
                         onChange={(e)=>updateField(e.target.value.trim(), "correlativoUE")}
                     />
-                    <label>CorrelativoUE</label>
+                    <label>CorrelativoUE*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
@@ -152,21 +159,21 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaSolicitud")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha Solicitud</label>
+                    <label>Fecha de solicitud*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText keyfilter="int"
                         value={pedidoData.telefonoExt}
                         onChange={(e)=>updateField(e.target.value, "telefonoExt")}
                     />
-                    <label>Teléfono o Extensión</label>
+                    <label>Teléfono o extensión</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={pedidoData.justificacion_Observacion}
                         onChange={(e)=>updateField(e.target.value, "justificacion_Observacion")}
                     />
-                    <label>Justificación o Observación</label>
+                    <label>Justificación o observación</label>
                 </div><br />
                 <div className="p-float-label">
                         <Dropdown value={pedidoData.estado} options={estados} onChange={(e) => updateField(e.target.value, "estado")}/>
