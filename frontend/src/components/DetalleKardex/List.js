@@ -124,8 +124,8 @@ const DeKardexList = () =>{
                 <Column field="remitente" header="Remitente" sortable/>
                 <Column field="entradaCantidad" header="Entrada cantidad" sortable/>
                 <Column field="entradaPrecio" header="Entrada precio" sortable/>
-                <Column field="salidadPrecio" header="Salida precio" sortable/>
                 <Column field="salidaCantidad" header="Salida cantidad" sortable/>
+                <Column field="salidadPrecio" header="Salida precio" sortable/>
                 <Column field="reajusteCantidad" header="Reajuste cantidad" sortable/>
                 <Column field="reajustePrecio" header="Reajuste precio" sortable/>
                 <Column field="saldoCantidad" header="Saldo cantidad" sortable/>

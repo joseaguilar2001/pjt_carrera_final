@@ -29,15 +29,10 @@ const Form =(props) =>{
         idLote: 0,
         fecha:"",
         nroReferencia: "",
-        remitente: "",
         entradaCantidad: 0,
-        entradaPrecio: 0,
-        salidadPrecio: 0,
         salidaCantidad: 0,
         reajusteCantidad: 0,
-        reajustePrecio: 0,
         saldoCantidad: 0,
-        saldoPrecio: 0,
         fechaRequisicion: ""
     };
     const [dKardexData, setdKardexData] = useState(inicialDKardexsState);
@@ -51,7 +46,6 @@ const Form =(props) =>{
             ...dKardexData,
             [field]:data
         })
-        //console.log(loteData);
     };
 
     const saveDKardex = () => {
@@ -69,7 +63,6 @@ const Form =(props) =>{
     const _deleteDKardex = () => {
         if (editDeKardex) {
             deleteDeKardex(dKardexData.id);
-            setdKardexData(inicialDKardexsState);
             showError();
         }
         retornar();
@@ -138,27 +131,12 @@ const Form =(props) =>{
                     <label>Número de referencia</label>
                 </div><br />
                 <div className="p-float-label">
-                    <InputText
-                        value={dKardexData.remitente}
-                        onChange={(e)=>updateField(e.target.value.trim(), "remitente")}
-                    />
-                    <label>Remitente</label>
-                </div><br />
-                <div className="p-float-label">
                     <InputNumber
                         value={dKardexData.entradaCantidad}
                         onChange={(e)=>updateField(e.value, "entradaCantidad")}
                         locale="en-US"
                     />
                     <label>Entrada cantidad</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
-                        value={dKardexData.entradaPrecio}
-                        onChange={(e)=>updateField(e.value, "entradaPrecio")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
-                    />
-                    <label>Entreda precio</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -170,30 +148,6 @@ const Form =(props) =>{
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
-                        value={dKardexData.salidadPrecio}
-                        onChange={(e)=>updateField(e.value, "salidadPrecio")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
-                    />
-                    <label>Salida precio</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
-                        value={dKardexData.saldoCantidad}
-                        onChange={(e)=>updateField(e.value, "saldoCantidad")}
-                        locale="en-US"
-                    />
-                    <label>Saldo cantidad</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
-                        value={dKardexData.saldoPrecio}
-                        onChange={(e)=>updateField(e.value, "saldoPrecio")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
-                    />
-                    <label>Saldo precio</label>
-                </div><br />
-                <div className="p-float-label">
-                    <InputNumber
                         value={dKardexData.reajusteCantidad}
                         onChange={(e)=>updateField(e.value, "reajusteCantidad")}
                         locale="en-US"
@@ -202,11 +156,11 @@ const Form =(props) =>{
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
-                        value={dKardexData.reajustePrecio}
-                        onChange={(e)=>updateField(e.value, "reajustePrecio")}
-                        mode="decimal" locale="en-US" minFractionDigits={2}
+                        value={dKardexData.saldoCantidad}
+                        onChange={(e)=>updateField(e.value, "saldoCantidad")}
+                        locale="en-US"
                     />
-                    <label>Reajuste precio</label>
+                    <label>Saldo cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
