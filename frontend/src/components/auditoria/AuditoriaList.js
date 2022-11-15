@@ -19,7 +19,7 @@ const AuditoriaList = () =>{
         { field: "nombre", header: "Descripción" },
         { field: "presentacion", header: "Presentación" },
         { field: "unidadMedida", header: "Unidad de medida" },
-        { field: "fechaCad", header: "Fecha de caducidad" },
+        { field: {datefecha}, header: "Fecha de caducidad" },
         { field: "lote", header: "No. de lote" },
         { field: "kardex", header: "No. de Kardex" },
         { field: "cantidad", header: "Cantidad" },

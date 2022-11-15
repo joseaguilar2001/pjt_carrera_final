@@ -13,7 +13,7 @@ import Carousel from 'react-bootstrap/Carousel';
 const Home = () => {
 
   return (
-    <div className="about-container">
+    <><div className="about-container">
       <div className="about-desc">
         <h3>Hospital Nacional de Retalhuleu</h3>
         <p align="justify">
@@ -34,8 +34,7 @@ const Home = () => {
               src={hospi1}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -43,8 +42,7 @@ const Home = () => {
               src={hospi2}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -52,8 +50,7 @@ const Home = () => {
               src={hospi4}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -61,8 +58,7 @@ const Home = () => {
               src={hospi5}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -70,8 +66,7 @@ const Home = () => {
               src={hospi6}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -79,8 +74,7 @@ const Home = () => {
               src={hospi7}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
           <Carousel.Item>
             <img
@@ -88,13 +82,15 @@ const Home = () => {
               src={hospi8}
               width={510}
               height={370}
-              alt="Second slide"
-            />
+              alt="Second slide" />
           </Carousel.Item>
         </Carousel>
       </div>
-    </div>
-
+    </div><div>
+        <footer>
+          <p>&copy;Todos los derechos reservados :: Aguilar, López, Galicia, Aldamas :: 2022</p>
+        </footer>
+      </div></>
   );
 };
 

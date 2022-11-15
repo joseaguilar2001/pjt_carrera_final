@@ -82,12 +82,6 @@ const App = () => {
           </Route>
         </Routes>
       </div>
-      <div>
-        <footer>
-        <p>&copy;Todos los derechos reservados :: Aguilar, López, Galicia, Aldamas :: 2022</p>
-        </footer>
-      </div>
-
     </div>
   );
 };
