@@ -15,7 +15,7 @@ const UsuarioContextProvider = (props) => {
     useEffect(() => {
         rolService.readAll().then((data) => setRoles(data));
         usuarioService.readAll().then((data) => setUsuario(data));
-    }, [rolService, setRoles, usuarioService, usuarios]);
+    }, [rolService, usuarioService]);
 
     const createUsuario = (usuario) => {
         usuarioService

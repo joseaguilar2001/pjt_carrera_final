@@ -92,7 +92,11 @@ const Form =(props) =>{
     //Navegacion
     const navigate = useNavigate();
     function linkRequisicion (){
-        navigate(`/requisicion/${requisicionData.id}`)
+        navigate(`/drequisicion/${requisicionData.id}`)
+    }
+
+    function linkRequisicionReporte (){
+        navigate(`/requisicionreporte/${requisicionData.id}`)
     }
 
     const dialogFooter=(
@@ -109,6 +113,8 @@ const Form =(props) =>{
                 onClick={saveRequisicion}/>
             <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicion}/>
+            <Button label="Reporte" icon="pi pi-angle-double-right" 
+                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicionReporte}/>
         </div>
     );
 

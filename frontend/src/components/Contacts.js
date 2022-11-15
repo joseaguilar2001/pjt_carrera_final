@@ -26,7 +26,7 @@ const Contact = () => {
 
     const onSubmit = (data, form) => {
         setFormData(data);
-        emailjs.send(ApiKey.SERVICE_ID, "template_guq5izh", formData ,ApiKey.USER_ID)
+        emailjs.send(ApiKey.SERVICE_ID, "template_tgks2n9", formData ,ApiKey.USER_ID)
         .then(() => {
             console.log("Enviado con exito");
         },() => {
@@ -55,7 +55,7 @@ const Contact = () => {
             </Dialog>
             <div className="flex justify-content-center">
                     <div className='card card-container'>
-                    <h5 className="text-center">Contactanos</h5>
+                    <h5 className="text-center">Contáctanos</h5>
                     <Form onSubmit={onSubmit} initialValues={{ nombre: '', email: '', asunto: '', mensaje: ''}} validate={validate} render={({ handleSubmit }) => (
                         <form onSubmit={handleSubmit} className="p-fluid">
                             <Field name="nombre" render={({ input, meta }) => (

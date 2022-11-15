@@ -42,7 +42,7 @@ router.post('/signup', expressAsyncHandler(async(req, res) => {
 router.post('/signin', expressAsyncHandler(async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-    mysql.query("SELECT u.id, r.id as idR, r.nombre as rol, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
+    mysql.query("SELECT u.id, r.nombre as rol, u.nombre, u.email, u.password, u.nroCelular, u.direccion FROM usuario u"  
     + " INNER JOIN rol r " 
     + "ON u.idRol  = r.id "
     + "WHERE u.email = ?; ", [email], async function(error, results, fields){
@@ -124,9 +124,9 @@ router.post('/create', expressAsyncHandler(async(req, res) => {
 }));
 
 router.get('/', expressAsyncHandler(async(req, res) => {
-    mysql.query(`SELECT u.id as id, r.nombre as rol, u.nombre as nombre, 
-    u.nroCelular as celular, u.email as email, u.direccion as direccion, 
-    u.estado AS estado 
+    mysql.query(`SELECT u.id as id, r.id as idRol, r.nombre as rol, u.nombre as nombre, 
+    u.nroCelular as nroCelular, u.email as email, u.direccion as direccion, 
+    u.estado AS estado, u.password as password 
     FROM usuario u 
     INNER JOIN rol AS r 
     ON u.idRol = r.id`, async (error, rows, fields) => {
@@ -149,7 +149,7 @@ router.get('/:id', expressAsyncHandler(async(req, res) => {
     })
 }));
 
-router.put('/:id', expressAsyncHandler(async(req, res) => {
+router.put('/update/:id', expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
     const password = req.body.password;    
     const encryptedPassword = bcrypt.hashSync(password, 10)
@@ -160,7 +160,7 @@ router.put('/:id', expressAsyncHandler(async(req, res) => {
         password: encryptedPassword,
         nroCelular: req.body.nroCelular,
         direccion: req.body.direccion,
-        estado: 1,
+        estado: req.body.estado,
     };
     mysql.query(`UPDATE usuario SET idRol = ?, 
     nombre = ?, email=?, password=?, nroCelular=?,
@@ -172,21 +172,10 @@ router.put('/:id', expressAsyncHandler(async(req, res) => {
             failed:"error occurred",          
             error : error})      
         } else {        
-            res.send({          
-                code:200,          
-                success:"Usuario actualizado",
-                id: results[0].id,
-                idRol: results[0].idRol,
-                nombre: results[0].nombre,
-                email: results[0].email,
-                nroCelular: results[0].nroCelular,
-                direccion: results[0].direccion,
-                estado: results[0].estado
-            })
+            res.json(rows);
         }
 
     });
-    return;
 }));
 
 router.delete('/:id', expressAsyncHandler(async(req, res) => {
