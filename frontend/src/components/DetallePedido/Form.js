@@ -54,13 +54,22 @@ const Form =(props) =>{
     };
 
     const saveDPedido = () => {
-        if (!editDePedido) {
-            createDePedido(dPedidoData);
-        } else {
-            updateDePedido(dPedidoData);
+        if(dPedidoData.idProducto===0 || dPedidoData.codInsumo==="" || dPedidoData.cantidad===0 || dPedidoData.renglonAfectado === "" || dPedidoData.valorEstimado === 0){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editDePedido) {
+                createDePedido(dPedidoData);
+            } else {
+                updateDePedido(dPedidoData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -121,7 +130,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "cantidad")}
                         locale="en-US"
                     />
-                    <label>Cantidad Solicitada</label>
+                    <label>Cantidad solicitada*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -129,33 +138,33 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "cantidadAutorizada")}
                         locale="en-US"
                     />
-                    <label>Cantidad Autorizada</label>
+                    <label>Cantidad autorizada</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={dPedidoData.codInsumo}
                         onChange={(e)=>updateField(e.target.value.trim(), "codInsumo")}
                     />
-                    <label>Código de insumo</label>
+                    <label>Código de insumo*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={dPedidoData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
-                    <label>Producto</label>
+                    <label>Producto*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={dPedidoData.descripcion}
                         onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
-                    <label>Descripcion</label>
+                    <label>Descripción</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
                         value={dPedidoData.renglonAfectado}
                         onChange={(e)=>updateField(e.target.value, "renglonAfectado")}
                     />
-                    <label>Renglón Afectado</label>
+                    <label>Renglón afectado*</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -163,7 +172,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "valorEstimado")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Valor Estimado</label>
+                    <label>Valor estimado*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown 

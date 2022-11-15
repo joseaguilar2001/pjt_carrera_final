@@ -46,15 +46,20 @@ const Form =(props) =>{
     };
 
     const savePresentacion = () => {
+        if(presentacionData.presentacion===""){
+            showInfo();
+        }else{
         if (!editPresentacion) {
             createPresentacion(presentacionData);
         } else {
             updatePresentacion(presentacionData);
         }
         setPresentacionData(inicialPresentacionesState);
-        setIsVisible(false);
+        setIsVisible(false);}
     };
-    
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
     const toast = useRef(null);
     const _deletePresentacion = () => {
         if (editPresentacion) {
@@ -112,7 +117,7 @@ const Form =(props) =>{
                         value={presentacionData.presentacion}
                         onChange={(e)=>updateField(e.target.value, "presentacion")}
                     />
-                    <label>Nombre</label>
+                    <label>Nombre*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

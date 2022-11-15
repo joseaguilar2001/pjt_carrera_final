@@ -46,13 +46,22 @@ const EjecutorForm =(props) =>{
     };
 
     const saveEjecutor = () => {
-        if (!editEjecutor) {
-            createEjecutor(ejecutorData);
-        } else {
-            updateEjecutor(ejecutorData);
+        if(ejecutorData.codigoUE==="" || ejecutorData.nombreUE==="" || ejecutorData.solicitanteDepto===""){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editEjecutor) {
+                createEjecutor(ejecutorData);
+            } else {
+                updateEjecutor(ejecutorData);
+            }
+            retornar();
+        }
     };
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
+
     
     const toast = useRef(null);
 
@@ -112,7 +121,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.codigoUE}
                         onChange={(e)=>updateField(e.target.value, "codigoUE")}
                     />
-                    <label>Código UE</label>
+                    <label>Código UE*</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -120,7 +129,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.nombreUE}
                         onChange={(e)=>updateField(e.target.value, "nombreUE")}
                     />
-                    <label>Nombre UE</label>
+                    <label>Nombre UE*</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -128,7 +137,7 @@ const EjecutorForm =(props) =>{
                         value={ejecutorData.solicitanteDepto}
                         onChange={(e)=>updateField(e.target.value, "solicitanteDepto")}
                     />
-                    <label>Departamento Solicitante</label>
+                    <label>Departamento solicitante*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

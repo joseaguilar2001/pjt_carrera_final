@@ -48,13 +48,22 @@ const KardexForm =(props) =>{
     };
 
     const saveKardex = () => {
-        if (!editKardex) {
-            createKardex(kardexData);
-        } else {
-            updateKardex(kardexData);
+        if(kardexData.correlativo===""){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editKardex) {
+                createKardex(kardexData);
+            } else {
+                updateKardex(kardexData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
     const _deleteKardex = () => {
@@ -127,7 +136,7 @@ const KardexForm =(props) =>{
                         value={kardexData.correlativo}
                         onChange={(e)=>updateField(e.target.value.trim(), "correlativo")}
                     />
-                    <label>Correlativo</label>
+                    <label>Correlativo*</label>
                 </div>
                 <br/>
                 <div className="p-float-label">

@@ -46,15 +46,22 @@ const ServicioForm =(props) =>{
     };
 
     const saveServicio = () => {
+        if(servicioData.nombre==="" || servicioData.descripcion===""){
+            showInfo();
+        }
+        else{
         if (!editServicio) {
             createServicio(servicioData);
         } else {
             updateServicio(servicioData);
         }
-        retornar();
+        retornar();}
     };
 
     const toast = useRef(null);
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const _deleteServicio = () => {
         if (editServicio) {
@@ -110,7 +117,7 @@ const ServicioForm =(props) =>{
                         value={servicioData.nombre}
                         onChange={(e)=>updateField(e.target.value, "nombre")}
                     />
-                    <label>Nombre</label>
+                    <label>Nombre*</label>
                 </div>
                 <br/>
                 <div className="p-float-label">
@@ -118,7 +125,7 @@ const ServicioForm =(props) =>{
                         value={servicioData.descripcion}
                         onChange={(e)=>updateField(e.target.value, "descripcion")}
                     />
-                    <label>Descripción</label>
+                    <label>Descripción*</label>
                 </div>
                 <br />
                 <div className="p-float-label">

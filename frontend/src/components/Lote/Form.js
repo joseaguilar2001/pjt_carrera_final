@@ -56,15 +56,24 @@ const Form =(props) =>{
     };
 
     const saveLote = () => {
-        if (!editLote) {
-            createLote(loteData);
-        } else {
-            loteData.fechaCad = moment(loteData.fechaCad).format("YYYY-MM-DD");
-            loteData.fechaConPref = moment(loteData.fechaConPref).format("YYYY-MM-DD");
-            updateLote(loteData);
+        if(loteData.idProducto===0 || loteData.correlativo==="" || loteData.fechaCad==="" || loteData.fechaConPref==="" || loteData.cantidad===0 || loteData.precioUnitario===0.0 || loteData.idPresentacion===0 || loteData.idRemitente===0 ){
+            showInfo();
         }
-        retornar();
+        else{
+            if (!editLote) {
+                createLote(loteData);
+            } else {
+                loteData.fechaCad = moment(loteData.fechaCad).format("YYYY-MM-DD");
+                loteData.fechaConPref = moment(loteData.fechaConPref).format("YYYY-MM-DD");
+                updateLote(loteData);
+            }
+            retornar();
+        }
     };
+
+    const showInfo = () => {
+        toast.current.show({severity:'info', summary: 'Mensaje', detail:'Debe de llenar todos los campos requeridos (*)', life: 3000});
+    }
 
     const toast = useRef(null);
 
@@ -126,12 +135,12 @@ const Form =(props) =>{
                         value={loteData.correlativo}
                         onChange={(e)=>updateField(e.target.value.trim(), "correlativo")}
                     />
-                    <label>Correlativo</label>
+                    <label>Correlativo*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={loteData.idProducto} options={producto} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idProducto")} filter showClear filterBy="nombre" placeholder="Seleccione un producto"/>
-                    <label>Producto</label>
+                    <label>Producto*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
@@ -139,7 +148,7 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaCad")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha Caducidad</label>
+                    <label>Fecha caducidad*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
@@ -147,14 +156,14 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaConPref")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha consumo de preferencia </label>
+                    <label>Fecha consumo de preferencia* </label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
                         value={loteData.cantidad}
                         onChange={(e)=>updateField(e.value, "cantidad")}
                     />
-                    <label>Cantidad</label>
+                    <label>Cantidad*</label>
                 </div><br />
                 <div className="p-float-label" visible={isVisibleButton}>
                     <InputNumber
@@ -171,17 +180,17 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "precioUnitario")}
                         mode="decimal" locale="en-US" minFractionDigits={2}
                     />
-                    <label>Precio Unitario</label>
+                    <label>Precio unitario*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={loteData.idPresentacion} options={presentacion} optionLabel="presentacion" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idPresentacion")} filter showClear filterBy="presentacion" placeholder="Seleccione una presentación"/>
-                    <label>Presentacion</label>
+                    <label>Presentación*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={loteData.idRemitente} options={remitente} optionLabel="nombre" optionValue="id" 
                     onChange={(e) => updateField(e.target.value, "idRemitente")} filter showClear filterBy="nombre" placeholder="Seleccione un remitente"/>
-                    <label>Remitente</label>
+                    <label>Remitente*</label>
                 </div>
             </div>
         </Dialog>
