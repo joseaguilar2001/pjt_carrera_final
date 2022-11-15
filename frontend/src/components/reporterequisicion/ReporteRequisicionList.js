@@ -6,6 +6,7 @@ import { Column } from 'primereact/column';
 import moment from "moment";
 import { useParams } from "react-router-dom";
 import { Button } from "primereact/button";
+import logo from "../../images/fondo2.jpg";
 
 const ReporteRequisicionList = () => {
     const { erequisicions, derequisicions } = useContext(ERequisicionContext);
@@ -47,8 +48,19 @@ const ReporteRequisicionList = () => {
         import("jspdf").then((jsPDF) => {
             import("jspdf-autotable").then(() => {
                 const doc = new jsPDF.default('l', 'mm', 'a4');
-                doc.autoTable(exportColumns, derequisicions);
-                doc.autoTable(exportColumns2 , erequisicions);
+                doc.setFontSize(12);
+                doc.setFont("Helvetica", "normal");
+                doc.text("Hospital Nacional", 20,15);
+                doc.text("de Retalhuleu", 20,20);
+                doc.text("Fecha: ___/___/___", 240,20);
+                doc.setFontSize(16);
+                doc.setFont("Helvetica", "bold");
+                doc.text("Reporte de Requisicion", 120,32);
+                const img1 = new Image();
+                img1.src = logo;
+                doc.addImage(img1, 'JPEG', 128, 4, 40, 20);
+                doc.autoTable(exportColumns, derequisicions, {margin:{top: 35}});
+                doc.autoTable(exportColumns2 , erequisicions, {margin:{top: 45}});
                 doc.save("Requisicion.pdf");
             })
         })
@@ -93,7 +105,7 @@ const ReporteRequisicionList = () => {
             </div>
             <br/><br/>
             <div>
-                <h4><center><strong>Informacion de requisición</strong></center></h4>
+                <h4><center><strong>Información de requisición</strong></center></h4>
                 <DataTable
                     value={erequisicions.filter((q) => q.id === parseInt(idR))}
                     responsiveLayout="scroll"
