@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Menubar } from 'primereact/menubar';
 import { SplitButton } from 'primereact/splitbutton';
 import { logout } from "../../actions/auth";
-import { useSelector } from "react-redux";
 import { clearMessage } from "../../actions/message";
 import logo from "../../images/fondo2.ico";
 const Navigation = () => {
@@ -105,6 +104,13 @@ const Navigation = () => {
       }
     },
     {
+      label: "Contactanos", 
+      icon: "pi pi-fw pi-send",
+      command: () => {
+        window.location.href = '/contact';
+      }, 
+    },
+    {
       label: "Kardex",
       icon: "pi pi-fw pi-shopping-bag",
       command: () => {
@@ -133,6 +139,20 @@ const Navigation = () => {
       icon: "pi pi-fw pi-home",
       command: () => {
         window.location.href = '/';
+      }
+    },
+    {
+      label: "Contactanos", 
+      icon: "pi pi-fw pi-send",
+      command: () => {
+        window.location.href = '/contact';
+      },
+    },
+    {
+      label: "Reportes", 
+      icon: "pi pi-fw pi-bolt",
+      command: () => {
+        window.location.href = '/auditoria';
       }
     },
     {
@@ -297,7 +317,14 @@ const Navigation = () => {
         command: () => {
           window.location.href = '/contact';
         },
-      }
+      },
+      {
+        label: "Requisicion",
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/requisicion';
+        }
+      },
   ]
     /*Items 2 */
     const items = [
