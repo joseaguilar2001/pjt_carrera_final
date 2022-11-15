@@ -28,7 +28,7 @@ const ProductoList=()=>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Producto" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar producto" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -99,7 +99,7 @@ const ProductoList=()=>{
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="unidadMedida" header="Unidad de Medida" sortable/> 
+                <Column field="unidadMedida" header="Unidad de medida" sortable/> 
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

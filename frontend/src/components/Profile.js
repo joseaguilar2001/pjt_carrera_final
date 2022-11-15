@@ -35,10 +35,10 @@ const Profile = () => {
     <div className="flex justify-content-center">
       <div className="card">
         <h3>
-        ¡Bienvenido <strong>{currentUser.nombre}</strong>!
+        ¡Bienvenido! <strong>{currentUser.nombre}</strong>!
         </h3>
       <p>
-        !Es una placer tenerlo {currentUser.rol}¡ Tenemos mucho que hacer el dia de hoy.
+        !Es una placer tenerlo {currentUser.rol}¡Tenemos mucho que hacer el dia de hoy!
       </p>
       <p>
         {text}

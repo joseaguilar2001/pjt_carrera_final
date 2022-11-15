@@ -56,12 +56,12 @@ const KardexList = () =>{
     return(
         <div>
         <div className="flex flex-column md:flex-row justify-content-between">
-            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar Kardex" 
+            <Button className="p-button-raised p-button-rounded mb-3 p-button-info" type="button" icon="pi pi-plus" label="Agregar kardex" 
                 onClick={()=>setIsVisible(true)}/>
         </div>
         
         <Panel
-            header="Listado de Kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Listado de kardex" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>

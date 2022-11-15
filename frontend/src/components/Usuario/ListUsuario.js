@@ -26,7 +26,7 @@ const UsuarioList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Usuario" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar usuario" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -87,9 +87,9 @@ const UsuarioList = () =>{
                 <Column field="id" header="No." sortable/>
                 <Column field="rol" header="Rol" sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="email" header="Email" sortable/>
+                <Column field="email" header="Correo electrónico" sortable/>
                 <Column field="nroCelular" header="Contacto" sortable/>
-                <Column field="direccion" header="Direccion" sortable/>
+                <Column field="direccion" header="Dirección" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

@@ -60,7 +60,7 @@ const AuditoriaList = () =>{
     return(
         <div>
         <Panel
-            header="Reporte Auditoria" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
+            header="Reporte de auditoria" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
         >
             <div>
@@ -73,12 +73,12 @@ const AuditoriaList = () =>{
                 <Column field="no" header="No." sortable/>
                 <Column field="nombre" header="Descripción" sortable/>
                 <Column field="presentacion" header="Presentación" sortable/>
-                <Column field="unidadMedida" header="Unidad de Medida" sortable/>
-                <Column body={datefecha} header="Fecha de Caducidad" sortable/>
-                <Column field="lote" header="No. De Lote" sortable/>
-                <Column field="kardex" header="No. De Tarjeta Kardex" sortable/>
+                <Column field="unidadMedida" header="Unidad de medida" sortable/>
+                <Column body={datefecha} header="Fecha de caducidad" sortable/>
+                <Column field="lote" header="No. de lote" sortable/>
+                <Column field="kardex" header="No. de tarjeta kardex" sortable/>
                 <Column field="cantidad" header="Cantidad" sortable/>
-                <Column field="precioUnitario" header="Precio Unitario" sortable/>
+                <Column field="precioUnitario" header="Precio unitario" sortable/>
                 <Column field="total" header="Total" sortable/>
             </DataTable>
             </div>

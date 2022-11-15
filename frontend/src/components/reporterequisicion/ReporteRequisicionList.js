@@ -17,18 +17,18 @@ const ReporteRequisicionList = () => {
     const { idR } = useParams();
 
     const cols = [
-        { field: "descripcion", header: "Descripcion" },
+        { field: "descripcion", header: "Descripción" },
         { field: "cantidad", header: "Cantidad" },
-        { field: "cantidaDespachada", header: "Cantidad Despachada" },
-        { field: "precioUnitario", header: "Precio Unitario" },
-        { field: "precioTotal", header: "Precio Total" },
+        { field: "cantidaDespachada", header: "Cantidad despachada" },
+        { field: "precioUnitario", header: "Precio unitario" },
+        { field: "precioTotal", header: "Precio total" },
         { field: "Lote", header: "Lote" },
     ];
     const cols1 = [
         { field: "Solicitante", header: "Solicitante" },
         { field: "Servicio", header: "Servicio" },
         { field: "fecha", header: "Fecha" },
-        { field: "codigoAprobacion", header: "Codigo de Aprobacion" },
+        { field: "codigoAprobacion", header: "Codigo de aprobacion" },
         { field: "aprobado", header: "Estado" },
     ];
 
@@ -75,7 +75,7 @@ const ReporteRequisicionList = () => {
             >HOSPITAL NACIONAL RETALHULEU TEL: 79328282</Panel>
             <br/><br/>
             <div>
-                <h4><center><strong>Requisicion de Productos</strong></center></h4>
+                <h4><center><strong>Requisicion de productos</strong></center></h4>
                 <DataTable
                     value={derequisicions.filter((p) => p.Requisicion === parseInt(idR))}
                     responsiveLayout="scroll"
@@ -83,17 +83,17 @@ const ReporteRequisicionList = () => {
                     dataKey="id"
                 >
                     <Column field="Producto" header="Producto" sortable/>
-                    <Column field="descripcion" header="Descripcion" />
-                    <Column field="cantidad" header="Cantidad Pedida" />
-                    <Column field="cantidaDespachada" header="Cantidad Despachada"/>
-                    <Column field="precioUnitario" header="Precio Unitario" />
-                    <Column field="precioTotal" header="Precio Total" />
-                    <Column field="Lote" header="No. Lote" />
+                    <Column field="descripcion" header="Descripción" />
+                    <Column field="cantidad" header="Cantidad pedida" />
+                    <Column field="cantidaDespachada" header="Cantidad despachada"/>
+                    <Column field="precioUnitario" header="Precio unitario" />
+                    <Column field="precioTotal" header="Precio total" />
+                    <Column field="Lote" header="No. lote" />
                 </DataTable>
             </div>
             <br/><br/>
             <div>
-                <h4><center><strong>Informacion de Requisición</strong></center></h4>
+                <h4><center><strong>Informacion de requisición</strong></center></h4>
                 <DataTable
                     value={erequisicions.filter((q) => q.id === parseInt(idR))}
                     responsiveLayout="scroll"

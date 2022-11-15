@@ -96,7 +96,7 @@ const KardexForm =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteKardex} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -106,7 +106,7 @@ const KardexForm =(props) =>{
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveKardex}/>
-            <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
+            <Button label="Ingresar detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkDeKardex}/>
             <Button label="Reporte" className="p-button-rounded" visible={isVisibleButton} onClick={linkDeReporte}/>
         </div>

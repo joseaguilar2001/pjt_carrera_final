@@ -98,7 +98,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteLote} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -156,7 +156,7 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaConPref")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha consumo de preferencia* </label>
+                    <label>Fecha de consumo de preferencia* </label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber

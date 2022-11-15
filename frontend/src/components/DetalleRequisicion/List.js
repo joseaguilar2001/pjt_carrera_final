@@ -42,7 +42,7 @@ const DeRequisicionList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Detalle" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar detalle" 
                 onClick={()=>visibleForms(true)}/>
             </React.Fragment>
         )
@@ -62,9 +62,9 @@ const DeRequisicionList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkKardex}/>
+                <Button label="Regresar a requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkKardex}/>
                 <Button label="Ir a lote" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
-                <Button label="Generar Reporte" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkReporte}/>
+                <Button label="Generar reporte" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkReporte}/>
             </React.Fragment>
         )
     }
@@ -131,7 +131,7 @@ const DeRequisicionList = () =>{
                 <Column field="cantidad" header="Cantidad solicitada" sortable/>
                 <Column field="cantidaDespachada" header="Cantidad despachada" sortable/>
                 <Column field="precioUnitario" header="Precio unitario" sortable/>
-                <Column field="precioTotal" header="Precio Total" sortable/>
+                <Column field="precioTotal" header="Precio total" sortable/>
             </DataTable>
             </div>
         </Panel>

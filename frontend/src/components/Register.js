@@ -74,7 +74,7 @@ const ReactFinalFormDemo = () => {
     };
 
     const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
-    const passwordHeader = <h6>Colocar una contraseña</h6>;
+    const passwordHeader = <h6>Colocar una contraseña.</h6>;
     const passwordFooter = (
         <React.Fragment>
             <Divider />
@@ -94,7 +94,7 @@ const ReactFinalFormDemo = () => {
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Registro hecho!</h5>
+                    <h5>¡Registro hecho!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
                         ¿Que tal señor@ <b>{formData.name}</b>? ; Ya puede iniciar en el sistema como un usuario.<b>{formData.email}</b>.
                     </p>

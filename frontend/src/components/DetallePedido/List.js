@@ -42,7 +42,7 @@ const DePedidoList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Detalle" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar detalle" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -59,8 +59,8 @@ const DePedidoList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkPedido}/>
-                <Button label="Ir a Producto" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
+                <Button label="Regresar a pedido" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkPedido}/>
+                <Button label="Ir a producto" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
             </React.Fragment>
         )
     }

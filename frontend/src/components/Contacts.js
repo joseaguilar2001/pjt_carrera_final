@@ -16,7 +16,7 @@ const Contact = () => {
     const validate = (data) => {
         let errors = {};
         if (!data.email) {
-            errors.email = 'Email es requerido.';
+            errors.email = 'Correo electrónico es requerido.';
         }
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
             errors.email = 'Invalid email address. E.g. example@email.com';
@@ -71,7 +71,7 @@ const Contact = () => {
                                 <div className="field">
                                     <span className="p-float-label p-input-icon-right">
                                         <InputText placeholder='Email'  id="email" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Email</label>
+                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Correo electrónico</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>

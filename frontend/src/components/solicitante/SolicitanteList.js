@@ -27,7 +27,7 @@ const SolicitanteList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Solicitante" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar solicitante" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -44,8 +44,8 @@ const SolicitanteList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkRequisicion}/>
-                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
+                <Button label="Regresar a requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkRequisicion}/>
+                <Button label="Regresar a pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
             </React.Fragment>
         )
     }

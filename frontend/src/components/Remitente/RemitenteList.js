@@ -100,7 +100,7 @@ const RemitenteList = () =>{
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
-                <Column field="descripcion" header="Descripcion" sortable/>
+                <Column field="descripcion" header="Descripción" sortable/>
             </DataTable>
             </div>
         </Panel>

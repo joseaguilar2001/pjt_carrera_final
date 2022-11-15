@@ -40,8 +40,8 @@ const Form =(props) =>{
         {label: 'No', value: 0}
     ];
     const categorias = [
-        {label: 'Reactivos Químicos', value: 'Reactivos Quimicos'},
-        {label: 'Productos Medicinales', value: 'Productos Medicinales'}
+        {label: 'Reactivos químicos', value: 'Reactivos Quimicos'},
+        {label: 'Productos medicinales', value: 'Productos Medicinales'}
     ];
 
 
@@ -109,7 +109,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteRequisicion} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -119,7 +119,7 @@ const Form =(props) =>{
             <Button className="p-button-raised p-button-rounded mb-3 p-button-info"
                 label="Guardar" icon="pi pi-check"
                 onClick={saveRequisicion}/>
-            <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
+            <Button label="Ingresar detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicion}/>
             <Button label="Reporte" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicionReporte}/>
@@ -152,7 +152,7 @@ const Form =(props) =>{
                 </div><br />
                 <div className="p-float-label">
                     <Dropdown value={requisicionData.idSolicitante} options={solicitante} optionLabel="nombre" optionValue="id" 
-                    onChange={(e) => updateField(e.target.value, "idSolicitante")} filter showClear filterBy="nombre" placeholder="Seleccione un Solicitante"/>
+                    onChange={(e) => updateField(e.target.value, "idSolicitante")} filter showClear filterBy="nombre" placeholder="Seleccione un solicitante"/>
                     <label>Solicitante*</label>
                 </div><br />
                 <div className="p-float-label">

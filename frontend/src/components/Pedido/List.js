@@ -33,7 +33,7 @@ const PedidoList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Pedido" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar pedido" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -50,8 +50,8 @@ const PedidoList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Ir a Solicitante" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkSolicitante}/>
-                <Button label="Ir a Ejecutor" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkEjecutor}/>
+                <Button label="Ir a solicitante" icon="pi pi-angle-double-right" className="p-button-rounded mr-2" onClick={linkSolicitante}/>
+                <Button label="Ir a ejecutor" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkEjecutor}/>
             </React.Fragment>
         )
     }
@@ -113,10 +113,10 @@ const PedidoList = () =>{
                 <Column field="nombreUE" header="Ejecutor" sortable/>
                 <Column field="nombre" header="Solicitante" sortable/>
                 <Column field="correlativoUE" header="Correlativo" sortable/>
-                <Column body={dateSolicitud} header="Fecha de Solicitud" sortable/>
+                <Column body={dateSolicitud} header="Fecha de solicitud" sortable/>
                 <Column field="telefonoExt" header="Teléfono / Extensión" sortable/>
                 <Column field="justificacion_Observacion" header="Justificación / Observación" sortable/>
-                <Column field="montoTotal" header="Monto Total" sortable/>
+                <Column field="montoTotal" header="Monto total" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

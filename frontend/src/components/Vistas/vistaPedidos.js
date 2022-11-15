@@ -33,9 +33,9 @@ const VistaTable = () => {
         <div>
             <div className='flex justify-content-right'>
             <h4>Solicitud de Pedido</h4>
-            <p>Codigo Unidad Ejecutora:__<u>{pedidoDatos.codigoUE}</u>____ Correlativo Seccion de Compras UE: ___<u>{pedidoDatos.correlativo}</u>___</p>
-            <p>Nombre Unidad Ejecutora:__<u>{pedidoDatos.nombreUE}</u>_________________________________________________________________________</p>
-            <p>Nombre Unidad/Depto/Seccion solicitante:__<u>{pedidoDatos.solicitante}</u>______________________________________________________</p>
+            <p>Codigo unidad ejecutora:__<u>{pedidoDatos.codigoUE}</u>____ Correlativo seccion de compras UE: ___<u>{pedidoDatos.correlativo}</u>___</p>
+            <p>Nombre unidad ejecutora:__<u>{pedidoDatos.nombreUE}</u>_________________________________________________________________________</p>
+            <p>Nombre unidad/depto/seccion solicitante:__<u>{pedidoDatos.solicitante}</u>______________________________________________________</p>
             <br/>
             <p>Fecha de la solicitud:___<u>{pedidoDatos.fecha}</u>__Telefono/ext:__<u>{pedidoDatos.telefono}</u>____________________________________</p>     
             
@@ -43,11 +43,11 @@ const VistaTable = () => {
             <div>
             <DataTable value={pedidoDetalle} responsiveLayout="scroll">
                     <Column field="ID" header="No."/>
-                    <Column field="Cant" header="Cantidad Solicitada"/>
-                    <Column field="CantA" header="Cantidad Autorizada"/>
-                    <Column field="COI" header="Codigo de Insumo"/>
-                    <Column field='Descripcion' header="Descripcion del bien o servicio solicitado" />
-                    <Column field='RA' header="Renglon Afectado"/>
+                    <Column field="Cant" header="Cantidad solicitada"/>
+                    <Column field="CantA" header="Cantidad autorizada"/>
+                    <Column field="COI" header="Codigo de insumo"/>
+                    <Column field='Descripcion' header="Descripción del bien o servicio solicitado" />
+                    <Column field='RA' header="Renglon afectado"/>
                     <Column field='VA' header="Valor estimado en quetzales" />
                     <Column field='PAAC' header="Incluido en PAAC" />
                     <Column field='CAB' header="Esta en contrato abierto"/>
@@ -63,7 +63,7 @@ const VistaTable = () => {
                 <b><u>Solicitante:</u></b>
             </p>
             <p>___<u>{pedidoDatos.nombreS}</u>_________&nbsp;&nbsp;&nbsp;________________________&nbsp;&nbsp;&nbsp;____________<u>{pedidoDatos.cargo}</u>_________</p>
-            <p>Nombre completo Servidor Publico &nbsp;&nbsp;&nbsp;       Firma    &nbsp;&nbsp;&nbsp;&nbsp;                            Cargo                            </p>
+            <p>Nombre completo del servidor publico &nbsp;&nbsp;&nbsp;       Firma    &nbsp;&nbsp;&nbsp;&nbsp;                            Cargo                            </p>
             
         </div>
     )

@@ -36,7 +36,7 @@ const Navigation = () => {
         },
       },
       {
-        label: "Contactanos", 
+        label: "Contáctanos", 
         icon: "pi pi-fw pi-send",
         command: () => {
           window.location.href = '/contact';
@@ -67,7 +67,7 @@ const Navigation = () => {
       },
     },
     {
-      label: "Requisicion",
+      label: "Requisición",
       icon: "pi pi-fw pi-directions",
       command: () => {
         window.location.href = '/requision';
@@ -88,7 +88,7 @@ const Navigation = () => {
       },
     },
     {
-      label: "Contactanos", 
+      label: "Contáctanos", 
       icon: "pi pi-fw pi-send",
       command: () => {
         window.location.href = '/contact';
@@ -112,14 +112,14 @@ const Navigation = () => {
       }
     },
       {
-        label: "Detalle Kardex",
+        label: "Detalle kardex",
         icon: "pi pi-fw pi-shopping-cart",
         command: () => {
           window.location.href = '/detalleKardex/:id';
         },
       },
       {
-          label: "Contactanos", 
+          label: "Contáctanos", 
           icon: "pi pi-fw pi-send",
           command: () => {
             window.location.href = '/contact';
@@ -203,7 +203,7 @@ const Navigation = () => {
               }
             },
             {
-              label: "Requisicion", 
+              label: "Requisición", 
               icon: "pi pi-fw pi-plus-circle",
               command: () => {
                 window.location.href = '/requisicion';
@@ -225,7 +225,7 @@ const Navigation = () => {
       icon: "pi pi-fw pi-bolt",
       items:[
         {
-          label: "Auditoria", 
+          label: "Auditoría", 
           icon: "pi pi-fw pi-send",
           command: () => {
             window.location.href = '/auditoria';
@@ -246,7 +246,7 @@ const Navigation = () => {
           }
         },
         {
-          label: "Reporte requisicion", 
+          label: "Reporte requisición", 
           icon: "pi pi-fw pi-truck",
           command: () => {
             window.location.href = '/requisicionreporte/:idR';
@@ -268,7 +268,7 @@ const Navigation = () => {
       ]
     },
     {
-      label: "Contactanos", 
+      label: "Contáctanos", 
       icon: "pi pi-fw pi-send",
       command: () => {
         window.location.href = '/contact';
@@ -285,14 +285,14 @@ const Navigation = () => {
         }
       },
       {
-        label: "Requision", 
+        label: "Requisión", 
         icon: "pi pi-fw pi-home",
         command: () => {
           window.location.href = '/requisicion';
         }
       },
       {
-        label: "Contactanos", 
+        label: "Contáctanos", 
         icon: "pi pi-fw pi-send",
         command: () => {
           window.location.href = '/contact';
@@ -302,7 +302,7 @@ const Navigation = () => {
     /*Items 2 */
     const items = [
       {
-        label: "Inicio de Sesión", 
+        label: "Inicio de sesión", 
         icon: "pi pi-fw pi-user",
         command: () => {
           window.location.href = '/login';

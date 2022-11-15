@@ -81,7 +81,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deletePresentacion} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -106,7 +106,7 @@ const Form =(props) =>{
             modal={true}
             style={{maxHeight: "800px", width:"420px", overflow:"auto"}}
             contentStyle={{overflow:"visible"}}
-            header = "Detalles del presentacion"
+            header = "Detalles de presentacion"
             onHide={()=>clearSelected()}
             footer={dialogFooter}
         >

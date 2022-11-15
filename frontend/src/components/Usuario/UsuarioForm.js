@@ -56,7 +56,7 @@ const FormUsuario = (props) => {
             const mensaje = {
                 asunto: 'Cambio de rol',
                 nombre: usuarioData.nombre,
-                mensaje: "El rol a sido cambiado!!",
+                mensaje: "¡El rol a sido cambiado!",
                 email: usuarioData.email,
             }
             emailjs.send(ApiKey.SERVICE_ID, "template_tgks2n9", mensaje ,ApiKey.USER_ID)
@@ -95,7 +95,7 @@ const FormUsuario = (props) => {
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteUsuario} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -143,7 +143,7 @@ const FormUsuario = (props) => {
                         value={usuarioData.email}
                         onChange={(e)=>updateField(e.target.value.trim(), "email")}
                     />
-                    <label>Email</label>
+                    <label>Correo electrónico</label>
                 </div><br />
                 <div className="p-float-label">
                     <Password

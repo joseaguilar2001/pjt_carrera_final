@@ -25,14 +25,14 @@ const Login = () => {
 
 
       if (!data.email) {
-          errors.email = 'Email es requerido!!';
+          errors.email = '¡El correo electrónico es requerido!!';
       }
       else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-          errors.email = 'Email no valido!! Ejemplo: example@email.com';
+          errors.email = '¡Correo electrónico no valido! Ejemplo: example@email.com';
       }
 
       if (!data.password) {
-          errors.password = 'Contraseña requerida!!';
+          errors.password = '¡Contraseña requerida!';
       }
 
       return errors;
@@ -64,7 +64,7 @@ const Login = () => {
       <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Registration Successful!</h5>
+                    <h5>¡Registro exitoso!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
                         Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
                     </p>
@@ -72,7 +72,7 @@ const Login = () => {
             </Dialog>
         <div className="flex justify-content-center">
         <div className='card card-container'>
-                    <h5 className="text-center">Inicio de Sesión</h5>
+                    <h5 className="text-center">Inicio de sesión</h5>
                     <Form onSubmit={onSubmit} initialValues={{ nombre: '', email: '', password: ''}} validate={validate} render={({ handleSubmit }) => (
                         <form onSubmit={handleSubmit} className="p-fluid">
                           <Field name="email" render={({ input, meta }) => (
@@ -80,7 +80,7 @@ const Login = () => {
                                     <span className="p-float-label p-input-icon-right">
                                         <i className="pi pi-envelope" />
                                         <InputText id="email" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} placeholder='example@gmail.com'/>
-                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Email*</label>
+                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Correo electrónico*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
@@ -89,7 +89,7 @@ const Login = () => {
                                 <div className="field">
                                     <span className="p-float-label">
                                         <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })}/>
-                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Contraseña*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>

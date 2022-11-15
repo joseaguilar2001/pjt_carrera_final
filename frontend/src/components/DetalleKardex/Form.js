@@ -88,7 +88,7 @@ const Form =(props) =>{
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
-            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
+            <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Está seguro de eliminar?"
                 header="Confirmación de eliminación" icon="pi pi-info-circle" accept={_deleteDKardex} reject={retornar} 
                 acceptClassName="p-button-danger"
                 />
@@ -145,7 +145,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "entradaCantidad")}
                         locale="en-US"
                     />
-                    <label>Entrada cantidad</label>
+                    <label>Cantidad de entrada</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -153,7 +153,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "salidaCantidad")}
                         locale="en-US"
                     />
-                    <label>Salida cantidad</label>
+                    <label>Cantidad de salida</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -161,7 +161,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "reajusteCantidad")}
                         locale="en-US"
                     />
-                    <label>Reajuste cantidad</label>
+                    <label>Reajuste de cantidad</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputNumber
@@ -169,7 +169,7 @@ const Form =(props) =>{
                         onChange={(e)=>updateField(e.value, "saldoCantidad")}
                         locale="en-US"
                     />
-                    <label>Saldo cantidad*</label>
+                    <label>Saldo de cantidad*</label>
                 </div><br />
                 <div className="p-float-label">
                     <Calendar
@@ -177,7 +177,7 @@ const Form =(props) =>{
                         onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaRequisicion")}
                         dateFormat="dd-mm-yy"
                     />
-                    <label>Fecha requisición</label>
+                    <label>Fecha de requisición</label>
                 </div>
             </div>
         </Dialog>

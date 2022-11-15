@@ -65,7 +65,7 @@ const VistaTableSum = (props) => {
                         <th>PRECIO</th>
                         </tr>
                     </th>
-                    <th>FECHA REQUISICION</th>
+                    <th>FECHA REQUISICIÓN</th>
                 </tr>
             </thead>
             <tbody>

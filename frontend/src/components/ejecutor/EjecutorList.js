@@ -27,7 +27,7 @@ const EjecutorList = () =>{
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar Ejecutor" 
+                <Button className="p-button-raised p-button-rounded mr-2 p-button-info" type="button" icon="pi pi-plus" label="Agregar ejecutor" 
                 onClick={()=>setIsVisible(true)}/>
             </React.Fragment>
         )
@@ -41,7 +41,7 @@ const EjecutorList = () =>{
     const rightToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Regresar a Pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
+                <Button label="Regresar a pedido" icon="pi pi-angle-double-left" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkPedido}/>
             </React.Fragment>
         )
     }
@@ -101,7 +101,7 @@ const EjecutorList = () =>{
                 <Column field="id" header="No." sortable/>
                 <Column field="codigoUE" header="Código UE" sortable/>
                 <Column field="nombreUE" header="Nombre UE" sortable/>
-                <Column field="solicitanteDepto" header="Departamento Solicitante" sortable/>
+                <Column field="solicitanteDepto" header="Departamento solicitante" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
             </div>

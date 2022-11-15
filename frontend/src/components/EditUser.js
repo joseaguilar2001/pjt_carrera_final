@@ -24,18 +24,18 @@ const ActualizarUser = () => {
         }
 
         if (!data.email) {
-            errors.email = 'Email es requerido!!';
+            errors.email = '¡Correo electrónico es requerido!';
         }
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-            errors.email = '¡¡Email invalido!! Ejemplo: example@email.com';
+            errors.email = '¡Correo electrónico invalido! Ejemplo: example@email.com';
         }
 
         if (!data.password) {
-            errors.password = '¡¡Contraseña requerida!!';
+            errors.password = '¡Contraseña requerida!';
         }
 
         if (!data.nroCelular){
-            errors.nroCelular = "¡¡Numero de celular requerido!!"
+            errors.nroCelular = "¡Numero de celular requerido!"
         }
 
         return errors;
@@ -77,8 +77,8 @@ const ActualizarUser = () => {
             <Divider />
             <p className="mt-2">Requerimientos</p>
             <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: '1.5' }}>
-                <li>Una minuscula</li>
-                <li>Una mayuscula</li>
+                <li>Una minúscula</li>
+                <li>Una mayúscula</li>
                 <li>Un numero minimo</li>
                 <li>Minimo 8 caracteres</li>
             </ul>
@@ -91,7 +91,7 @@ const ActualizarUser = () => {
             <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-                    <h5>Actualizacion hecha!</h5>
+                    <h5>¡Actualización hecha!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
                         ¿Que tal señor@ <b>{formData.name}</b>? ; Ya puede iniciar en el sistema como un usuario.<b>{formData.email}</b>.
                     </p>
@@ -121,7 +121,7 @@ const ActualizarUser = () => {
                                     <span className="p-float-label p-input-icon-right">
                                         <i className="pi pi-envelope" />
                                         <InputText id="email" {...input} placeholder={currentUser.email} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Email*</label>
+                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Correo electrónico*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
@@ -130,7 +130,7 @@ const ActualizarUser = () => {
                                 <div className="field">
                                     <span className="p-float-label">
                                         <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
-                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Contraseña*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
@@ -152,7 +152,7 @@ const ActualizarUser = () => {
                                     <span className="p-float-label p-input-icon-right">
                                     <i className="pi pi-send" />
                                         <InputTextarea id="direccion" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} rows={5} cols={30} autoResize/>
-                                        <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Direccion*</label>
+                                        <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Dirección*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
