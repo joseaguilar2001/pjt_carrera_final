@@ -103,6 +103,10 @@ const Form =(props) =>{
         navigate(`/drequisicion/${requisicionData.id}`)
     }
 
+    function linkRequisicionReporte (){
+        navigate(`/requisicionreporte/${requisicionData.id}`)
+    }
+
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
             <ConfirmDialog visible={isVisibleDelete} onHide={() => setisVisibleDelete(false)} message="¿Esta seguro de eliminar?"
@@ -117,6 +121,8 @@ const Form =(props) =>{
                 onClick={saveRequisicion}/>
             <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicion}/>
+            <Button label="Reporte" icon="pi pi-angle-double-right" 
+                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkRequisicionReporte}/>
         </div>
     );
 

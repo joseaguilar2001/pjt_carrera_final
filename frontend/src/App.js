@@ -76,7 +76,7 @@ const App = () => {
           <Route  path="/requisicionreporte/:idR" element={<ReporteRequisicion />} />
           <Route  path="/profile" element={<Profile />} />
           <Route  path="/usuarios" element={<Usuario />} />
-          <Route  path="/vista" element={<VistaTable />} />
+          <Route  path="/vista/:idP" element={<VistaTable />} />
           <Route  path="/suministros/:idK" element={<VistaTableSum />} />
           <Route path="/remitentes" element={<Remitente />} /> 
           </Route>
@@ -84,7 +84,7 @@ const App = () => {
       </div>
       <div>
         <footer>
-        <p>&copy;Todos los derechos reervados :: Hospital Nacional de Retalhuleu :: 2022</p>
+        <p>&copy;Todos los derechos reservados :: Aguilar, López, Galicia, Aldamas :: 2022</p>
         </footer>
       </div>
 

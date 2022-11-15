@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { VistasService } from '../../services/VistasService';
-
-const VistaTable = (props) => {
-    const {id, setId } = props;
+import { useParams } from 'react-router-dom';
+const VistaTable = () => {
+    const { idP } = useParams();
     const [pedido, setPedido] = useState([]);
     const [pedidoDetalle, setPedidoDetalle] = useState([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const vistaServicePedido = new VistasService();
     
     useEffect(() => {
-        vistaServicePedido.readAllPedido(1)
+        vistaServicePedido.readAllPedido(idP)
         .then(data => setPedido(data));
-        
-        vistaServicePedido.readAllPedidoDetalle(1)
+        vistaServicePedido.readAllPedidoDetalle(idP)
         .then(data => setPedidoDetalle(data));
-    },[id, vistaServicePedido]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[vistaServicePedido]);
     const pedidoDatos = {
         codigoUE: pedido.map((e) => e.CodigoUE),
         correlativo:pedido.map((e) => e.Correlativo),

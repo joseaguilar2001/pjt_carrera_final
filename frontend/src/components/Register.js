@@ -21,22 +21,22 @@ const ReactFinalFormDemo = () => {
         let errors = {};
 
         if (!data.nombre) {
-            errors.nombre = 'Name is required.';
+            errors.nombre = 'Nombre es requerido.';
         }
 
         if (!data.email) {
-            errors.email = 'Email es requerido!!';
+            errors.email = 'Correo electrónico es requerido.';
         }
         else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-            errors.email = '¡¡Email invalido!! Ejemplo: example@email.com';
+            errors.email = 'Correo electrónico invalido. Ejemplo: example@email.com';
         }
 
         if (!data.password) {
-            errors.password = '¡¡Contraseña requerida!!';
+            errors.password = 'Contraseña requerida.';
         }
 
         if (!data.nroCelular){
-            errors.nroCelular = "¡¡Numero de celular requerido!!"
+            errors.nroCelular = "Numero de celular requerido."
         }
 
         return errors;
@@ -74,11 +74,11 @@ const ReactFinalFormDemo = () => {
     };
 
     const dialogFooter = <div className="flex justify-content-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false) } /></div>;
-    const passwordHeader = <h6>Pick a password</h6>;
+    const passwordHeader = <h6>Colocar una contraseña</h6>;
     const passwordFooter = (
         <React.Fragment>
             <Divider />
-            <p className="mt-2">Suggestions</p>
+            <p className="mt-2">Requerimientos</p>
             <ul className="pl-2 ml-2 mt-0" style={{ lineHeight: '1.5' }}>
                 <li>Una minuscula</li>
                 <li>Una mayuscula</li>
@@ -124,7 +124,7 @@ const ReactFinalFormDemo = () => {
                                     <span className="p-float-label p-input-icon-right">
                                         <i className="pi pi-envelope" />
                                         <InputText id="email" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} placeholder='example@gmail.com'/>
-                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Email*</label>
+                                        <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Correo electrónico*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
@@ -133,7 +133,7 @@ const ReactFinalFormDemo = () => {
                                 <div className="field">
                                     <span className="p-float-label">
                                         <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
-                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                                        <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Contraseña*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>
@@ -155,7 +155,7 @@ const ReactFinalFormDemo = () => {
                                     <span className="p-float-label p-input-icon-right">
                                     <i className="pi pi-send" />
                                         <InputTextarea id="direccion" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} rows={5} cols={30} autoResize/>
-                                        <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Direccion*</label>
+                                        <label htmlFor="direccion" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Dirección*</label>
                                     </span>
                                     {getFormErrorMessage(meta)}
                                 </div>

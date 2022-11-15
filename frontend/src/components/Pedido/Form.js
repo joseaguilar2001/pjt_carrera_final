@@ -99,6 +99,9 @@ const Form =(props) =>{
     function linkPedido (){
         navigate(`/dpedido/${pedidoData.id}`)
     }
+    function linkPedidoReporte (){
+        navigate(`/vista/${pedidoData.id}`)
+    }
 
     const dialogFooter=(
         <div className="ui-dialog-buttonpane p-clearfix">
@@ -114,6 +117,8 @@ const Form =(props) =>{
                 onClick={savePedido}/>
             <Button label="Ingresar Detalle" icon="pi pi-angle-double-right" 
                 className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkPedido}/>
+                            <Button label="Ver reporte" icon="pi pi-angle-double-right" 
+                className="p-button-rounded mb-3" visible={isVisibleButton} onClick={linkPedidoReporte}/>
         </div>
     );
 

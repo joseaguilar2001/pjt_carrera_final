@@ -33,7 +33,14 @@ const Navigation = () => {
         icon: "pi pi-fw pi-home",
         command: () => {
           window.location.href = '/';
-        }
+        },
+      },
+      {
+        label: "Contactanos", 
+        icon: "pi pi-fw pi-send",
+        command: () => {
+          window.location.href = '/contact';
+        },
       }
   ];
   
@@ -79,6 +86,13 @@ const Navigation = () => {
       command: () => {
         window.location.href = '/pedido';
       },
+    },
+    {
+      label: "Contactanos", 
+      icon: "pi pi-fw pi-send",
+      command: () => {
+        window.location.href = '/contact';
+      },
     }
   ];
   
@@ -103,6 +117,13 @@ const Navigation = () => {
         command: () => {
           window.location.href = '/detalleKardex/:id';
         },
+      },
+      {
+          label: "Contactanos", 
+          icon: "pi pi-fw pi-send",
+          command: () => {
+            window.location.href = '/contact';
+          }, 
       }
   ]
   
@@ -214,7 +235,7 @@ const Navigation = () => {
           label: "Pedido reporte", 
           icon: "pi pi-fw pi-eye",
           command: () => {
-            window.location.href = '/vista';
+            window.location.href = '/vista/:idP';
           }
         },
         {
@@ -245,6 +266,13 @@ const Navigation = () => {
           }
         }
       ]
+    },
+    {
+      label: "Contactanos", 
+      icon: "pi pi-fw pi-send",
+      command: () => {
+        window.location.href = '/contact';
+      },
     }
   ]
   
@@ -263,6 +291,13 @@ const Navigation = () => {
           window.location.href = '/requisicion';
         }
       },
+      {
+        label: "Contactanos", 
+        icon: "pi pi-fw pi-send",
+        command: () => {
+          window.location.href = '/contact';
+        },
+      }
   ]
     /*Items 2 */
     const items = [

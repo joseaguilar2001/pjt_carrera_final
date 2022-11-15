@@ -7,6 +7,10 @@ import { Dropdown } from 'primereact/dropdown';
 
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
+import { Password } from "primereact/password";
+
+import emailjs from '@emailjs/browser';
+import ApiKey from '../../ApiKey';
 
 const FormUsuario = (props) => {
     const {isVisible, setIsVisible} = props;
@@ -49,6 +53,18 @@ const FormUsuario = (props) => {
             createUsuario(usuarioData);
         } else {
             updateUsuario(usuarioData);
+            const mensaje = {
+                asunto: 'Cambio de rol',
+                nombre: usuarioData.nombre,
+                mensaje: "El rol a sido cambiado!!",
+                email: usuarioData.email,
+            }
+            emailjs.send(ApiKey.SERVICE_ID, "template_tgks2n9", mensaje ,ApiKey.USER_ID)
+            .then(() => {
+                console.log("Enviado con exito");
+            },() => {
+                console.log("Sin exito");
+            })
         }
         retornar();
     };
@@ -130,16 +146,17 @@ const FormUsuario = (props) => {
                     <label>Email</label>
                 </div><br />
                 <div className="p-float-label">
-                    <InputText
+                    <Password
                         value={usuarioData.password}
                         onChange={(e)=>updateField(e.target.value.trim(), "password")}
+                        toggleMask
                     />
                     <label>Contraseña</label>
                 </div><br />
                 <div className="p-float-label">
                     <InputText
-                        value={usuarioData.celular}
-                        onChange={(e)=>updateField(e.target.value.trim(), "nroCelular")}
+                        value={usuarioData.nroCelular}
+                        onChange={(e)=>updateField(e.target.value, "nroCelular")}
                     />
                     <label>Numero de celular</label>
                 </div><br />

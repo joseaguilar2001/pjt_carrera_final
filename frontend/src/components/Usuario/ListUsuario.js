@@ -81,14 +81,14 @@ const UsuarioList = () =>{
                 onSelectionChange={(e) => saveUsuario(e.value.id)}
                 paginator className="p-datatable-customers" showGridlines rows={10}
                 dataKey="id" filters={filters1} filterDisplay="menu"
-                globalFilterFields={['rol','nombre', 'celular', 'email', 'direccion']} 
+                globalFilterFields={['rol','nombre', 'nroCelular', 'email', 'direccion']} 
                 header={header1} emptyMessage="No se encontraron usuarios."
                 >
                 <Column field="id" header="No." sortable/>
                 <Column field="rol" header="Rol" sortable/>
                 <Column field="nombre" header="Nombre" sortable/>
                 <Column field="email" header="Email" sortable/>
-                <Column field="celular" header="Contacto" sortable/>
+                <Column field="nroCelular" header="Contacto" sortable/>
                 <Column field="direccion" header="Direccion" sortable/>
                 <Column body={statusBodyTemplate} header="Estado" sortable/>
             </DataTable>
