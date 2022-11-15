@@ -97,7 +97,7 @@ const Form =(props) =>{
     //Navegacion
     const navigate = useNavigate();
     function linkPedido (){
-        navigate(`/pedido/${pedidoData.id}`)
+        navigate(`/dpedido/${pedidoData.id}`)
     }
 
     const dialogFooter=(
