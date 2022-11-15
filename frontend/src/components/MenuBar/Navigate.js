@@ -104,13 +104,6 @@ const Navigation = () => {
       }
     },
     {
-      label: "Contactanos", 
-      icon: "pi pi-fw pi-send",
-      command: () => {
-        window.location.href = '/contact';
-      }, 
-    },
-    {
       label: "Kardex",
       icon: "pi pi-fw pi-shopping-bag",
       command: () => {
@@ -140,13 +133,6 @@ const Navigation = () => {
       command: () => {
         window.location.href = '/';
       }
-    },
-    {
-      label: "Contactanos", 
-      icon: "pi pi-fw pi-send",
-      command: () => {
-        window.location.href = '/contact';
-      },
     },
     {
       label: "Auditoria", 
