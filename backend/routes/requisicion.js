@@ -4,11 +4,18 @@ const mysqlconexion = require('../db');
 
 //get
 router.get('/',(req,res)=>{
-    mysqlconexion.query('SELECT r.id, r.idUsuarioEncargado, u.nombre as Encargado, r.idServicio, se.nombre as Servicio, r.idSolicitante, so.nombre as Solicitante, aprobado, fecha, categoria '+
-	'FROM requisicion as r '+
-    'INNER JOIN usuario as u ON r.idUsuarioEncargado = u.id '+
-    'INNER JOIN solicitante as so ON r.idSolicitante = so.id '+
-    'INNER JOIN servicio as se ON r.idServicio = se.id;',
+    mysqlconexion.query(`SELECT r.id, r.idUsuarioEncargado, u.nombre as Encargado, 
+    r.idServicio, se.nombre as Servicio, 
+    r.idSolicitante, so.nombre as Solicitante, 
+    aprobado, fecha, categoria 
+    FROM requisicion as r 
+    INNER JOIN usuario as u 
+    ON r.idUsuarioEncargado = u.id 
+    INNER JOIN solicitante as so 
+    ON r.idSolicitante = so.id 
+    INNER JOIN servicio as se 
+    ON r.idServicio = se.id
+    ORDER BY r.id DESC;`,
     (error,rows,fields)=>{
         if(!error){
             res.json(rows);

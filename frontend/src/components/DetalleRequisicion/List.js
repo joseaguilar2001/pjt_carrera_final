@@ -63,8 +63,9 @@ const DeRequisicionList = () =>{
         return (
             <React.Fragment>
                 <Button label="Regresar a Requisición" icon="pi pi-angle-double-left" className="p-button-rounded mr-2" onClick={linkKardex}/>
-                <Button label="Ir a lote" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto}/>
-                <Button label="Generar Reporte" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkReporte}/>
+                {currentUser.rol !== "Usuario" && (
+                <><Button label="Ir a lote" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkProducto} /><Button label="Generar Reporte" icon="pi pi-angle-double-right" className="p-button-rounded p-toolbar-separator mr-2" onClick={linkReporte} /></>
+                )}
             </React.Fragment>
         )
     }

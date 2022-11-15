@@ -8,13 +8,13 @@ import { FilterMatchMode} from 'primereact/api';
 import { Toolbar } from 'primereact/toolbar';
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { RequisicionContext } from "../../context/RequisicionContext";
 import RequisicionForm from './Form';
 
 const RequisicionList = () =>{
     const {requisiciones, findRequisicion} = useContext(RequisicionContext);
-
+    const { user: currentUser } = useSelector((state) => state.auth);
     const [isVisible, setIsVisible] = useState(false);
 
     const date = (requisiciones) => {
@@ -92,7 +92,7 @@ const RequisicionList = () =>{
     const header1 = renderHeader1();
     return(
         <div>
-        <Toolbar className="mr-2" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+        <Toolbar className="mr-2" left={leftToolbarTemplate} right={currentUser.rol !== "Usuario" && rightToolbarTemplate}></Toolbar>
         <Panel
             header="Listado de requisiciones" sortField="category" sortOrder={-1} responsiveLayout="scroll" 
             style={{ textAlign: "justify" }}
