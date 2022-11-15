@@ -5,7 +5,7 @@ const mysqlconn = mysql.createConnection(
     host: '127.0.0.1',
     user: 'root',
     password: 'password',
-    database: 'dbreu2',
+    database: 'dbreu',
     port: 3306
 }
 );

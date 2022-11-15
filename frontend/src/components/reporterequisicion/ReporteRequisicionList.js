@@ -82,7 +82,7 @@ const ReporteRequisicionList = () => {
                     selectionMode="single"
                     dataKey="id"
                 >
-                    <Column field="nombre" header="Producto" sortable/>
+                    <Column field="Producto" header="Producto" sortable/>
                     <Column field="descripcion" header="Descripcion" />
                     <Column field="cantidad" header="Cantidad Pedida" />
                     <Column field="cantidaDespachada" header="Cantidad Despachada"/>
@@ -103,7 +103,6 @@ const ReporteRequisicionList = () => {
                     <Column field="Solicitante" header="Solicitante" />
                     <Column field="Servicio" header="Servicio"  />
                     <Column body={datefecha} header="Fecha"  />
-                    <Column field="codigoAprobacion" header="Código de Aprobación"  />
                     <Column field="aprobado" header="Aprobación"  />
                 </DataTable>
             </div>
