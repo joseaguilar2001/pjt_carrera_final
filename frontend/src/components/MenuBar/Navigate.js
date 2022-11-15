@@ -149,7 +149,7 @@ const Navigation = () => {
       },
     },
     {
-      label: "Reportes", 
+      label: "Auditoria", 
       icon: "pi pi-fw pi-bolt",
       command: () => {
         window.location.href = '/auditoria';
@@ -237,40 +237,6 @@ const Navigation = () => {
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      label: "Reportes", 
-      icon: "pi pi-fw pi-bolt",
-      items:[
-        {
-          label: "Auditoría", 
-          icon: "pi pi-fw pi-send",
-          command: () => {
-            window.location.href = '/auditoria';
-          }
-        },
-        {
-          label: "Pedido reporte", 
-          icon: "pi pi-fw pi-eye",
-          command: () => {
-            window.location.href = '/vista/:idP';
-          }
-        },
-        {
-          label: "Suministros", 
-          icon: "pi pi-fw pi-truck",
-          command: () => {
-            window.location.href = '/suministros/:idK';
-          }
-        },
-        {
-          label: "Reporte requisición", 
-          icon: "pi pi-fw pi-truck",
-          command: () => {
-            window.location.href = '/requisicionreporte/:idR';
-          }
         }
       ]
     },
