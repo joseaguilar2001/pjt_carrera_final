@@ -5,6 +5,7 @@ import { DataTable } from "primereact/datatable";
 import {Column} from 'primereact/column';
 import moment from "moment";
 import { Button } from "primereact/button";
+import logo from "../../images/fondo2.jpg";
 
 
 const AuditoriaList = () =>{
@@ -36,9 +37,18 @@ const AuditoriaList = () =>{
         import("jspdf").then((jsPDF) => {
             import("jspdf-autotable").then(() => {
                 const doc = new jsPDF.default('l', 'mm', 'a4');
+                doc.setFontSize(12);
+                doc.setFont("Helvetica", "normal");
+                doc.text("Hospital Nacional", 20,15);
+                doc.text("de Retalhuleu", 20,20);
+                doc.text("Fecha: ___/___/___", 240,20);
                 doc.setFontSize(16);
                 doc.setFont("Helvetica", "bold");
-                doc.autoTable(exportColumns, auditorias);
+                doc.text("Reporte de auditoria", 120,32);
+                const img1 = new Image();
+                img1.src = logo;
+                doc.addImage(img1, 'JPEG', 128, 4, 40, 20);
+                doc.autoTable(exportColumns, auditorias, {margin:{top: 35}});
                 doc.save("Auditoria.pdf");
             })
         })
