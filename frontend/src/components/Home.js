@@ -1,6 +1,5 @@
 import React from "react";
 import hospi1 from "../images/hospi1.jpg";
-import hospi2 from "../images/hospi2.jpg";
 import hospi4 from "../images/hospi4.jpg";
 import hospi5 from "../images/hospi5.jpg";
 import hospi6 from "../images/hospi6.jpg";
@@ -8,6 +7,7 @@ import hospi7 from "../images/hospi7.jpg";
 import hospi8 from "../images/hospi8.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
+import hospi3 from '../images/hospi3.jpg';
 
 
 const Home = () => {
@@ -39,7 +39,7 @@ const Home = () => {
           <Carousel.Item>
             <img
               className="d-block w-300"
-              src={hospi2}
+              src={hospi3}
               width={510}
               height={370}
               alt="Second slide" />
