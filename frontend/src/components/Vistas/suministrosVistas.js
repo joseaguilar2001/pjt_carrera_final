@@ -14,11 +14,6 @@ const VistaTableSum = (props) => {
         .then(data => setKardex(data));
     },[idK, vistaServicePedido]);
 
-    if(idK === null)
-    {
-        // eslint-disable-next-line no-const-assign
-        idK = 1;
-    }
     return (
         <div className='p-grid p-fluid'>
         <p>
