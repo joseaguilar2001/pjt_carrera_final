@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
         'INNER JOIN producto as pro on l.idProducto = pro.id '+
         'INNER JOIN presentacion as pre on l.idPresentacion = pre.id '+
         'INNER JOIN detalleKardex as de on l.id = de.idLote '+
-        'INNER JOIN kardex as k on k.id = de.idKardex;',
+        'INNER JOIN kardex as k on k.id = de.idKardex '+
+        'ORDER BY l.fechaIngreso DESC;',
         (error, rows, fields) => {
             if (!error) {
                 res.json(rows);

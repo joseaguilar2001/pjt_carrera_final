@@ -45,13 +45,21 @@ const AuditoriaList = () =>{
 
     const exportPDF = () => {
         import("jspdf").then((jsPDF) => {
+            let today = new Date();
+            let now = new Date(today.toLocaleDateString('en-US'));
+            var months, day, year;
+            months = now.getMonth()+1;
+            day= now.getDate();
+            year = now.getFullYear();
+            console.log(day);
+            console.log(year);
             import("jspdf-autotable").then(() => {
                 const doc = new jsPDF.default('l', 'mm', 'a4');
                 doc.setFontSize(12);
                 doc.setFont("Helvetica", "normal");
                 doc.text("Hospital Nacional", 20,15);
                 doc.text("de Retalhuleu", 20,20);
-                doc.text("Fecha: ___/___/___", 240,20);
+                doc.text("Fecha: "+day+" / "+months+" / "+year, 240,20);
                 doc.setFontSize(16);
                 doc.setFont("Helvetica", "bold");
                 doc.text("Reporte de auditoria", 120,32);
