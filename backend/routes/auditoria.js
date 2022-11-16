@@ -4,7 +4,7 @@ const mysqlconexion = require('../db');
 
 
 router.get('/', (req, res) => {
-    mysqlconexion.query('SELECT ROW_NUMBER() OVER(ORDER BY l.id) AS no, '+
+    mysqlconexion.query('SELECT ROW_NUMBER() OVER(ORDER BY l.id) AS no, l.fechaIngreso, '+
     'pro.nombre, pre.presentacion, pro.unidadMedida, l.fechaCad, l.correlativo as lote, '+
     'k.correlativo as kardex, l.cantidad, l.precioUnitario, (l.cantidad * l.precioUnitario) as total '+
         'FROM lotes as l '+

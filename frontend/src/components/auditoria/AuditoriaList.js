@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext/*, useState*/} from "react";
 import { AuditoriaContext } from "../../context/AuditoriaContext";
 import { Panel } from "primereact/panel";
 import { DataTable } from "primereact/datatable";
@@ -6,6 +6,7 @@ import {Column} from 'primereact/column';
 import moment from "moment";
 import { Button } from "primereact/button";
 import logo from "../../images/fondo2.jpg";
+//import {Calendar} from 'primereact/calendar';
 
 
 const AuditoriaList = () =>{
@@ -13,14 +14,23 @@ const AuditoriaList = () =>{
 
     const datefecha = (auditorias) => {
         return moment(auditorias.fechaCad).format("DD/MM/YYYY");
-    }
+    };
+    const dateInicio = (auditorias) => {
+        return moment(auditorias.fechaIngreso).format("DD/MM/YYYY");
+    };
+    /*const fechasInicio ={
+        fechaI:"",
+        fechaF:""
+    };
+    const [fechas, setFechas] = useState(fechasInicio);*/
 
     const cols = [
         { field: "no", header: "No." },
         { field: "nombre", header: "Descripción" },
         { field: "presentacion", header: "Presentación" },
         { field: "unidadMedida", header: "Unidad de medida" },
-        { field: {datefecha}, header: "Fecha de caducidad" },
+        { field: "fechaIngreso", header: "Fecha de ingreso" },
+        { field: "fechaCad", header: "Fecha de caducidad" },
         { field: "lote", header: "No. de lote" },
         { field: "kardex", header: "No. de Kardex" },
         { field: "cantidad", header: "Cantidad" },
@@ -64,9 +74,41 @@ const AuditoriaList = () =>{
                 data-or-tooltip="PDF"
             />
         </div>
-
     );
 
+    /*const updateField = (data, field) =>{
+        setFechas({
+            ...fechas,
+            [field]:data
+        })
+    };
+
+    const mostrar =()=> {
+        console.log(fechas.fechaI);
+        console.log(fechas.fechaF);
+    }
+
+    const renderHeader1 = () => {
+        return (
+            <div className="flex justify-content-between">
+                <span className="p-input-icon-left">
+                    <i className="pi pi-search" />
+                    
+                    <Calendar placeholder="Fecha inicio"
+                        value={fechas.fechaI && new Date(fechas.fechaI + " ")}
+                        onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaI")}
+                        dateFormat="dd/mm/yy"/>
+                    
+                    <Calendar placeholder="Fecha final"
+                        value={fechas.fechaF && new Date(fechas.fechaF + " ")}
+                        onChange={(e) => updateField( e.target.value.toISOString().substring(0, 10), "fechaF")}
+                        dateFormat="dd/mm/yy"/>
+                </span>
+                <Button type="button" icon="pi pi-filter-slash" label="Buscar" className="p-button-outlined" onClick={mostrar}/>
+            </div>
+        )
+    }
+    const header1 = renderHeader1();*/
     return(
         <div>
         <Panel
@@ -79,11 +121,14 @@ const AuditoriaList = () =>{
                 responsiveLayout="scroll"
                 selectionMode="single"
                 dataKey="id"
+                //header={header1}
+                emptyMessage="No se encontraron datos."
                 >
                 <Column field="no" header="No." sortable/>
                 <Column field="nombre" header="Descripción" sortable/>
                 <Column field="presentacion" header="Presentación" sortable/>
                 <Column field="unidadMedida" header="Unidad de medida" sortable/>
+                <Column body={dateInicio} header="Fecha de ingreso" sortable/>
                 <Column body={datefecha} header="Fecha de caducidad" sortable/>
                 <Column field="lote" header="No. de lote" sortable/>
                 <Column field="kardex" header="No. de tarjeta kardex" sortable/>
