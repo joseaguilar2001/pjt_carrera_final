@@ -45,12 +45,13 @@ router.get('/pedidoDetalle/:id', expressAsyncHandler(async(req, res) => {
 router.get("/controlSuministros/:id", expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     mysql.query(`SELECT d.id as ID, d.idKardex as IDK, k.correlativo as KardexCorrelativo, d.idLote as IDL, 
-    l.correlativo as LoteCorrelativo, d.fecha as FDK, d.nroReferencia as Ref, remitente as Remitente, 
+    l.correlativo as LoteCorrelativo, d.fecha as FDK, d.nroReferencia as Ref, re.nombre as Remitente, 
     entradaCantidad as EntradaC, entradaPrecio as EntradaP, salidadPrecio as SalidaP, salidaCantidad as SalidaC, 
     reajusteCantidad as ReajusC, reajustePrecio as ReajusP, saldoCantidad as SaldoC, saldoPrecio as SaldoP, fechaRequisicion as FechaReq 
     FROM detalleKardex as d 
     INNER JOIN kardex as k ON d.idKardex = k.id
-    INNER JOIN lotes as l on d.idLote = l.id;
+    INNER JOIN lotes as l on d.idLote = l.id
+    INNER JOIN remitente as re on l.idRemitente = re.id
     WHERE k.id = ?`,[id], 
     async function(error, rows, fields){
         if(!error){
@@ -63,8 +64,7 @@ router.get("/controlSuministros/:id", expressAsyncHandler(async (req, res) => {
 
 router.get("/controlKardex/:id", expressAsyncHandler(async(req, res) => {
     const { id } = req.params;
-    mysql.query(`SELECT id, correlativo, descripcion, codigo, areaDSalud, dependencia
-    FROM kardex 
+    mysql.query(`SELECT id, correlativo, descripcion, codigo FROM kardex 
     WHERE id = ?;
     `,[id], async function(error, rows, fields){
         if(!error){
