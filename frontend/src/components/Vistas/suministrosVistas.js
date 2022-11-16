@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { VistasService } from '../../services/VistasService';
 import Table from 'react-bootstrap/Table';
+import { useParams } from "react-router-dom
 const VistaTableSum = (props) => {
     const [suministros, setSuministros] = useState([]);
     const [kardex, setKardex] = useState([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const vistaServicePedido = new VistasService();
-    const {idK} = props;
+    const {idK} = useParams();
     useEffect(() => {
         vistaServicePedido.readAllSuministros(idK)
         .then(data => setSuministros(data));
