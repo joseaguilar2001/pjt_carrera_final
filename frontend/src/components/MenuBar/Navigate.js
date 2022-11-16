@@ -104,7 +104,7 @@ const Navigation = () => {
       }
     },
     {
-      label: "Contactanos", 
+      label: "Contáctanos", 
       icon: "pi pi-fw pi-send",
       command: () => {
         window.location.href = '/contact';
@@ -124,13 +124,6 @@ const Navigation = () => {
           window.location.href = '/detalleKardex/:id';
         },
       },
-      {
-          label: "Contáctanos", 
-          icon: "pi pi-fw pi-send",
-          command: () => {
-            window.location.href = '/contact';
-          }, 
-      }
   ]
   
   const navListAdmin = [
@@ -255,18 +248,18 @@ const Navigation = () => {
         }
       },
       {
-        label: "Requisión", 
-        icon: "pi pi-fw pi-home",
-        command: () => {
-          window.location.href = '/requisicion';
-        }
-      },
-      {
         label: "Contáctanos", 
         icon: "pi pi-fw pi-send",
         command: () => {
           window.location.href = '/contact';
         },
+      },
+      {
+        label: "Requisión", 
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/requisicion';
+        }
       },
       {
         label: "Requisicion",
