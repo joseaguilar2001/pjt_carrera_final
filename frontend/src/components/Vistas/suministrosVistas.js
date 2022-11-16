@@ -24,7 +24,7 @@ const VistaTableSum = (props) => {
         <p>
                 {kardex.map((e) => (
                     <div>
-                    <p>AREA DE SALUD<u>___{e.areaDSalud}___</u>DEPENDENCIA<u>____{e.dependencia}_______</u></p>
+                    <p>AREA DE SALUD<u>___Retahuleu___</u>DEPENDENCIA<u>____Hospital_______</u></p>
                     <p>DESCRIPCION<u>___{e.descripcion}___</u>CODIGO<u>_____{e.codigo}______</u></p>
                     </div>
                 ))}
