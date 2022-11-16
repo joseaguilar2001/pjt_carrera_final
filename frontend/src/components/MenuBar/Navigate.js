@@ -104,7 +104,7 @@ const Navigation = () => {
       }
     },
     {
-      label: "Contactanos", 
+      label: "Contáctanos", 
       icon: "pi pi-fw pi-send",
       command: () => {
         window.location.href = '/contact';
@@ -124,13 +124,6 @@ const Navigation = () => {
           window.location.href = '/detalleKardex/:id';
         },
       },
-      {
-          label: "Contáctanos", 
-          icon: "pi pi-fw pi-send",
-          command: () => {
-            window.location.href = '/contact';
-          }, 
-      }
   ]
   
   const navListAdmin = [
@@ -142,18 +135,18 @@ const Navigation = () => {
       }
     },
     {
-      label: "Contactanos", 
-      icon: "pi pi-fw pi-send",
-      command: () => {
-        window.location.href = '/contact';
-      },
-    },
-    {
       label: "Auditoria", 
       icon: "pi pi-fw pi-bolt",
       command: () => {
         window.location.href = '/auditoria';
       }
+    },
+    {
+      label: "Contáctanos", 
+      icon: "pi pi-fw pi-send",
+      command: () => {
+        window.location.href = '/contact';
+      },
     },
     {
       label: "Registros", 
@@ -212,53 +205,37 @@ const Navigation = () => {
           }
         },
         {
-          label: "Otros", 
-          icon: "pi pi-fw pi-map-marker",
-          items: [
-            {
-              label: "Pedidos", 
-              icon: "pi pi-fw pi-plus",
-              command: () => {
-                window.location.href = '/pedido';
-              }
-            },
-            {
-              label: "Requisición", 
-              icon: "pi pi-fw pi-plus-circle",
-              command: () => {
-                window.location.href = '/requisicion';
-              }
-            },
-            {
-              label: "Remitentes", 
-              icon: "pi pi-fw pi-plus-circle",
-              command: () => {
-                window.location.href = '/remitentes';
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      label: "Usuarios", 
-      icon: "pi pi-fw pi-compass",
-      items:[
+          separator: true,
+        },
         {
-          label: "Lista de usuarios", 
-          icon: "pi pi-fw pi-users",
+          label: "Pedidos", 
+          icon: "pi pi-fw pi-plus",
           command: () => {
-            window.location.href = '/usuarios';
+            window.location.href = '/pedido';
+          }
+        },
+        {
+          label: "Requisición", 
+          icon: "pi pi-fw pi-plus-circle",
+          command: () => {
+            window.location.href = '/requisicion';
+          }
+        },
+        {
+          label: "Remitentes", 
+          icon: "pi pi-fw pi-plus-circle",
+          command: () => {
+            window.location.href = '/remitentes';
           }
         }
-      ]
+      ],
     },
     {
-      label: "Contáctanos", 
-      icon: "pi pi-fw pi-send",
+      label: "Lista de usuarios", 
+      icon: "pi pi-fw pi-users",
       command: () => {
-        window.location.href = '/contact';
-      },
+        window.location.href = '/usuarios';
+      }
     }
   ]
   
@@ -271,18 +248,18 @@ const Navigation = () => {
         }
       },
       {
-        label: "Requisión", 
-        icon: "pi pi-fw pi-home",
-        command: () => {
-          window.location.href = '/requisicion';
-        }
-      },
-      {
         label: "Contáctanos", 
         icon: "pi pi-fw pi-send",
         command: () => {
           window.location.href = '/contact';
         },
+      },
+      {
+        label: "Requisión", 
+        icon: "pi pi-fw pi-home",
+        command: () => {
+          window.location.href = '/requisicion';
+        }
       },
       {
         label: "Requisicion",

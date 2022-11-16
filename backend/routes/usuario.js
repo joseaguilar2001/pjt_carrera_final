@@ -126,7 +126,7 @@ router.post('/create', expressAsyncHandler(async(req, res) => {
 router.get('/', expressAsyncHandler(async(req, res) => {
     mysql.query(`SELECT u.id as id, r.id as idRol, r.nombre as rol, u.nombre as nombre, 
     u.nroCelular as nroCelular, u.email as email, u.direccion as direccion, 
-    u.estado AS estado, u.password as password 
+    u.estado AS estado
     FROM usuario u 
     INNER JOIN rol AS r 
     ON u.idRol = r.id`, async (error, rows, fields) => {
