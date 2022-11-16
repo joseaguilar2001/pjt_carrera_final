@@ -18,19 +18,19 @@ const ReporteRequisicionList = () => {
     const { idR } = useParams();
 
     const cols = [
+        { field: "Producto", header: "Producto" },
+        { field: "Lote", header: "No. Lote" },
         { field: "descripcion", header: "Descripción" },
         { field: "cantidad", header: "Cantidad" },
         { field: "cantidaDespachada", header: "Cantidad despachada" },
         { field: "precioUnitario", header: "Precio unitario" },
         { field: "precioTotal", header: "Precio total" },
-        { field: "Lote", header: "Lote" },
     ];
     const cols1 = [
         { field: "Solicitante", header: "Solicitante" },
         { field: "Servicio", header: "Servicio" },
         { field: "fecha", header: "Fecha" },
-        { field: "codigoAprobacion", header: "Codigo de aprobacion" },
-        { field: "aprobado", header: "Estado" },
+        { field: "aprobado", header: "Aprobación" },
     ];
 
     const exportColumns = cols.map((col) => ({
@@ -55,12 +55,12 @@ const ReporteRequisicionList = () => {
                 doc.text("Fecha: ___/___/___", 240,20);
                 doc.setFontSize(16);
                 doc.setFont("Helvetica", "bold");
-                doc.text("Reporte de Requisicion", 120,32);
+                doc.text("Reporte de Requisición", 120,32);
                 const img1 = new Image();
                 img1.src = logo;
                 doc.addImage(img1, 'JPEG', 128, 4, 40, 20);
-                doc.autoTable(exportColumns, derequisicions, {margin:{top: 35}});
-                doc.autoTable(exportColumns2 , erequisicions, {margin:{top: 45}});
+                doc.autoTable(exportColumns2 , erequisicions.filter((q) => q.id === parseInt(idR)), {margin:{top: 45}});
+                doc.autoTable(exportColumns, derequisicions.filter((p) => p.Requisicion === parseInt(idR)), {margin:{top: 35}});
                 doc.save("Requisicion.pdf");
             })
         })
@@ -95,12 +95,12 @@ const ReporteRequisicionList = () => {
                     dataKey="id"
                 >
                     <Column field="Producto" header="Producto" sortable/>
+                    <Column field="Lote" header="No. lote" />
                     <Column field="descripcion" header="Descripción" />
                     <Column field="cantidad" header="Cantidad pedida" />
                     <Column field="cantidaDespachada" header="Cantidad despachada"/>
                     <Column field="precioUnitario" header="Precio unitario" />
                     <Column field="precioTotal" header="Precio total" />
-                    <Column field="Lote" header="No. lote" />
                 </DataTable>
             </div>
             <br/><br/>
