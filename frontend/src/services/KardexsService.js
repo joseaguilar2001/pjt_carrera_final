@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class KardexsService {
-    url = "http://localhost:8080/kardex/";
+    url = "https://farmaciareu.site/kardex/";
 
     create(kardexs){
         return axios.post(this.url, kardexs).then(res=> res.data);

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class SolicitanteService {
-    url = "http://localhost:8080/solicitante/";
+    url = "https://farmaciareu.site/solicitante/";
 
     create(solicitantes){
         return axios.post(this.url, solicitantes).then(res=> res.data);

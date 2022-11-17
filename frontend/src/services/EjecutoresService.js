@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class EjecutorService {
-    url = "http://localhost:8080/ejecutores/";
+    url = "https://farmaciareu.site/ejecutores/";
 
     create(ejecutores){
         return axios.post(this.url, ejecutores).then(res=> res.data);
