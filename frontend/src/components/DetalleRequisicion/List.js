@@ -30,8 +30,12 @@ const DeRequisicionList = () =>{
     }
 
     function visibleForms(bool){
-        //setIsVisible(bool);
-        setisVisibleF2(bool);
+        console.log(currentUser.rol);
+        if(currentUser.rol === "Administrador" || currentUser.rol === "Despachador"){
+            setisVisibleF2(bool);
+        }else if(currentUser.rol === "Usuario"){
+            setIsVisible(bool);
+        }
     }
 
     const saveDRequisicion = (id) => {
@@ -135,8 +139,8 @@ const DeRequisicionList = () =>{
             </DataTable>
             </div>
         </Panel>
-        {currentUser.Rol === 'Administrador' ? (<DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>):   
-        (<DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>)}
+        <DeRequisicionForm idr={idR} isVisible={isVisible} setIsVisible={setIsVisible}/>
+        <DeRequisicionFormDespachado idr={idR} isVisible={isVisibleF2} setIsVisible={setisVisibleF2}/>
         </div>
     );
 }

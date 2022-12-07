@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState}from "react";
 import hospi1 from "../images/hospi1.jpg";
 import hospi4 from "../images/hospi4.jpg";
 import hospi5 from "../images/hospi5.jpg";
@@ -6,12 +6,29 @@ import hospi6 from "../images/hospi6.jpg";
 import hospi7 from "../images/hospi7.jpg";
 import hospi8 from "../images/hospi8.jpg";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Carousel from 'react-bootstrap/Carousel';
 import hospi3 from '../images/hospi3.jpg';
-
+import { Galleria } from 'primereact/galleria';
 
 const Home = () => {
 
+  const [images] = useState([hospi1, hospi3, hospi4, hospi5, hospi5, hospi6, hospi7, hospi8]);
+  const responsiveOptions = [
+    {
+        breakpoint: '1024px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
+const itemTemplate = (images) => {
+  return <img src={images} style={{ width: '120%', display: 'block' }} />;
+}
   return (
     <><div className="about-container">
       <div className="about-desc">
@@ -26,65 +43,9 @@ const Home = () => {
           mejorar la vida de quienes necesiten de los servicios médicos.
         </p>
       </div>
-      <div>
-        <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi1}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi3}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi4}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi5}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi6}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi7}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-300"
-              src={hospi8}
-              width={510}
-              height={370}
-              alt="Second slide" />
-          </Carousel.Item>
-        </Carousel>
+      <div className="about-desc">
+          <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={5} style={{ maxWidth: '750px' }}
+                        showThumbnails={false} autoPlay circular showIndicators changeItemOnIndicatorHover showIndicatorsOnItem item={itemTemplate} />
       </div>
     </div><div>
         <footer>
