@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class RemitenteService {
-    url = "http://localhost:8080/remitente/";
+    url = "https://farmaciareu.site/remitente/";
 
     create(remitente){
         return axios.post(this.url, remitente).then(res=> res.data);

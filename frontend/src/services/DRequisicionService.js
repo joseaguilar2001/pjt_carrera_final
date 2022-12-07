@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class DRequisicionService {
-    url = "http://localhost:8080/detalleRequisicion/";
+    url = "https://farmaciareu.site/detalleRequisicion/";
 
     create(deRequisicion){
         return axios.post(this.url, deRequisicion).then(res=> res.data);

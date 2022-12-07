@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class VistasService {
-    url = "http://localhost:8080/vistas/";
+    url = "https://farmaciareu.site/vistas/";
 
     readAllPedido(id){
         return axios.get(this.url + 'pedido/' + id)

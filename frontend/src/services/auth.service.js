@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/usuario/";
+const API_URL = "https://farmaciareu.site/usuario/";
 
 const register = (idRol, nombre, email, password, nroCelular, direccion, estado) => {
   return axios.post(API_URL + "signup", {

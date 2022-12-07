@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class RolService {
-    url = "http://localhost:8080/rol/";
+    url = "https://farmaciareu.site/rol/";
 
     create(rol){
         return axios.post(this.url, rol).then(res => res.data);

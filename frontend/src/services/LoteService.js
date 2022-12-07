@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class LoteService {
-    url = "http://localhost:8080/lotes/";
+    url = "https://farmaciareu.site/lotes/";
 
     create(lote){
         return axios.post(this.url, lote).then(res=> res.data);
